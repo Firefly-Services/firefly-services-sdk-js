@@ -1,0 +1,4567 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Adobe Photoshop and Imaging APIs",
+        "description": "Your interface to Adobe Photoshop and Imaging APIs",
+        "contact": {
+            "name": "Adobe Photoshop API Support",
+            "url": "https://developer.adobe.com/photoshop/photoshop-api-docs/api/#tag/Photoshop",
+            "email": "mantis@adobe.com"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://image.adobe.io",
+            "description": "Adobe Photoshop Production",
+            "variables": {}
+        },
+        {
+            "url": "https://image-stage.adobe.io",
+            "description": "Adobe Photoshop Stage",
+            "variables": {}
+        }
+    ],
+    "tags": [
+        {
+            "name": "Sensei",
+            "description": "Adobe Sensei and Imaging APIs"
+        },
+        {
+            "name": "Photoshop",
+            "description": "Adobe Photoshop and Imaging APIs"
+        }
+    ],
+    "paths": {
+        "/sensei/status/{jobId}": {
+            "get": {
+                "tags": ["Sensei"],
+                "summary": "Get Status API",
+                "description": "Get job status of a Sensei job",
+                "operationId": "senseiJobStatus",
+                "parameters": [
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "description": "The job to get status for",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Job status",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SenseiJobApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/sensei/cutout": {
+            "post": {
+                "tags": ["Sensei"],
+                "summary": "Remove Background API",
+                "description": "Isolate subject of interest in an image and remove background.",
+                "operationId": "removeBackgroundAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input image and the cutout mask parameters",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RemoveBackgroundRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/sensei/mask": {
+            "post": {
+                "tags": ["Sensei"],
+                "summary": "Create Mask API",
+                "description": "Isolate a subject of interest in an image (people, objects, etc) and generate an image mask",
+                "operationId": "createMaskAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input image and the mask parameters",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateMaskRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/status/{jobId}": {
+            "get": {
+                "tags": ["Photoshop"],
+                "summary": "Get Status API",
+                "description": "Get job status of a Photoshop job",
+                "operationId": "psJobStatus",
+                "parameters": [
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "description": "The job to get status for",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "once all children are complete",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/ManifestJobApiResponse"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/PsJobApiResponse"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/documentManifest": {
+            "post": {
+                "tags": ["Photoshop"],
+                "summary": "Extract Document Manifest API.",
+                "description": "Extract metadata from PSD document, including general file and layer information.",
+                "operationId": "getDocumentManifestAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input psd file to extract layer information from",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DocumentManifestRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/documentCreate": {
+            "post": {
+                "tags": ["Photoshop"],
+                "summary": "Create PSD API",
+                "description": "Create new PSD with layers",
+                "operationId": "createDocumentAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input psd file to create a new psd from",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateDocumentRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/documentOperations": {
+            "post": {
+                "tags": ["Photoshop"],
+                "summary": "Apply Photoshop Edits API",
+                "description": "Apply basic layer edits (name, state, etc), add/edit adjustment, pixel, and shape layers.",
+                "operationId": "modifyDocumentAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input psd file to apply edits to and generate renditions and/or save as a new psd",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ModifyDocumentRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/renditionCreate": {
+            "post": {
+                "tags": ["Photoshop"],
+                "summary": "Create Renditions API",
+                "description": "Create flat image representations of a PSD in multiple formats",
+                "operationId": "createRenditionAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input psd file to create renditions from",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateRenditionRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/smartObject": {
+            "post": {
+                "tags": ["Photoshop"],
+                "summary": "Replace Smart Object API.",
+                "description": "Replace Smart Object in a PSD .",
+                "operationId": "replaceSmartObjectAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input psd file to apply edits for replacing embedded smart object to and generate renditions and/or save as a new psd",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ReplaceSmartObjectRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/photoshopActions": {
+            "post": {
+                "tags": ["Photoshop"],
+                "summary": "Run Photoshop Actions API",
+                "description": "Executes Photoshop Action file against a PSD, JPEG, PNG, or TIFF ",
+                "operationId": "playPhotoshopActionsAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input file to apply Photoshop Actions to and generate renditions and/or save as a new image",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlayPhotoshopActionsRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/actionJSON": {
+            "post": {
+                "tags": ["Photoshop"],
+                "summary": "Run Action JSON API",
+                "description": "Execute given Photoshop Action specified in actionJSON format.",
+                "operationId": "playPhotoshopActionsJsonAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input psd file to apply Photoshop actionJSON to and generate renditions and/or save as a new image",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlayPhotoshopActionsJsonRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/actionJsonCreate": {
+            "post": {
+                "tags": ["Photoshop"],
+                "summary": "Convert to Action JSON API",
+                "description": "Convert .atn file to an actionJSON format ",
+                "operationId": "convertToActionsJsonAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input atn file to convert to actionJSON",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ConvertToActionsJsonRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/productCrop": {
+            "post": {
+                "tags": ["Photoshop"],
+                "summary": "Smart Crop API",
+                "description": "Smart crop an image keeping the subject of interest in view.",
+                "operationId": "applyAutoCropAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input image to apply product crop to.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplyAutoCropRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/depthBlur": {
+            "post": {
+                "tags": ["Photoshop"],
+                "summary": "Depth Blur API",
+                "description": "Apply depth blur to an image input ",
+                "operationId": "applyDepthBlurAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input image to apply depth blur to.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplyDepthBlurRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/text": {
+            "post": {
+                "tags": ["Photoshop"],
+                "summary": "Edit Text Layer API",
+                "description": "Change the contents of a text layer in a PSD, eg for localization ",
+                "operationId": "editTextLayerAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input text to be edited.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EditTextLayerRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/pie/psdService/artboardCreate": {
+            "post": {
+                "tags": ["Photoshop"],
+                "summary": "Create Arboards API",
+                "description": "Create artboards from multiple PSD inputs ",
+                "operationId": "createArtboardAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "The input artboard to be created.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateArtboardRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "JobError": {
+                "title": "JobError",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "description": "error type"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "error code"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "error description"
+                    },
+                    "details": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ErrorDetails"
+                        },
+                        "description": "Details of the error returned"
+                    }
+                },
+                "description": "any errors reported requested output"
+            },
+            "InputValidationError": {
+                "title": "InputValidationError",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "description": "error type"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "error code"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "error description"
+                    },
+                    "details": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InputValidationErrorDetail"
+                        },
+                        "description": "Details of the error returned"
+                    }
+                },
+                "description": "any errors reported requested output"
+            },
+            "TrialLimitExceededError": {
+                "title": "TrialLimitExceededError",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "description": "error type"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "error code"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "error description"
+                    },
+                    "details": {
+                        "type": "string",
+                        "description": "Details of the error returned",
+                        "default": "You have exceeded the limit for the free trial. To subscribe and get more API calls, check out our pricing page at https://developer.adobe.com/photoshop/api/pricing/"
+                    }
+                },
+                "description": "any errors reported requested output"
+            },
+            "InputValidationErrorDetail": {
+                "title": "InputValidationErrorDetail",
+                "type": "object",
+                "properties": {
+                    "allowedValues": {
+                        "type": "string",
+                        "description": "Name of the input parameter",
+                        "default": "adobe, external, dropbox, azure"
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "Reason for the error"
+                    }
+                },
+                "description": "Details of the input validation error returned"
+            },
+            "StorageDetails": {
+                "title": "StorageDetails",
+                "type": "object",
+                "required": ["href", "storage"],
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "description": "Presigned GET URL"
+                    },
+                    "storage": {
+                        "$ref": "#/components/schemas/StorageType"
+                    }
+                },
+                "description": "File on Adobe's cloud or an external service (like AWS S3, Azure, Dropbox)"
+            },
+            "SenseiColor": {
+                "title": "SenseiColor",
+                "type": "object",
+                "properties": {
+                    "space": {
+                        "$ref": "#/components/schemas/ColorSpaceType"
+                    }
+                },
+                "description": "Color space for output image"
+            },
+            "ColorSpaceType": {
+                "title": "ColorSpaceType",
+                "type": "string",
+                "enum": ["rgb", "rgba"],
+                "description": "Color space for output image"
+            },
+            "SenseiOutputDetails": {
+                "title": "SenseiOutputDetails",
+                "type": "object",
+                "required": ["href", "storage"],
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "description": "Presigned POST URL to the output file"
+                    },
+                    "storage": {
+                        "$ref": "#/components/schemas/StorageType"
+                    },
+                    "mask": {
+                        "$ref": "#/components/schemas/MaskFormat"
+                    },
+                    "color": {
+                        "$ref": "#/components/schemas/SenseiColor"
+                    },
+                    "overwrite": {
+                        "type": "boolean",
+                        "description": "If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage",
+                        "default": true
+                    }
+                },
+                "description": "a PNG file"
+            },
+            "SenseiJobApiResponse": {
+                "title": "SenseiJobApiResponse",
+                "type": "object",
+                "properties": {
+                    "jobId": {
+                        "type": "string",
+                        "description": "the job's id requested"
+                    },
+                    "created": {
+                        "type": "string",
+                        "description": "Created timestamp of the job (YYYY-DD-MMThh:mm:ss.mmmmmZ)"
+                    },
+                    "modified": {
+                        "type": "string",
+                        "description": "Modified timestamp of the job (YYYY-DD-MMThh:mm:ss.mmmmmZ)"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/JobStatus"
+                    },
+                    "output": {
+                        "$ref": "#/components/schemas/SenseiOutputDetails"
+                    },
+                    "errors": {
+                        "$ref": "#/components/schemas/JobError"
+                    },
+                    "_links": {
+                        "$ref": "#/components/schemas/JobStatusLink"
+                    }
+                }
+            },
+            "JobStatusLink": {
+                "title": "JobStatusLink",
+                "type": "object",
+                "properties": {
+                    "self": {
+                        "$ref": "#/components/schemas/SelfLink"
+                    }
+                }
+            },
+            "RemoveBackgroundRequest": {
+                "title": "RemoveBackgroundRequest",
+                "type": "object",
+                "required": ["input", "output"],
+                "properties": {
+                    "input": {
+                        "$ref": "#/components/schemas/StorageDetails"
+                    },
+                    "output": {
+                        "$ref": "#/components/schemas/SenseiOutputDetails"
+                    }
+                }
+            },
+            "CreateMaskRequest": {
+                "title": "CreateMaskRequest",
+                "type": "object",
+                "required": ["input", "output"],
+                "properties": {
+                    "input": {
+                        "$ref": "#/components/schemas/StorageDetails"
+                    },
+                    "output": {
+                        "$ref": "#/components/schemas/SenseiOutputDetails"
+                    }
+                }
+            },
+            "JobStatusLinkResponse": {
+                "title": "JobStatusLinkResponse",
+                "type": "object",
+                "properties": {
+                    "_links": {
+                        "$ref": "#/components/schemas/JobStatusLink"
+                    }
+                }
+            },
+            "IccProfileDetails": {
+                "title": "IccProfileDetails",
+                "type": "object",
+                "properties": {
+                    "imageMode": {
+                        "$ref": "#/components/schemas/ImageModeType"
+                    },
+                    "input": {
+                        "$ref": "#/components/schemas/StorageDetails"
+                    },
+                    "profileName": {
+                        "$ref": "#/components/schemas/ColorProfileType"
+                    }
+                }
+            },
+            "SmartObjectOutputDetails": {
+                "title": "SmartObjectOutputDetails",
+                "type": "object",
+                "required": ["href", "storage", "type"],
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "description": "Presigned POST URL to the output file"
+                    },
+                    "storage": {
+                        "$ref": "#/components/schemas/StorageType"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/ImageFormatType"
+                    },
+                    "overwrite": {
+                        "type": "boolean",
+                        "description": "If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage",
+                        "default": true
+                    },
+                    "width": {
+                        "type": "integer",
+                        "description": "width, in pixels, of the renditions. Width of 0 generates a full size rendition. Height is not necessary as the rendition generate will automatically figure out the correct width-to-height aspect ratio. Only supported for image rendition",
+                        "format": "int32",
+                        "default": 0
+                    },
+                    "quality": {
+                        "maximum": 7.0,
+                        "minimum": 1.0,
+                        "type": "integer",
+                        "description": "quality of the renditions for JPEG. Range from 1 to 7, with 7 as the highest quality.",
+                        "format": "int32",
+                        "default": 7
+                    },
+                    "compression": {
+                        "$ref": "#/components/schemas/CompressionType"
+                    }
+                },
+                "description": "output object"
+            },
+            "ActionOutputDetails": {
+                "title": "ActionOutputDetails",
+                "type": "object",
+                "required": ["href", "storage", "type"],
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "description": "Presigned POST URL to the output file"
+                    },
+                    "storage": {
+                        "$ref": "#/components/schemas/StorageType"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/ImageFormatType"
+                    },
+                    "overwrite": {
+                        "type": "boolean",
+                        "description": "If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage",
+                        "default": true
+                    },
+                    "quality": {
+                        "maximum": 12,
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "quality of the renditions for JPEG. Range from 1 to 7, with 7 as the highest quality.",
+                        "format": "int32",
+                        "default": 7
+                    },
+                    "compression": {
+                        "$ref": "#/components/schemas/CompressionType"
+                    }
+                },
+                "description": "output object"
+            },
+            "PsOutputDetails": {
+                "title": "PsOutputDetails",
+                "type": "object",
+                "required": ["href", "storage", "type"],
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "description": "Presigned POST URL to the output file"
+                    },
+                    "storage": {
+                        "$ref": "#/components/schemas/StorageType"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/ImageFormatType"
+                    },
+                    "overwrite": {
+                        "type": "boolean",
+                        "description": "If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage",
+                        "default": true
+                    },
+                    "width": {
+                        "type": "integer",
+                        "description": "width, in pixels, of the renditions. Width of 0 generates a full size rendition. Height is not necessary as the rendition generate will automatically figure out the correct width-to-height aspect ratio. Only supported for image rendition",
+                        "format": "int32",
+                        "default": 0
+                    },
+                    "maxWidth": {
+                        "type": "integer",
+                        "description": "size, in pixels, of the renditions. When width is 0, maxWidth can be provided to get the rendition size. maxWidth when less than document width gets precedence over width. Height is not neccessary as the rendition generate will automatically maintain the aspect ratio.",
+                        "format": "int32",
+                        "default": 0
+                    },
+                    "quality": {
+                        "maximum": 7.0,
+                        "minimum": 1.0,
+                        "type": "integer",
+                        "description": "quality of the renditions for JPEG. Range from 1 to 7, with 7 as the highest quality.",
+                        "format": "int32",
+                        "default": 7
+                    },
+                    "compression": {
+                        "$ref": "#/components/schemas/CompressionType"
+                    },
+                    "trimToCanvas": {
+                        "$ref": "#/components/schemas/TrimToCanvasType"
+                    },
+                    "layers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LayerReference"
+                        },
+                        "description": "An array of layer objects.\nBy including this array you are signaling that you'd like a rendition created from these layer id's or layer names. Excluding it will generate a document-level rendition."
+                    },
+                    "iccProfile": {
+                        "$ref": "#/components/schemas/IccProfileDetails"
+                    }
+                },
+                "description": "output object"
+            },
+            "RenditionLinkDetails": {
+                "title": "RenditionLinkDetails",
+                "type": "object",
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "description": "the rendition location"
+                    },
+                    "storage": {
+                        "$ref": "#/components/schemas/StorageType"
+                    },
+                    "width": {
+                        "type": "integer",
+                        "description": "the requested rendition width in pixels",
+                        "format": "int32"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/ImageFormatType"
+                    }
+                },
+                "description": "rendition object"
+            },
+            "ManifestJobApiResponse": {
+                "title": "ManifestJobApiResponse",
+                "type": "object",
+                "properties": {
+                    "jobId": {
+                        "type": "string",
+                        "description": "the job's id requested"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ManifestJobStatusOutputDetails"
+                        },
+                        "description": "The outputs requested"
+                    },
+                    "_links": {
+                        "$ref": "#/components/schemas/JobStatusLink"
+                    }
+                }
+            },
+            "PsJobApiResponse": {
+                "title": "PsJobApiResponse",
+                "type": "object",
+                "properties": {
+                    "jobId": {
+                        "type": "string",
+                        "description": "the job's id requested"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/JobOutputDetails"
+                        },
+                        "description": "Api output details"
+                    },
+                    "_links": {
+                        "$ref": "#/components/schemas/JobStatusLink"
+                    }
+                }
+            },
+            "DocumentManifestRequest": {
+                "title": "DocumentManifestRequest",
+                "type": "object",
+                "required": ["inputs"],
+                "properties": {
+                    "inputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "An array of input objects. Each input object represents a file to be processed."
+                    },
+                    "options": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/DocumentManifestOptions"
+                            },
+                            {
+                                "description": "available options to apply to all input files"
+                            }
+                        ]
+                    }
+                }
+            },
+            "LayerPosition": {
+                "title": "LayerPosition",
+                "type": "object",
+                "properties": {
+                    "insertAbove": {
+                        "$ref": "#/components/schemas/LayerReference"
+                    },
+                    "insertBelow": {
+                        "$ref": "#/components/schemas/LayerReference"
+                    },
+                    "insertInto": {
+                        "$ref": "#/components/schemas/LayerReference"
+                    },
+                    "insertTop": {
+                        "type": "boolean"
+                    },
+                    "insertBottom": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "DeleteDetails": {
+                "title": "DeleteDetails",
+                "type": "object",
+                "properties": {
+                    "includeChildren": {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "Indicates that, while deleting a group layer also delete it's children."
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "The layer id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The layer name. You can identify a layer by id or name. That makes either id or name a required field."
+                    }
+                },
+                "description": "Indicates you want to delete the layer, identified by the id or name. Note the object is currently empty but leaves room for further enhancements"
+            },
+            "LayerReference": {
+                "title": "LayerReference",
+                "description": "Layer reference object",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "The id of the layer. Use either id OR name.",
+                        "format": "int32"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the layer. Use either id OR name."
+                    }
+                }
+            },
+            "CreateDocumentRequest": {
+                "title": "CreateDocumentRequest",
+                "type": "object",
+                "required": ["outputs", "options"],
+                "properties": {
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PsOutputDetails"
+                        },
+                        "description": "An array of output objects. Each output object represents a file to be created."
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/DocumentCreateOptions"
+                    }
+                }
+            },
+            "ModifyDocumentRequest": {
+                "title": "ModifyDocumentRequest",
+                "type": "object",
+                "required": ["inputs", "options", "outputs"],
+                "properties": {
+                    "inputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "An array of input objects. Each input object represents a file to be processed."
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PsOutputDetails"
+                        },
+                        "description": "An array of output objects. Each output object represents a file to be created."
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/DocumentOperationOptions"
+                    }
+                }
+            },
+            "CreateRenditionRequest": {
+                "title": "CreateRenditionRequest",
+                "type": "object",
+                "required": ["inputs", "outputs"],
+                "properties": {
+                    "inputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "An array of input objects. We currently only support one input object"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PsOutputDetails"
+                        },
+                        "description": "An array of output objects"
+                    }
+                }
+            },
+            "ReplaceSmartObjectRequest": {
+                "title": "ReplaceSmartObjectRequest",
+                "type": "object",
+                "required": ["inputs", "options", "outputs"],
+                "properties": {
+                    "inputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "An array of input objects. We currently only support one input object"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SmartObjectOutputDetails"
+                        },
+                        "description": "An array of output objects"
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/SmartObjectOptions"
+                    }
+                }
+            },
+            "PlayPhotoshopActionsRequest": {
+                "title": "PlayPhotoshopActionsRequest",
+                "type": "object",
+                "required": ["inputs", "options", "outputs"],
+                "properties": {
+                    "inputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "An array of input objects. We currently only support one input object"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ActionOutputDetails"
+                        },
+                        "description": "An array of output objects"
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/ActionOptions"
+                    }
+                }
+            },
+            "PlayPhotoshopActionsJsonRequest": {
+                "title": "PlayPhotoshopActionsJsonRequest",
+                "type": "object",
+                "required": ["inputs", "options", "outputs"],
+                "properties": {
+                    "inputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "An array of input objects. We currently only support one input object"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ActionOutputDetails"
+                        },
+                        "description": "An array of output objects"
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/ActionJsonOptions"
+                    }
+                }
+            },
+            "ConvertToActionsJsonRequest": {
+                "title": "ConvertToActionsJsonRequest",
+                "type": "object",
+                "required": ["inputs"],
+                "properties": {
+                    "inputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "An array of input action sets in ATN format. We currently only support one input object"
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/ActionJsonCreateOptions"
+                    }
+                }
+            },
+            "ApplyAutoCropRequest": {
+                "title": "ApplyAutoCropRequest",
+                "type": "object",
+                "required": ["inputs", "outputs", "options"],
+                "properties": {
+                    "inputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "An array of input objects. We currently only support one input object"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ActionOutputDetails"
+                        },
+                        "description": "An array of output objects"
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/CropOptions"
+                    }
+                }
+            },
+            "ApplyDepthBlurRequest": {
+                "title": "ApplyDepthBlurRequest",
+                "type": "object",
+                "required": ["inputs", "outputs"],
+                "properties": {
+                    "inputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "An array of input objects. We currently only support one input object"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ActionOutputDetails"
+                        },
+                        "description": "An array of output objects"
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/DepthBlurDetails"
+                    }
+                }
+            },
+            "EditTextLayerRequest": {
+                "title": "EditTextLayerRequest",
+                "type": "object",
+                "required": ["inputs", "outputs", "options"],
+                "properties": {
+                    "inputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "An array of input objects. We currently only support one input object"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ActionOutputDetails"
+                        },
+                        "description": "An array of output objects"
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/TextOptions"
+                    }
+                }
+            },
+            "CreateArtboardRequest": {
+                "title": "CreateArtboardRequest",
+                "type": "object",
+                "required": ["outputs", "options"],
+                "properties": {
+                    "options": {
+                        "$ref": "#/components/schemas/ArtboardDetails"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PsOutputDetails"
+                        },
+                        "description": "An array of output objects"
+                    }
+                }
+            },
+            "DocumentDetails": {
+                "title": "DocumentDetails",
+                "type": "object",
+                "required": ["height", "width", "resolution", "fill", "mode"],
+                "properties": {
+                    "height": {
+                        "type": "integer",
+                        "description": "In pixels",
+                        "format": "int32"
+                    },
+                    "width": {
+                        "type": "integer",
+                        "description": "In pixels",
+                        "format": "int32"
+                    },
+                    "resolution": {
+                        "maximum": 300.0,
+                        "minimum": 72.0,
+                        "type": "integer",
+                        "description": "In pixels per inch",
+                        "format": "int32"
+                    },
+                    "fill": {
+                        "$ref": "#/components/schemas/FillType"
+                    },
+                    "mode": {
+                        "$ref": "#/components/schemas/ChannelModeType"
+                    },
+                    "depth": {
+                        "$ref": "#/components/schemas/DepthType"
+                    }
+                }
+            },
+            "ManifestJobDocumentDetails": {
+                "title": "ManifestJobDocumentDetails",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the document"
+                    },
+                    "height": {
+                        "type": "integer",
+                        "description": "In pixels",
+                        "format": "int32"
+                    },
+                    "width": {
+                        "type": "integer",
+                        "description": "In pixels",
+                        "format": "int32"
+                    },
+                    "photoshopBuild": {
+                        "type": "string",
+                        "description": "The version of Photoshop used to create the document"
+                    },
+                    "imageMode": {
+                        "$ref": "#/components/schemas/ImageModeType"
+                    },
+                    "bitDepth": {
+                        "$ref": "#/components/schemas/ChannelModeType"
+                    },
+                    "iccProfileName": {
+                        "type": "string",
+                        "description": "The name of the ICC profile used for the document"
+                    }
+                }
+            },
+            "ChildrenLayerDetails": {
+                "title": "ChildrenLayerDetails",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "the layer id. Note an id of -1 is valid and indicates a PSD that only contains a background image and no layers",
+                        "format": "int32"
+                    },
+                    "index": {
+                        "type": "integer",
+                        "description": "the layer index",
+                        "format": "int32"
+                    },
+                    "thumbnail": {
+                        "type": "string",
+                        "description": "If thumbnails were requested, a presigned GET URL to the thumbnail"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/LayerType"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "the layer name"
+                    },
+                    "locked": {
+                        "type": "boolean",
+                        "description": "is the layer locked"
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "description": "is the layer visible"
+                    },
+                    "adjustments": {
+                        "$ref": "#/components/schemas/AdjustmentDetails"
+                    },
+                    "bounds": {
+                        "$ref": "#/components/schemas/Bounds"
+                    },
+                    "blendOptions": {
+                        "$ref": "#/components/schemas/BlendDetails"
+                    },
+                    "mask": {
+                        "$ref": "#/components/schemas/LayerMaskDetails"
+                    },
+                    "smartObject": {
+                        "$ref": "#/components/schemas/SmartObjectDetails"
+                    },
+                    "fill": {
+                        "$ref": "#/components/schemas/FillDetails"
+                    },
+                    "text": {
+                        "$ref": "#/components/schemas/TextLayerDetails"
+                    }
+                }
+            },
+            "LayerDetails": {
+                "title": "LayerDetails",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "the layer id. Note an id of -1 is valid and indicates a PSD that only contains a background image and no layers",
+                        "format": "int32"
+                    },
+                    "index": {
+                        "type": "integer",
+                        "description": "the layer index",
+                        "format": "int32"
+                    },
+                    "thumbnail": {
+                        "type": "string",
+                        "description": "If thumbnails were requested, a presigned GET URL to the thumbnail"
+                    },
+                    "children": {
+                        "type": "array",
+                        "description": "An array of nested layer objects. Only layerSections (group layers) can include children",
+                        "items": {
+                            "$ref": "#/components/schemas/ChildrenLayerDetails"
+                        }
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/LayerType"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "the layer name"
+                    },
+                    "locked": {
+                        "type": "boolean",
+                        "description": "is the layer locked"
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "description": "is the layer visible"
+                    },
+                    "adjustments": {
+                        "$ref": "#/components/schemas/ManifestJobAdjustmentDetails"
+                    },
+                    "bounds": {
+                        "$ref": "#/components/schemas/Bounds"
+                    },
+                    "blendOptions": {
+                        "$ref": "#/components/schemas/BlendDetails"
+                    },
+                    "mask": {
+                        "$ref": "#/components/schemas/LayerMaskDetails"
+                    },
+                    "smartObject": {
+                        "$ref": "#/components/schemas/SmartObjectDetails"
+                    },
+                    "fill": {
+                        "$ref": "#/components/schemas/FillDetails"
+                    },
+                    "text": {
+                        "$ref": "#/components/schemas/TextLayerDetails"
+                    }
+                }
+            },
+            "Action": {
+                "title": "Action",
+                "type": "object",
+                "properties": {
+                    "storage": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StorageType"
+                            },
+                            {
+                                "description": "storage platforms supported"
+                            }
+                        ]
+                    },
+                    "href": {
+                        "type": "string",
+                        "description": "Presigned GET URL"
+                    },
+                    "actionName": {
+                        "type": "string",
+                        "description": "If you only want to execute a particular action, you may specify which action to play from the ActionSet"
+                    }
+                },
+                "description": "An object describing the input Photoshop Actions to play."
+            },
+            "ActionDetails": {
+                "title": "ActionDetails",
+                "minProperties": 1,
+                "type": "object",
+                "properties": {
+                    "actionName": {
+                        "type": "string",
+                        "description": "If you only want to execute a particular action, you may specify whcih action to convert from the ActionSet"
+                    }
+                },
+                "description": "Details of Actions from the ActionSet."
+            },
+            "AdjustmentDetails": {
+                "title": "AdjustmentDetails",
+                "type": "object",
+                "properties": {
+                    "brightnessContrast": {
+                        "$ref": "#/components/schemas/BrightnessContrast"
+                    },
+                    "exposure": {
+                        "$ref": "#/components/schemas/ExposureDetails"
+                    },
+                    "hueSaturation": {
+                        "$ref": "#/components/schemas/HueSaturation"
+                    },
+                    "colorBalance": {
+                        "$ref": "#/components/schemas/ColorBalance"
+                    }
+                },
+                "description": "adjustment layer info"
+            },
+            "ManifestJobAdjustmentDetails": {
+                "title": "ManifestJobAdjustmentDetails",
+                "type": "object",
+                "properties": {
+                    "brightness_contrast": {
+                        "$ref": "#/components/schemas/BrightnessContrast"
+                    },
+                    "exposure": {
+                        "$ref": "#/components/schemas/ExposureDetails"
+                    },
+                    "hue_saturation": {
+                        "$ref": "#/components/schemas/HueSaturation"
+                    },
+                    "color_balance": {
+                        "$ref": "#/components/schemas/ColorBalance"
+                    }
+                },
+                "description": "adjustment layer info"
+            },
+            "BrightnessContrast": {
+                "title": "BrightnessContrast",
+                "type": "object",
+                "properties": {
+                    "brightness": {
+                        "maximum": 150.0,
+                        "minimum": -150.0,
+                        "type": "integer",
+                        "description": "the adjustment layer's brightness",
+                        "format": "int32"
+                    },
+                    "contrast": {
+                        "maximum": 150.0,
+                        "minimum": -150.0,
+                        "type": "integer",
+                        "description": "the adjustment layer's contrast",
+                        "format": "int32"
+                    }
+                },
+                "description": "brightness and contrast settings"
+            },
+            "ExposureDetails": {
+                "title": "ExposureDetails",
+                "description": "exposure settings",
+                "type": "object",
+                "properties": {
+                    "exposure": {
+                        "maximum": 20.0,
+                        "minimum": -20.0,
+                        "type": "number",
+                        "description": "the layer's exposure",
+                        "default": 0
+                    },
+                    "offset": {
+                        "maximum": 0.5,
+                        "minimum": -0.5,
+                        "type": "number",
+                        "description": "the layer's offset",
+                        "default": 0
+                    },
+                    "gammaCorrection": {
+                        "maximum": 9.99,
+                        "minimum": 0.01,
+                        "type": "number",
+                        "description": "the layer's gamma correction",
+                        "default": 1
+                    }
+                }
+            },
+            "HueSaturation": {
+                "title": "HueSaturation",
+                "type": "object",
+                "properties": {
+                    "colorize": {
+                        "type": "boolean",
+                        "description": "colorize"
+                    },
+                    "channels": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ChannelDetails"
+                        },
+                        "description": "an array of hashes representing the 'master' channel (the remaining five channels of 'magentas', 'yellows', 'greens', etc are not yet supported)"
+                    }
+                }
+            },
+            "ColorBalance": {
+                "title": "ColorBalance",
+                "description": "color balance settings",
+                "type": "object",
+                "properties": {
+                    "preserveLuminosity": {
+                        "type": "boolean",
+                        "description": "preserve luminosity"
+                    },
+                    "shadowLevels": {
+                        "type": "array",
+                        "items": {
+                            "maximum": 100.0,
+                            "minimum": -100.0,
+                            "type": "integer",
+                            "format": "int32"
+                        },
+                        "description": "shadow levels"
+                    },
+                    "midtoneLevels": {
+                        "type": "array",
+                        "items": {
+                            "maximum": 100.0,
+                            "minimum": -100.0,
+                            "type": "integer",
+                            "format": "int32"
+                        },
+                        "description": "midtone levels"
+                    },
+                    "highlightLevels": {
+                        "type": "array",
+                        "items": {
+                            "maximum": 100.0,
+                            "minimum": -100.0,
+                            "type": "integer",
+                            "format": "int32"
+                        },
+                        "description": "highlight levels"
+                    }
+                }
+            },
+            "Bounds": {
+                "title": "Bounds",
+                "description": "The bounds of the layer",
+                "type": "object",
+                "properties": {
+                    "top": {
+                        "type": "integer",
+                        "description": "in pixels",
+                        "format": "int32"
+                    },
+                    "left": {
+                        "type": "integer",
+                        "description": "in pixels",
+                        "format": "int32"
+                    },
+                    "width": {
+                        "type": "integer",
+                        "description": "in pixels",
+                        "format": "int32"
+                    },
+                    "height": {
+                        "type": "integer",
+                        "description": "in pixels",
+                        "format": "int32"
+                    }
+                }
+            },
+            "CharacterStyleDetails": {
+                "title": "CharacterStyleDetails",
+                "minProperties": 1,
+                "type": "object",
+                "properties": {
+                    "size": {
+                        "maximum": 5400.0,
+                        "minimum": 0.04,
+                        "type": "number",
+                        "description": "The font size, in pixels"
+                    },
+                    "fontPostScriptName": {
+                        "type": "string",
+                        "description": "the font's postscript name to be used to set the font for this layer."
+                    },
+                    "color": {
+                        "$ref": "#/components/schemas/ColorDetails"
+                    },
+                    "leading": {
+                        "type": "number",
+                        "description": "The font's leading value, where leading is the distance between each line of text."
+                    },
+                    "tracking": {
+                        "type": "number",
+                        "description": "The font's tracking value, where tracking is the horizontal spacing between a range of characters."
+                    },
+                    "baseline": {
+                        "$ref": "#/components/schemas/BaselineType"
+                    },
+                    "fontCaps": {
+                        "$ref": "#/components/schemas/FontCaps"
+                    },
+                    "autoKern": {
+                        "$ref": "#/components/schemas/AutoKernType"
+                    },
+                    "strikethrough": {
+                        "type": "boolean",
+                        "description": "Toggle strikethrough for selected text"
+                    },
+                    "syntheticBold": {
+                        "type": "boolean",
+                        "description": "Toggle bold for selected text"
+                    },
+                    "syntheticItalic": {
+                        "type": "boolean",
+                        "description": "Toggle italic for selected text"
+                    },
+                    "underline": {
+                        "type": "boolean",
+                        "description": "Toggle underlining of text"
+                    },
+                    "ligature": {
+                        "type": "boolean",
+                        "description": "Toggle text ligature, which are special characters in a font that combine two (or more)"
+                    },
+                    "fractions": {
+                        "type": "boolean",
+                        "description": "Toggle automatic formatting of fractions: numbers separated by a slash (such as 1/2)"
+                    },
+                    "stylisticAlternates": {
+                        "type": "boolean",
+                        "description": "Toggle stylisticAlternates, which formats stylized characters that create a purely aesthetic effect"
+                    },
+                    "verticalScale": {
+                        "maximum": 1000.0,
+                        "minimum": 0.0,
+                        "type": "number",
+                        "description": "The amount of vertical scaling to apply to the font"
+                    },
+                    "horizontalScale": {
+                        "maximum": 1000.0,
+                        "minimum": 0.0,
+                        "type": "number",
+                        "description": "The amount of horizontal scaling to apply to the font"
+                    }
+                },
+                "description": "character style settings"
+            },
+            "ParagraphStyleDetails": {
+                "title": "ParagraphStyleDetails",
+                "minProperties": 1,
+                "type": "object",
+                "properties": {
+                    "align": {
+                        "$ref": "#/components/schemas/ParagraphStyleAlignmentType",
+                        "description": "The paragraph alignment (deprecated, please use alignment)"
+                    },
+                    "alignment": {
+                        "$ref": "#/components/schemas/ParagraphStyleAlignmentType"
+                    },
+                    "startIndent": {
+                        "type": "number",
+                        "description": "The amount of indent to add to the left margin"
+                    },
+                    "endIndent": {
+                        "type": "number",
+                        "description": "The amount of indent to add to the right margin"
+                    },
+                    "hyphenate": {
+                        "type": "boolean",
+                        "description": "Toggle hyphenate for paragraph text"
+                    },
+                    "firstLineIndent": {
+                        "type": "number",
+                        "description": "The amount of indent to add to the first line of the paragraph"
+                    },
+                    "spaceBefore": {
+                        "type": "number",
+                        "description": "The amount of space to add before the paragraph"
+                    },
+                    "spaceAfter": {
+                        "type": "number",
+                        "description": "The amount of inspace to add after the paragraph"
+                    }
+                },
+                "description": "Paragraph style settings"
+            },
+            "LayerMaskDetails": {
+                "title": "LayerMaskDetails",
+                "type": "object",
+                "properties": {
+                    "clip": {
+                        "type": "boolean",
+                        "description": "Indicates if this is a clipped layer"
+                    },
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "Indicates a mask is enabled on that layer or not"
+                    },
+                    "linked": {
+                        "type": "boolean",
+                        "description": "Indicates a mask is linked to the layer or not"
+                    },
+                    "offset": {
+                        "$ref": "#/components/schemas/Offset"
+                    }
+                },
+                "description": "An object describing the input mask added or replaced to the layer"
+            },
+            "Offset": {
+                "title": "Offset",
+                "description": "Offset details",
+                "type": "object",
+                "properties": {
+                    "x": {
+                        "type": "integer",
+                        "description": "Offset to indicate horizontal move of the mask",
+                        "format": "int32"
+                    },
+                    "y": {
+                        "type": "integer",
+                        "description": "Offset to indicate vertical move of the mask",
+                        "format": "int32"
+                    }
+                }
+            },
+            "SmartObjectDetails": {
+                "title": "SmartObjectDetails",
+                "description": "Smart object details",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "description": "Desired image format for the smart object"
+                    },
+                    "linked": {
+                        "type": "boolean",
+                        "description": "Indicates if this Smart Object is linked. Currently we support Embedded Smart Object only which means \"linked = false\"",
+                        "default": false
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the embedded or linked smart object. Currently we support Embedded Smart Object only"
+                    },
+                    "path": {
+                        "type": "string",
+                        "description": "Attribute for only Linked Smart Object. Indicates the relative path for the Linked Smart Object"
+                    },
+                    "instanceId": {
+                        "type": "string",
+                        "description": "Attribute for only Embedded Smart Object. Indicates instance id of this embedded smart object. This id is unique for different smart object instances. InstanceId may have value as unknown, if the embedded smart object is generated using any other application than adobe applications like PS, Lr etc. We are deriving the value 'InstanceID' from the RAW Data of the document."
+                    }
+                }
+            },
+            "FillDetails": {
+                "title": "FillDetails",
+                "type": "object",
+                "properties": {
+                    "solidColor": {
+                        "$ref": "#/components/schemas/SolidColor"
+                    }
+                }
+            },
+            "SolidColor": {
+                "title": "SolidColor",
+                "type": "object",
+                "required": ["rgb"],
+                "properties": {
+                    "rgb": {
+                        "$ref": "#/components/schemas/RgbColor"
+                    }
+                }
+            },
+            "RgbColor": {
+                "title": "RgbColor",
+                "type": "object",
+                "properties": {
+                    "red": {
+                        "maximum": 255.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "green": {
+                        "maximum": 255.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "blue": {
+                        "maximum": 255.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "description": "An object describing the rgb color format in 8 bits"
+            },
+            "FontColorRgb": {
+                "title": "FontColorRgb",
+                "type": "object",
+                "properties": {
+                    "red": {
+                        "maximum": 32768.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "green": {
+                        "maximum": 32768.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "blue": {
+                        "maximum": 32768.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "description": "An object describing the rgb color format in 16 bits"
+            },
+            "FontColorCmyk": {
+                "title": "FontColorCmyk",
+                "type": "object",
+                "properties": {
+                    "cyan": {
+                        "maximum": 32768.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "magenta": {
+                        "maximum": 32768.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "yellowColor": {
+                        "maximum": 32768.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "black": {
+                        "maximum": 32768.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "description": "the font color settings for cmyk mode in 16bit representation"
+            },
+            "FontColorGray": {
+                "title": "FontColorGray",
+                "type": "object",
+                "properties": {
+                    "gray": {
+                        "maximum": 32768.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "description": "the font color settings for gray mode in 16bit representation"
+            },
+            "FontColorLab": {
+                "title": "FontColorLab",
+                "type": "object",
+                "properties": {
+                    "luminance": {
+                        "maximum": 32768.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "a": {
+                        "maximum": 32768.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "b": {
+                        "maximum": 32768.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "description": "the font color settings for lab mode in 16bit representation."
+            },
+            "TextLayerDetails": {
+                "title": "TextLayerDetails",
+                "type": "object",
+                "properties": {
+                    "content": {
+                        "type": "string",
+                        "description": "the text string"
+                    },
+                    "characterStyles": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TextLayerCharacterStyleDetails"
+                        },
+                        "description": "characterStyle settings. If the same supported attributes apply to all characters in the layer than this will be an array of one item, otherwise each characterStyle object will have a 'from' and 'to' value indicating the range of characters that the style applies to."
+                    },
+                    "paragraphStyles": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TextLayerParagraphStyleDetails"
+                        },
+                        "description": "paragraphStyles settings. If the same supported attributes apply to all characters in the layer than this will be an array of one item, otherwise each paragraphStyle object will have a 'from' and 'to' value indicating the range of characters that the style applies to."
+                    }
+                },
+                "description": "text settings"
+            },
+            "TextLayerCharacterStyleDetails": {
+                "title": "TextLayerCharacterStyleDetails",
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "The beginning of the range of characters that this characterStyle applies to. Based on initial index of 0. For example a style applied to only the first two characters would be from=0 and to=1",
+                        "format": "int32"
+                    },
+                    "to": {
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "The ending of the range of characters that this characterStyle applies to. Based on initial index of 0. For example a style applied to only the first two characters would be from=0 and to=1",
+                        "format": "int32"
+                    },
+                    "fontSize": {
+                        "type": "number",
+                        "description": "in points"
+                    },
+                    "fontName": {
+                        "type": "string",
+                        "description": "the font's postscript name. The list of supported fonts is at https://github.com/AdobeDocs/photoshop-api-docs/blob/master/SupportedFonts.md"
+                    },
+                    "orientation": {
+                        "$ref": "#/components/schemas/OrientationType"
+                    },
+                    "fontColor": {
+                        "$ref": "#/components/schemas/FontColorDetails"
+                    }
+                }
+            },
+            "TextLayerParagraphStyleDetails": {
+                "title": "TextLayerParagraphStyleDetails",
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "The beginning of the range of characters that this paragraphStyle applies to. Based on initial index of 0. For example a style applied to only the first two characters would be from=0 and to=1",
+                        "format": "int32"
+                    },
+                    "to": {
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "The ending of the range of characters that this paragraphStyle applies to. Based on initial index of 0. For example a style applied to only the first two characters would be from=0 and to=1",
+                        "format": "int32"
+                    },
+                    "alignment": {
+                        "$ref": "#/components/schemas/AlignmentType"
+                    }
+                },
+                "description": "If the same supported attributes apply to all characters in the layer than this will be an array of one item, otherwise each paragraphStyle object will have a 'from' and 'to' value indicating the range of characters that the style applies to."
+            },
+            "BlendDetails": {
+                "title": "BlendDetails",
+                "type": "object",
+                "properties": {
+                    "opacity": {
+                        "maximum": 100.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "Indicates the opacity value of a layer",
+                        "format": "int32"
+                    },
+                    "blendMode": {
+                        "$ref": "#/components/schemas/BlendModeType"
+                    }
+                },
+                "description": "Blend options of a layer, including opacity and blend mode"
+            },
+            "AlignmentType": {
+                "title": "AlignmentType",
+                "enum": [
+                    "left",
+                    "center",
+                    "right",
+                    "justify",
+                    "justifyLeft",
+                    "justifyCenter",
+                    "justifyRight"
+                ],
+                "type": "string",
+                "description": "the paragraph alignment"
+            },
+            "ParagraphStyleAlignmentType": {
+                "title": "ParagraphStyleAlignmentType",
+                "enum": [
+                    "left",
+                    "center",
+                    "right",
+                    "justify",
+                    "justifyLeft",
+                    "justifyCenter",
+                    "justifyRight",
+                    "justifyAll"
+                ],
+                "type": "string",
+                "description": "The paragraph alignment"
+            },
+            "AntiAliasType": {
+                "title": "AntiAliasType",
+                "enum": [
+                    "antiAliasNone",
+                    "antiAliasSharp",
+                    "antiAliasCrisp",
+                    "antiAliasStrong",
+                    "antiAliasSmooth",
+                    "antiAliasPlatformLCD",
+                    "antiAliasPlatformGray"
+                ],
+                "type": "string",
+                "description": "The text's aliasing type which determines the smoothness of the jagged edges of the text."
+            },
+            "AutoKernType": {
+                "title": "AutoKernType",
+                "enum": ["opticalKern", "metricsKern"],
+                "type": "string",
+                "description": "The text's kerning setting. Optical: set based on the shape of the font. Metrics: uses kern pairs included in fonts"
+            },
+            "BasedOnType": {
+                "title": "BasedOnType",
+                "enum": ["transparentPixels"],
+                "type": "string",
+                "description": "Based on type"
+            },
+            "BaselineType": {
+                "title": "BaselineType",
+                "enum": ["subScript", "superScript"],
+                "type": "string",
+                "description": "Indicates if the text is raised or lowered in relation to a font’s baseline"
+            },
+            "BlendModeType": {
+                "title": "BlendModeType",
+                "enum": [
+                    "normal",
+                    "dissolve",
+                    "darken",
+                    "multiply",
+                    "colorBurn",
+                    "linearBurn",
+                    "darkerColor",
+                    "lighten",
+                    "screen",
+                    "colorDodge",
+                    "linearDodge",
+                    "lighterColor",
+                    "overlay",
+                    "softLight",
+                    "hardLight",
+                    "vividLight",
+                    "linearLight",
+                    "pinLight",
+                    "hardMix",
+                    "difference",
+                    "exclusion",
+                    "subtract",
+                    "divide",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity"
+                ],
+                "type": "string",
+                "description": "Blend mode of layer"
+            },
+            "CanvasSize": {
+                "title": "CanvasSize",
+                "type": "object",
+                "required": ["bounds"],
+                "properties": {
+                    "bounds": {
+                        "$ref": "#/components/schemas/Bounds"
+                    }
+                }
+            },
+            "ChannelDetails": {
+                "title": "ChannelDetails",
+                "type": "object",
+                "properties": {
+                    "channel": {
+                        "$ref": "#/components/schemas/ChannelType"
+                    },
+                    "hue": {
+                        "maximum": 180.0,
+                        "minimum": -180.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "saturation": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "lightness": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "ChannelType": {
+                "title": "ChannelType",
+                "enum": ["master"],
+                "type": "string",
+                "description": "The channel type"
+            },
+            "ColorDetails": {
+                "title": "ColorDetails",
+                "required": ["red", "green", "blue"],
+                "type": "object",
+                "properties": {
+                    "red": {
+                        "maximum": 65535.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "The color red value",
+                        "format": "int32"
+                    },
+                    "green": {
+                        "maximum": 65535.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "The color green value",
+                        "format": "int32"
+                    },
+                    "blue": {
+                        "maximum": 65535.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "The color blue value",
+                        "format": "int32"
+                    }
+                },
+                "description": "FontColor in rgb format"
+            },
+            "CompressionType": {
+                "title": "CompressionType",
+                "enum": ["small", "medium", "large"],
+                "type": "string",
+                "description": "Desired PNG compression level."
+            },
+            "DepthType": {
+                "title": "DepthType",
+                "enum": [8, 16, 32],
+                "type": "integer",
+                "description": "Bit depth, this is either 8, 16 or 32 bit"
+            },
+            "OperationDocument": {
+                "title": "OperationDocument",
+                "type": "object",
+                "properties": {
+                    "canvasSize": {
+                        "$ref": "#/components/schemas/CanvasSize"
+                    },
+                    "imageSize": {
+                        "$ref": "#/components/schemas/ImageSize"
+                    },
+                    "trim": {
+                        "$ref": "#/components/schemas/Trim"
+                    }
+                }
+            },
+            "EastAsianFeatures": {
+                "title": "EastAsianFeatures",
+                "minProperties": 1,
+                "type": "object",
+                "properties": {
+                    "textStyle": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/TextStyleType"
+                            },
+                            {
+                                "description": "Base line direction for text style"
+                            }
+                        ]
+                    }
+                },
+                "description": "Text features specifically for eastAsian languages"
+            },
+            "ErrorDetails": {
+                "title": "ErrorDetails",
+                "description": "Error details",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "param name"
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "error"
+                    }
+                }
+            },
+            "FillType": {
+                "title": "FillType",
+                "enum": ["white", "backgroundColor", "transparent"],
+                "type": "string",
+                "description": "Type of fill for the background layer"
+            },
+            "FocalSelector": {
+                "title": "FocalSelector",
+                "description": "Focal selector",
+                "minProperties": 2,
+                "type": "object",
+                "properties": {
+                    "x": {
+                        "type": "number",
+                        "description": "X co-ordinate"
+                    },
+                    "y": {
+                        "type": "number",
+                        "description": "Y co-ordinate"
+                    }
+                }
+            },
+            "FontCaps": {
+                "title": "FontCaps",
+                "enum": ["allCaps", "smallCaps"],
+                "type": "string",
+                "description": "The text's capitalization values"
+            },
+            "FontColorDetails": {
+                "title": "FontColorDetails",
+                "type": "object",
+                "properties": {
+                    "rgb": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FontColorRgb"
+                            },
+                            {
+                                "description": "An object describing the rgb color format in 16 bits"
+                            }
+                        ]
+                    },
+                    "cmyk": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FontColorCmyk"
+                            },
+                            {
+                                "description": "the font color settings for cmyk mode in 16bit representation"
+                            }
+                        ]
+                    },
+                    "gray": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FontColorGray"
+                            },
+                            {
+                                "description": "the font color settings for gray mode in 16bit representation"
+                            }
+                        ]
+                    },
+                    "lab": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FontColorLab"
+                            },
+                            {
+                                "description": "the font color settings for lab mode in 16bit representation."
+                            }
+                        ]
+                    }
+                }
+            },
+            "MaskFormatType": {
+                "title": "MaskFormatType",
+                "enum": ["binary", "soft"],
+                "type": "string",
+                "description": "soft mask or binary mask"
+            },
+            "ImageModeType": {
+                "title": "ImageModeType",
+                "enum": ["grayscale", "rgb", "cmyk"],
+                "type": "string",
+                "description": "the image mode"
+            },
+            "ImageSize": {
+                "title": "ImageSize",
+                "description": "The size of the image",
+                "type": "object",
+                "required": ["height", "width"],
+                "properties": {
+                    "width": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "height": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "DocumentCreateLayer": {
+                "title": "DocumentCreateLayer",
+                "type": "object",
+                "required": ["type", "input"],
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/LayerType"
+                    },
+                    "input": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StorageDetails"
+                            },
+                            {
+                                "description": "File on Adobe's cloud or an external service (like AWS S3, Azure, Dropbox)"
+                            }
+                        ]
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "locked": {
+                        "type": "boolean",
+                        "description": "is the layer locked",
+                        "default": false
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "description": "is the layer visible",
+                        "default": true
+                    },
+                    "adjustments": {
+                        "$ref": "#/components/schemas/AdjustmentDetails"
+                    },
+                    "bounds": {
+                        "$ref": "#/components/schemas/Bounds"
+                    },
+                    "children": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ChildrenLayerDetails"
+                        }
+                    },
+                    "mask": {
+                        "$ref": "#/components/schemas/MaskDetails"
+                    },
+                    "smartObject": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SmartObject"
+                            },
+                            {
+                                "description": "An object describing the attributes specific to creating or editing a smartObject.\nSmartObject properties need the input smart object file to operate on, which can be obtained from Input block. Currently we support Embedded Smart Object only.So this block is optional. If you are creating a Linked Smart Object, this is a required block."
+                            }
+                        ]
+                    },
+                    "fill": {
+                        "$ref": "#/components/schemas/FillDetails"
+                    },
+                    "text": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/TextLayerDetails"
+                            },
+                            {
+                                "description": "text settings"
+                            }
+                        ]
+                    },
+                    "blendOptions": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/BlendDetails"
+                            },
+                            {
+                                "description": "Blend options of a layer, including opacity and blend mode"
+                            }
+                        ]
+                    }
+                }
+            },
+            "DocumentOperationLayer": {
+                "title": "DocumentOperationLayer",
+                "type": "object",
+                "required": ["id", "delete"],
+                "properties": {
+                    "edit": {
+                        "type": "object",
+                        "description": "Indicates you want to edit the layer identified by it's id or name. Note the object is currently empty but leaves room for further enhancements. The layer block should than contain changes from the original manifest. If you apply it to a group layer you will be effecting the attributes of the group layer itself, not the child layers. Edit layer is supported for layer type \"smartObject\" and \"fillLayer\" only."
+                    },
+                    "move": {
+                        "$ref": "#/components/schemas/MoveDetails"
+                    },
+                    "add": {
+                        "$ref": "#/components/schemas/LayerPosition"
+                    },
+                    "delete": {
+                        "$ref": "#/components/schemas/DeleteDetails"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "the layer id",
+                        "format": "int32"
+                    },
+                    "index": {
+                        "type": "integer",
+                        "description": "the layer index.  Required when deleting a layer, otherwise not used",
+                        "format": "int32"
+                    },
+                    "children": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ChildrenLayerDetails"
+                        },
+                        "description": "a tree of layer objects representing the PSD layer structure extracted from the psd document"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/LayerType"
+                    },
+                    "input": {
+                        "$ref": "#/components/schemas/StorageDetails"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "locked": {
+                        "type": "boolean",
+                        "description": "is the layer locked",
+                        "default": false
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "description": "is the layer visible",
+                        "default": true
+                    },
+                    "adjustments": {
+                        "$ref": "#/components/schemas/AdjustmentDetails"
+                    },
+                    "mask": {
+                        "$ref": "#/components/schemas/MaskDetails"
+                    },
+                    "bounds": {
+                        "$ref": "#/components/schemas/Bounds"
+                    },
+                    "smartObject": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/SmartObject"
+                            },
+                            {
+                                "description": "An object describing the attributes specific to creating or editing a smartObject.\nSmartObject properties need the input smart object file to operate on, which can be obtained from Input block. Currently we support Embedded Smart Object only.So this block is optional. If you are creating a Linked Smart Object, this is a required block."
+                            }
+                        ]
+                    },
+                    "fill": {
+                        "$ref": "#/components/schemas/FillDetails"
+                    },
+                    "text": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/TextLayerDetails"
+                            },
+                            {
+                                "description": "text settings"
+                            }
+                        ]
+                    },
+                    "blendOptions": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/BlendDetails"
+                            },
+                            {
+                                "description": "Blend options of a layer, including opacity and blend mode"
+                            }
+                        ]
+                    },
+                    "horizontalAlign": {
+                        "$ref": "#/components/schemas/HorizontalAlignType"
+                    },
+                    "verticalAlign": {
+                        "$ref": "#/components/schemas/VerticalAlignType"
+                    },
+                    "fillToCanvas": {
+                        "type": "boolean",
+                        "description": "Indicates if the pixels need to proportionally fill into the entire canvas of the document"
+                    }
+                }
+            },
+            "SmartObjectLayer": {
+                "title": "SmartObjectLayer",
+                "type": "object",
+                "required": ["input"],
+                "properties": {
+                    "add": {
+                        "$ref": "#/components/schemas/LayerPosition"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "the layer id",
+                        "format": "int32"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "locked": {
+                        "type": "boolean",
+                        "description": "is the layer locked",
+                        "default": false
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "description": "is the layer visible",
+                        "default": true
+                    },
+                    "input": {
+                        "$ref": "#/components/schemas/StorageDetails"
+                    },
+                    "bounds": {
+                        "$ref": "#/components/schemas/Bounds"
+                    }
+                }
+            },
+            "TextOptionsLayer": {
+                "title": "TextOptionsLayer",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the layer you want to insert. Use either id OR name"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "The id of the layer you want to insert. Use either id OR name.",
+                        "format": "int32"
+                    },
+                    "bounds": {
+                        "$ref": "#/components/schemas/Bounds"
+                    },
+                    "locked": {
+                        "type": "boolean",
+                        "description": "Is the layer editable"
+                    },
+                    "visible": {
+                        "type": "boolean",
+                        "description": "Is the layer visible"
+                    },
+                    "text": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/TextDetails"
+                            },
+                            {
+                                "description": "Supported text layer attributes."
+                            }
+                        ]
+                    }
+                }
+            },
+            "RenditionLinks": {
+                "title": "RenditionLinks",
+                "type": "object",
+                "properties": {
+                    "renditions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RenditionLinkDetails"
+                        },
+                        "description": "array off rendition objects"
+                    }
+                },
+                "description": "the rendition links"
+            },
+            "ManageMissingFonts": {
+                "title": "ManageMissingFonts",
+                "enum": ["useDefault", "fail"],
+                "type": "string",
+                "description": "action to take if there are one or more missing fonts in the document\n\n* fail - The job will not succeed and the status will be set to \"failed\", with the details of the error provided in the \"details\" section in the status\n* useDefault - The job will succeed, however, by default all the missing fonts will be replaced with this font: ArialMT"
+            },
+            "MaskFormat": {
+                "title": "MaskFormat",
+                "type": "object",
+                "properties": {
+                    "format": {
+                        "$ref": "#/components/schemas/MaskFormatType"
+                    }
+                }
+            },
+            "MaskDetails": {
+                "title": "MaskDetails",
+                "type": "object",
+                "properties": {
+                    "input": {
+                        "$ref": "#/components/schemas/StorageDetails"
+                    },
+                    "clip": {
+                        "type": "boolean",
+                        "description": "Indicates if this is a clipped layer"
+                    },
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "Indicates a mask is enabled on that layer or not"
+                    },
+                    "linked": {
+                        "type": "boolean",
+                        "description": "Indicates a mask is linked to the layer or not"
+                    },
+                    "offset": {
+                        "$ref": "#/components/schemas/Offset"
+                    }
+                }
+            },
+            "ChannelModeType": {
+                "title": "ChannelModeType",
+                "enum": [
+                    "bitmap",
+                    "greyscale",
+                    "indexed",
+                    "rgb",
+                    "cmyk",
+                    "hsl",
+                    "hsb",
+                    "multichannel",
+                    "duotone",
+                    "lab",
+                    "xyz"
+                ],
+                "type": "string",
+                "description": "The document's bit/channel depth."
+            },
+            "MoveDetails": {
+                "title": "MoveDetails",
+                "type": "object",
+                "properties": {
+                    "moveChildren": {
+                        "type": "boolean",
+                        "default": true
+                    },
+                    "insertAbove": {
+                        "$ref": "#/components/schemas/LayerReference"
+                    },
+                    "insertBelow": {
+                        "$ref": "#/components/schemas/LayerReference"
+                    },
+                    "insertInto": {
+                        "$ref": "#/components/schemas/LayerReference"
+                    },
+                    "insertTop": {
+                        "type": "boolean"
+                    },
+                    "insertBottom": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "DocumentManifestOptions": {
+                "title": "DocumentManifestOptions",
+                "type": "object",
+                "properties": {
+                    "thumbnails": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Thumbnails"
+                            },
+                            {
+                                "description": "Include presigned GET URLs to small preview thumbnails for any renderable layer"
+                            }
+                        ]
+                    }
+                },
+                "description": "available options to apply to all input files"
+            },
+            "DocumentCreateOptions": {
+                "title": "DocumentCreateOptions",
+                "type": "object",
+                "required": ["document"],
+                "properties": {
+                    "manageMissingFonts": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ManageMissingFonts"
+                            },
+                            {
+                                "description": "action to take if there are one or more missing fonts in the document\n\n* fail - The job will not succeed and the status will be set to \"failed\", with the details of the error provided in the \"details\" section in the status\n* useDefault - The job will succeed, however, by default all the missing fonts will be replaced with this font: ArialMT"
+                            }
+                        ]
+                    },
+                    "globalFont": {
+                        "type": "string",
+                        "description": "options.globalFont The full postscript name of the font to be used as the global default for the document. This font will be used for any text layer which has a missing font and no other font has been specifically provided for that layer.\nIf this font itself is missing, the option specified for manageMissingFonts from above will take effect."
+                    },
+                    "fonts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "array of custom fonts needed in this document"
+                    },
+                    "document": {
+                        "$ref": "#/components/schemas/DocumentDetails"
+                    },
+                    "layers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocumentCreateLayer"
+                        },
+                        "description": "array of layers to be created in the document"
+                    }
+                }
+            },
+            "DocumentOperationOptions": {
+                "title": "DocumentOperationOptions",
+                "type": "object",
+                "properties": {
+                    "manageMissingFonts": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ManageMissingFonts"
+                            },
+                            {
+                                "description": "action to take if there are one or more missing fonts in the document\n\n* fail - The job will not succeed and the status will be set to \"failed\", with the details of the error provided in the \"details\" section in the status\n* useDefault - The job will succeed, however, by default all the missing fonts will be replaced with this font: ArialMT"
+                            }
+                        ]
+                    },
+                    "globalFont": {
+                        "type": "string",
+                        "description": "options.globalFont The full postscript name of the font to be used as the global default for the document. This font will be used for any text layer which has a missing font and no other font has been specifically provided for that layer.\nIf this font itself is missing, the option specified for manageMissingFonts from above will take effect."
+                    },
+                    "fonts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "array of custom fonts needed in this document"
+                    },
+                    "document": {
+                        "$ref": "#/components/schemas/OperationDocument"
+                    },
+                    "layers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocumentOperationLayer"
+                        },
+                        "description": "Array of layers to be created in the document"
+                    }
+                }
+            },
+            "SmartObjectOptions": {
+                "title": "SmartObjectOptions",
+                "type": "object",
+                "required": ["layers"],
+                "properties": {
+                    "layers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SmartObjectLayer"
+                        },
+                        "description": "Array of Smart Object layers to be created in the document"
+                    }
+                }
+            },
+            "ActionOptions": {
+                "title": "ActionOptions",
+                "type": "object",
+                "required": ["actions"],
+                "properties": {
+                    "actions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Action"
+                        },
+                        "description": "array of Photoshop Actions to play"
+                    },
+                    "patterns": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "array of custom pattern preset to be used in Photoshop Actions"
+                    },
+                    "fonts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "array of custom fonts needed in this document"
+                    },
+                    "brushes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "array of custom brushes needed in this document"
+                    }
+                }
+            },
+            "ActionJsonOptions": {
+                "title": "ActionJsonOptions",
+                "type": "object",
+                "required": ["actionJSON"],
+                "properties": {
+                    "actionJSON": {
+                        "type": "array",
+                        "items": {
+                            "type": "object"
+                        },
+                        "description": "array of Photoshop JSON-formatted Actions to play"
+                    },
+                    "patterns": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "array of custom pattern preset to be used in Photoshop Actions"
+                    },
+                    "fonts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "array of custom fonts needed in this document"
+                    },
+                    "brushes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "array of custom brushes needed in this document"
+                    },
+                    "additionalImages": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "array of references to additional images, which can be referred by actionJson commands"
+                    }
+                }
+            },
+            "ActionJsonCreateOptions": {
+                "title": "ActionJsonCreateOptions",
+                "required": ["actions"],
+                "type": "object",
+                "properties": {
+                    "actions": {
+                        "maxItems": 1,
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ActionDetails"
+                        },
+                        "description": "Array of action objects"
+                    }
+                },
+                "description": "This block is needed only if you want to specify whcih action to convert from the ActionSet"
+            },
+            "CropOptions": {
+                "title": "CropOptions",
+                "type": "object",
+                "required": ["unit", "width", "height"],
+                "properties": {
+                    "unit": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/UnitType"
+                            },
+                            {
+                                "description": "Unit for width and height"
+                            }
+                        ]
+                    },
+                    "width": {
+                        "type": "integer",
+                        "description": "The width to be added as padding.",
+                        "format": "int32"
+                    },
+                    "height": {
+                        "type": "integer",
+                        "description": "The height to be added as padding.",
+                        "format": "int32"
+                    }
+                }
+            },
+            "DepthBlurDetails": {
+                "title": "DepthBlurDetails",
+                "type": "object",
+                "properties": {
+                    "focalDistance": {
+                        "maximum": 100.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "The distance of the point to be in focus. 0 would be the nearest point, 100 would be the furthest point",
+                        "format": "int32",
+                        "default": 0
+                    },
+                    "focalRange": {
+                        "maximum": 100.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "The range of the focal point",
+                        "format": "int32",
+                        "default": 0
+                    },
+                    "focalSelector": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FocalSelector"
+                            },
+                            {
+                                "description": "Co-ordinates of the specific focal point to select"
+                            }
+                        ]
+                    },
+                    "focusSubject": {
+                        "type": "boolean",
+                        "description": "If enabled uses selectsubject to automatically select the prominent subject for focus. Also would override focalDistance",
+                        "default": false
+                    },
+                    "blurStrength": {
+                        "maximum": 100.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "The amount of blur to apply",
+                        "format": "int32",
+                        "default": 50
+                    },
+                    "haze": {
+                        "maximum": 100.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "The amount of haze to apply",
+                        "format": "int32",
+                        "default": 0
+                    },
+                    "temp": {
+                        "maximum": 50.0,
+                        "minimum": -50.0,
+                        "type": "integer",
+                        "description": "The value of the temperature to apply. -50 would be coldest and 50 would be the warmest setting",
+                        "format": "int32",
+                        "default": 0
+                    },
+                    "tint": {
+                        "maximum": 50.0,
+                        "minimum": -50.0,
+                        "type": "integer",
+                        "description": "The amount of the tint to apply",
+                        "format": "int32",
+                        "default": 0
+                    },
+                    "saturation": {
+                        "maximum": 50.0,
+                        "minimum": -50.0,
+                        "type": "integer",
+                        "description": "The amount of the saturation to apply. -50 implies fully unsaturated colors and 50 will fully saturate the colors",
+                        "format": "int32",
+                        "default": 0
+                    },
+                    "brightness": {
+                        "maximum": 50.0,
+                        "minimum": -50.0,
+                        "type": "integer",
+                        "description": "The amount of the brightness to apply",
+                        "format": "int32",
+                        "default": 0
+                    },
+                    "grain": {
+                        "maximum": 100.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "description": "The amount of the graining to add to the image",
+                        "format": "int32",
+                        "default": 0
+                    }
+                }
+            },
+            "TextOptions": {
+                "title": "TextOptions",
+                "type": "object",
+                "required": ["layers"],
+                "properties": {
+                    "manageMissingFonts": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ManageMissingFonts"
+                            },
+                            {
+                                "description": "Action to take if there are one or more missing fonts in the document. If not provided it takes the default font."
+                            }
+                        ]
+                    },
+                    "globalFont": {
+                        "type": "string",
+                        "description": "The full postscript name of the font to be used as the global default for the document. This font will be used for any text layer which has a missing font and no other font has been specifically provided for that layer. If this font itself is missing, the option specified for manageMissingFonts from above will take effect."
+                    },
+                    "layers": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TextOptionsLayer"
+                        },
+                        "description": "Array of text layer objects you wish to act upon"
+                    },
+                    "fonts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "Array of custom fonts needed in this document"
+                    }
+                }
+            },
+            "ArtboardDetails": {
+                "title": "ArtboardDetails",
+                "type": "object",
+                "required": ["artboard"],
+                "properties": {
+                    "artboard": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "An array of hashes describing the input files to edit. each input object will be either 'external', 'adobe', 'azure' or 'dropbox'"
+                    }
+                }
+            },
+            "OrientationType": {
+                "title": "OrientationType",
+                "enum": ["horizontal", "vertical"],
+                "type": "string",
+                "description": "the text orientation"
+            },
+            "ManifestJobStatusOutputDetails": {
+                "title": "ManifestJobStatusOutputDetails",
+                "type": "object",
+                "properties": {
+                    "input": {
+                        "type": "string",
+                        "description": "the original input href"
+                    },
+                    "created": {
+                        "type": "string",
+                        "description": "Created timestamp of the job (YYYY-DD-MMThh:mm:ss.mmmmmZ)"
+                    },
+                    "modified": {
+                        "type": "string",
+                        "description": "Modified timestamp of the job (YYYY-DD-MMThh:mm:ss.mmmmmZ)"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/JobStatus"
+                    },
+                    "document": {
+                        "$ref": "#/components/schemas/ManifestJobDocumentDetails"
+                    },
+                    "layers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LayerDetails"
+                        },
+                        "description": "a tree of layer objects representing the PSD layer structure extracted from the psd document"
+                    }
+                }
+            },
+            "JobOutputDetails": {
+                "title": "JobOutputDetails",
+                "type": "object",
+                "properties": {
+                    "input": {
+                        "type": "string",
+                        "description": "the original input href"
+                    },
+                    "created": {
+                        "type": "string",
+                        "description": "Created timestamp of the job (YYYY-DD-MMThh:mm:ss.mmmmmZ)"
+                    },
+                    "modified": {
+                        "type": "string",
+                        "description": "Modified timestamp of the job (YYYY-DD-MMThh:mm:ss.mmmmmZ)"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/JobOutputStatus"
+                    },
+                    "_links": {
+                        "$ref": "#/components/schemas/RenditionLinks"
+                    }
+                }
+            },
+            "ColorProfileType": {
+                "title": "ColorProfileType",
+                "enum": [
+                    "Adobe RGB (1998)",
+                    "Apple RGB",
+                    "ColorMatch RGB",
+                    "sRGB IEC61966-2.1",
+                    "Dot Gain 10%",
+                    "Dot Gain 15%",
+                    "Dot Gain 20%",
+                    "Dot Gain 25%",
+                    "Dot Gain 30%",
+                    "Gray Gamma 1.8",
+                    "Gray Gamma 2.2"
+                ],
+                "type": "string",
+                "description": "the name of the color profile"
+            },
+            "SelfLink": {
+                "title": "SelfLink",
+                "description": "Self link",
+                "type": "object",
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "description": "Job Status Url"
+                    }
+                }
+            },
+            "SmartObject": {
+                "title": "SmartObject",
+                "type": "object",
+                "properties": {
+                    "linked": {
+                        "type": "boolean",
+                        "description": "Indicates if this Smart Object is linked. Currently we support Embedded Smart Object only which means \"linked = false\".",
+                        "default": false
+                    }
+                },
+                "description": "An object describing the attributes specific to creating or editing a smartObject.\nSmartObject properties need the input smart object file to operate on, which can be obtained from Input block. Currently we support Embedded Smart Object only.So this block is optional. If you are creating a Linked Smart Object, this is a required block."
+            },
+            "JobStatus": {
+                "title": "JobStatus",
+                "enum": ["pending", "running", "succeeded", "failed"],
+                "type": "string",
+                "description": "Job status"
+            },
+            "JobOutputStatus": {
+                "title": "JobOutputStatus",
+                "enum": ["pending", "running", "uploading", "succeeded", "failed"],
+                "type": "string",
+                "description": "the child job status\n* pending - request has been accepted and is waiting to start\n* running - the child job is running\n* uploading - files have been generated and are uploading to destination\n* succeeded - the child job has succeeded\n* failed - the child job has failed"
+            },
+            "StorageType": {
+                "title": "StorageType",
+                "enum": ["external", "azure", "dropbox"],
+                "type": "string",
+                "description": "Storage platforms supported"
+            },
+            "TextDetails": {
+                "title": "TextDetails",
+                "minProperties": 1,
+                "type": "object",
+                "properties": {
+                    "contents": {
+                        "type": "string",
+                        "description": "The contents of the text layer (deprecated, please use content)"
+                    },
+                    "content": {
+                        "type": "string",
+                        "description": "The content of the text layer"
+                    },
+                    "orientation": {
+                        "$ref": "#/components/schemas/OrientationType"
+                    },
+                    "rotate": {
+                        "maximum": 180.0,
+                        "minimum": -180.0,
+                        "type": "integer",
+                        "description": "The text's rotation in angle",
+                        "format": "int32"
+                    },
+                    "antiAlias": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/AntiAliasType"
+                            },
+                            {
+                                "description": "The text's aliasing type which determines the smoothness of the jagged edges of the text."
+                            }
+                        ]
+                    },
+                    "eastAsianFeatures": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EastAsianFeatures"
+                            },
+                            {
+                                "description": "Text features specifically for eastAsian languages"
+                            }
+                        ]
+                    },
+                    "characterStyles": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CharacterStyleDetails"
+                        },
+                        "description": "Array of character_style objects. Any of the `characterStyles` property is required."
+                    },
+                    "paragraphStyles": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParagraphStyleDetails"
+                        },
+                        "description": "Array of paragraph_style objects. Any of the `paragraphStyles` properties is required."
+                    },
+                    "textType": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/TextType"
+                            },
+                            {
+                                "description": "The type of text's contents, point or paragraph"
+                            }
+                        ]
+                    }
+                },
+                "description": "Supported text layer attributes."
+            },
+            "TextStyleType": {
+                "title": "TextStyleType",
+                "enum": ["cross", "rotated", "withSream"],
+                "type": "string",
+                "description": "Base line direction for text style"
+            },
+            "TextType": {
+                "title": "TextType",
+                "enum": ["point", "paragraph"],
+                "type": "string",
+                "description": "The type of text's contents, point or paragraph"
+            },
+            "Thumbnails": {
+                "title": "Thumbnails",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ThumbnailType"
+                            },
+                            {
+                                "description": "desired image format"
+                            }
+                        ]
+                    }
+                },
+                "description": "Include presigned GET URLs to small preview thumbnails for any renderable layer"
+            },
+            "Trim": {
+                "title": "Trim",
+                "type": "object",
+                "required": ["basedOn"],
+                "properties": {
+                    "basedOn": {
+                        "$ref": "#/components/schemas/BasedOnType"
+                    }
+                }
+            },
+            "TrimToCanvasType": {
+                "title": "TrimToCanvasType",
+                "enum": [true, false],
+                "type": "boolean",
+                "description": "If the renditions needs to be of Canvas size. True, trims the renditions to Canvas size, while false makes the renditions to Layer Size"
+            },
+            "ImageFormatType": {
+                "title": "ImageFormatType",
+                "enum": [
+                    "image/vnd.adobe.photoshop",
+                    "image/jpeg",
+                    "image/png",
+                    "image/tiff",
+                    "vnd.adobe.photoshop"
+                ],
+                "type": "string",
+                "description": "desired image format\n\n* image/vnd.adobe.photoshop - Create a new PSD file\n* image/jpeg, image/png, image/tiff - Create a new jpeg, png or tiff rendition\n\nImage mode conversions:\n\nCertain image modes (rgb, cmyk, greyscale, etc) must be converted to another image mode before a rendition can be created:\n\n* Tiff Requested: Multichannel and Duotone will convert to RGB\n* PNG Requested: CMYK, HSL, HSB, Multichannel, Duotone, Lab and XYZ will convert to RGB"
+            },
+            "LayerType": {
+                "title": "LayerType",
+                "enum": [
+                    "layer",
+                    "textLayer",
+                    "adjustmentLayer",
+                    "smartObject",
+                    "fillLayer",
+                    "backgroundLayer",
+                    "layerSection"
+                ],
+                "type": "string",
+                "description": "the layer type\n\n* layer - a pixel layer\n* textLayer - a text layer\n* adjustmentLayer - an adjustment layer\n* layerSection - a grouping layer\n* smartObject - a smart object\n* backgroundLayer - a background layer\n* fillLayer - a fill layer"
+            },
+            "ThumbnailType": {
+                "title": "ThumbnailType",
+                "enum": ["image/jpeg", "image/png", "image/tiff"],
+                "type": "string",
+                "description": "desired image format"
+            },
+            "UnitType": {
+                "title": "UnitType",
+                "enum": ["Pixels", "Percent"],
+                "type": "string",
+                "description": "Unit for width and height"
+            },
+            "HorizontalAlignType": {
+                "title": "HorizontalAlignType",
+                "enum": ["left", "center", "right"],
+                "type": "string",
+                "description": "Indicates the relative horizontal position of the layer with respect to the canvas of the document"
+            },
+            "VerticalAlignType": {
+                "title": "VerticalAlignType",
+                "enum": ["top", "center", "bottom"],
+                "type": "string",
+                "description": "Indicates the relative vertical position of the layer with respect to the canvas of the document"
+            }
+        },
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            },
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "name": "x-api-key",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        {
+            "ApiKeyAuth": []
+        },
+        {
+            "BearerAuth": []
+        }
+    ]
+}

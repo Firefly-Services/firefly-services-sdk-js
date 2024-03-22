@@ -1,0 +1,36 @@
+{
+    "name": "@adobe/photoshop-apis",
+    "version": "0.1.0",
+    "author": "Adobe",
+    "license": "MIT",
+    "description": "Adobe Firefly Services library for consuming Photoshop Service APIs.",
+    "keywords": [
+        "adobe",
+        "firefly services",
+        "services",
+        "photoshop",
+        "apis",
+        "sdk"
+    ],
+    "repository": {
+        "url": "https://github.com/Firefly-Services/firefly-services-sdk-js"
+    },
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "clean": "rimraf dist",
+        "ibuild": "tsc",
+        "build": "rushx clean && rushx ibuild",
+        "build:release": "rushx build"
+    },
+    "dependencies": {
+        "@adobe/firefly-services-sdk-core": "workspace:*"
+    },
+    "devDependencies": {
+        "rimraf": "3.0.2",
+        "typescript": "5.2.2"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
