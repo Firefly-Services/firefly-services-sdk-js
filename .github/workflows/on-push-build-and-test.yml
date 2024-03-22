@@ -1,0 +1,31 @@
+name: build and test
+on:
+    pull_request:
+        branches: ["main"]
+        paths: ["packages/**/*"]
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 3
+
+            - name: git config user
+              uses: snow-actions/git-config-user@v1.0.0
+
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+
+            - name: rush update
+              run: node common/scripts/install-run-rush.js update
+
+            - name: rush build
+              run: node common/scripts/install-run-rush.js build --verbose
+
+            #- name: rush test
+              #run: node common/scripts/install-run-rush.js test --verbose
+
+            - name: rush change verify
+              run: node common/scripts/install-run-rush.js change --verify

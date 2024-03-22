@@ -1,0 +1,21 @@
+{
+  "name": "firefly-services-js-example",
+  "version": "1.0.0",
+  "description": "Firefly Services SDK javascript examples",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adobe",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Firefly-Services/firefly-services-sdk-js.git"
+  },
+  "dependencies": {
+    "@adobe/firefly-apis": "^1.0.0",
+    "@adobe/firefly-services-common-apis": "^1.0.0",
+    "@adobe/lightroom-apis": "^1.0.0",
+    "@adobe/photoshop-apis": "^1.0.0"
+  }
+}

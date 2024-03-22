@@ -1,0 +1,56 @@
+
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/rush.schema.json",
+  "rushVersion": "5.114.1",
+  "pnpmVersion": "7.33.5",
+  "nodeSupportedVersionRange": ">=14.15.0 <15.0.0 || >=16.13.0 <17.0.0 || >=18.15.0 <19.0.0",
+  "repository": {
+    "url": "https://github.com/Firefly-Services/firefly-services-sdk-js",
+    "defaultBranch": "main",
+    "defaultRemote": "origin"
+  },
+  "eventHooks": {
+    "preRushInstall": [],
+    "postRushInstall": [],
+    "preRushBuild": [],
+    "postRushBuild": [],
+    "preRushx": [],
+    "postRushx": []
+  },
+  "projectFolderMaxDepth": 3,
+  "projects": [
+    {
+      "packageName":"@adobe/firefly-services-sdk-core",
+      "projectFolder": "packages/cc-apis/core",
+      "reviewCategory": "production",
+      "shouldPublish": true
+    },
+    {
+      "packageName":"@adobe/firefly-services-common-apis",
+      "projectFolder": "packages/cc-apis/common",
+      "reviewCategory": "production",
+      "shouldPublish": true
+    },
+    {
+      "packageName": "@adobe/firefly-apis",
+      "projectFolder": "packages/firefly",
+      "reviewCategory": "production",
+      "tags": [ "firefly-sdk", "firefly", "enterprise" ],
+      "shouldPublish": true
+    },
+    {
+      "packageName": "@adobe/photoshop-apis",
+      "projectFolder": "packages/photoshop",
+      "reviewCategory": "production",
+      "tags": [ "photoshop-sdk", "photoshop", "enterprise" ],
+      "shouldPublish": true
+    },
+    {
+      "packageName": "@adobe/lightroom-apis",
+      "projectFolder": "packages/lightroom",
+      "reviewCategory": "production",
+      "tags": [ "lightroom-sdk", "lightroom", "enterprise" ],
+      "shouldPublish": true
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+name: publish to npmjs
+on:
+    push:
+        branches: ["main"]
+        paths: ["packages/**/*"]
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 3
+
+            - name: git config user
+              uses: snow-actions/git-config-user@v1.0.0
+
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+
+            - name: rush update
+              run: node common/scripts/install-run-rush.js update
+
+            - name: rush build
+              run: node common/scripts/install-run-rush.js build --verbose
+
+            #- name: rush test
+              #run: node common/scripts/install-run-rush.js test --verbose
+
+            - name: rush change verify
+              run: node common/scripts/install-run-rush.js change --verify
+
+            - name: rush publish
+              run: node common/scripts/install-run-rush.js publish --publish --add-commit-details --include-all --set-access-level public
+              env:
+                  NPM_AUTH_TOKEN: ${{ secrets.ADOBE_BOT_NPM_TOKEN }}
+            - name: Check for modified files
+              id: git-check
+              run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
+            - name: Push changes
+              if: steps.git-check.outputs.modified == 'true'
+              run: |
+                git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+                git status
+                git add .
+                git status
+                git commit -am "Automated ChangeLog update post publish to npmjs."
+                git push

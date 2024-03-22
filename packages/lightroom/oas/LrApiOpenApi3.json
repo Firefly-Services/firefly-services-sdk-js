@@ -1,0 +1,1201 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Adobe Lightroom and Imaging APIs",
+        "description": "Your interface to Adobe Lightroom and Imaging APIs",
+        "contact": {
+            "name": "Adobe Lightroom API Support",
+            "url": "https://developer.adobe.com/photoshop/photoshop-api-docs/api/#tag/Lightroom",
+            "email": "mantis@adobe.com"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://image.adobe.io",
+            "description": "Adobe Lightroom Production",
+            "variables": {}
+        },
+        {
+            "url": "https://image-stage.adobe.io",
+            "description": "Adobe Lightroom Stage",
+            "variables": {}
+        }
+    ],
+    "tags": [
+        {
+            "name": "Lightroom",
+            "description": "Adobe Lightroom and Imaging APIs"
+        }
+    ],
+    "paths": {
+        "/lrService/status/{jobId}": {
+            "get": {
+                "tags": ["Lightroom"],
+                "summary": "Get Status API",
+                "description": "Get job status of a Lightroom job",
+                "operationId": "lrJobStatus",
+                "parameters": [
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "description": "The job to get status for",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Job status",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LrJobApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/lrService/autoStraighten": {
+            "post": {
+                "tags": ["Lightroom"],
+                "summary": "Auto Straighten API",
+                "description": "Auto Straighten an image. Applies the Auto Upright transformation on an image ",
+                "operationId": "autoStraightenImageAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body for auto straighten api",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AutoStraightenImageRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/lrService/autoTone": {
+            "post": {
+                "tags": ["Lightroom"],
+                "summary": "Auto Tone API",
+                "description": "Automatically correct exposure, contrast, sharpness, saturation on an image ",
+                "operationId": "applyAutoToneAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body for applyAutoTone api",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplyAutoToneRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/lrService/edit": {
+            "post": {
+                "tags": ["Lightroom"],
+                "summary": "Apply Lightroom Edits API",
+                "description": "Apply one or more Lightroom edits ( exposure, contrast, sharpness, saturation ) to an image. ",
+                "operationId": "applyEditsAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body for edit api",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplyEditsRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/lrService/presets": {
+            "post": {
+                "tags": ["Lightroom"],
+                "summary": "Apply Lightroom Presets API",
+                "description": "Apply one or more XMP Lightroom presets to the given image, by using the given preset XMP file(s).",
+                "operationId": "applyPresetAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body for presets api",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplyPresetRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/lrService/xmp": {
+            "post": {
+                "tags": ["Lightroom"],
+                "summary": "Add XMP to Image API",
+                "description": "Apply XMP based Lightroom preset to an image. XMP content is passed inline to the api.",
+                "operationId": "applyPresetFromXmpContentAsync",
+                "parameters": [
+                    {
+                        "name": "x-gw-ims-org-id",
+                        "in": "header",
+                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body for xmp api",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplyPresetFromXmpContentRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "success",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatusLinkResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "InputValidationError",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InputValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "402": {
+                        "description": "Trial Limit Exceeded Error",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrialLimitExceededError"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorized",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested resource was not found",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Unable to upload asset",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    },
+                    "410": {
+                        "description": "Asset Link Invalid",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "JobError": {
+                "title": "JobError",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "description": "error type"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "error code"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "error description"
+                    },
+                    "details": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ErrorDetails"
+                        },
+                        "description": "Details of the error returned"
+                    }
+                },
+                "description": "any errors reported requested output"
+            },
+            "InputValidationError": {
+                "title": "InputValidationError",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "description": "error type"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "error code"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "error description"
+                    },
+                    "details": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InputValidationErrorDetails"
+                        },
+                        "description": "Details of the error returned"
+                    }
+                },
+                "description": "any errors reported requested output"
+            },
+            "TrialLimitExceededError": {
+                "title": "TrialLimitExceededError",
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "description": "error type"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "error code"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "error description"
+                    },
+                    "details": {
+                        "type": "string",
+                        "description": "Details of the error returned",
+                        "default": "You have exceeded the limit for the free trial. To subscribe and get more API calls, check out our pricing page at https://developer.adobe.com/photoshop/api/pricing/"
+                    }
+                },
+                "description": "any errors reported requested output"
+            },
+            "InputValidationErrorDetails": {
+                "title": "InputValidationErrorDetails",
+                "type": "object",
+                "properties": {
+                    "allowedValues": {
+                        "type": "string",
+                        "description": "Name of the input parameter",
+                        "default": "adobe, external, dropbox, azure"
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "Reason for the error"
+                    }
+                },
+                "description": "Details of the input validation error returned"
+            },
+            "StorageDetails": {
+                "title": "StorageDetails",
+                "type": "object",
+                "required": ["href", "storage"],
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "description": "Presigned GET URL"
+                    },
+                    "storage": {
+                        "$ref": "#/components/schemas/StorageType"
+                    }
+                },
+                "description": "File on Adobe's cloud or an external service (like AWS S3, Azure, Dropbox)"
+            },
+            "JobStatusLink": {
+                "title": "Job Status Link",
+                "type": "object",
+                "properties": {
+                    "self": {
+                        "$ref": "#/components/schemas/SelfLink"
+                    }
+                }
+            },
+            "JobStatusLinkResponse": {
+                "title": "JobStatusLinkResponse",
+                "type": "object",
+                "properties": {
+                    "_links": {
+                        "$ref": "#/components/schemas/JobStatusLink"
+                    }
+                }
+            },
+            "LrOutputDetails": {
+                "title": "LrOutputDetails",
+                "type": "object",
+                "required": ["href", "storage", "type"],
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "description": "Presigned POST URL to the output file"
+                    },
+                    "storage": {
+                        "$ref": "#/components/schemas/StorageType"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/ImageFormatType"
+                    },
+                    "overwrite": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "If the output file already exists should it be overwritten.overwrite flag is used only when storage = 'adobe'"
+                    },
+                    "quality": {
+                        "maximum": 12,
+                        "minimum": 1,
+                        "type": "integer",
+                        "default": 12,
+                        "description": "Quality of the JPEG outputs (will be ignored for other output types). Ranges from 0 to 12, with 12 as the highest quality."
+                    }
+                }
+            },
+            "ImageFormatType": {
+                "title": "ImageFormatType",
+                "enum": ["image/jpeg", "image/png", "image/x-adobe-dng", "application/rdf+xml"],
+                "type": "string",
+                "description": "Desired output image format"
+            },
+            "LrJobApiResponse": {
+                "title": "Lightroom Job Status Response",
+                "type": "object",
+                "properties": {
+                    "jobId": {
+                        "type": "string",
+                        "description": "the job's id requested (tbd. different case from Sensei?)"
+                    },
+                    "created": {
+                        "type": "string",
+                        "description": "Created timestamp of the job (YYYY-DD-MMThh:mm:ss.mmmmmZ) (epoch?)"
+                    },
+                    "modified": {
+                        "type": "string",
+                        "description": "Modified timestamp of the job (YYYY-DD-MMThh:mm:ss.mmmmmZ) (epoch?)"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/JobOutputDetails"
+                        },
+                        "description": "output parameters for the job"
+                    },
+                    "_links": {
+                        "$ref": "#/components/schemas/JobStatusLink"
+                    }
+                }
+            },
+            "AutoStraightenImageRequest": {
+                "title": "AutoStraightenImageRequest",
+                "type": "object",
+                "required": ["inputs", "outputs"],
+                "properties": {
+                    "inputs": {
+                        "$ref": "#/components/schemas/StorageDetails"
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/AutoStraightOptions"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LrOutputDetails"
+                        },
+                        "description": "Only a single output is supported currently"
+                    }
+                }
+            },
+            "ApplyAutoToneRequest": {
+                "title": "ApplyAutoToneRequest",
+                "type": "object",
+                "required": ["inputs", "outputs"],
+                "properties": {
+                    "inputs": {
+                        "$ref": "#/components/schemas/StorageDetails"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LrOutputDetails"
+                        },
+                        "description": "Only a single output is supported currently"
+                    }
+                }
+            },
+            "ApplyEditsRequest": {
+                "title": "ApplyEditsRequest",
+                "type": "object",
+                "required": ["inputs", "options", "outputs"],
+                "properties": {
+                    "inputs": {
+                        "type": "object",
+                        "description": "A hash describing an input image to edit. The input object will be one of 'external', 'adobe', 'azure' or 'dropbox'",
+                        "required": ["source"],
+                        "properties": {
+                            "source": {
+                                "$ref": "#/components/schemas/StorageDetails"
+                            }
+                        }
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/EditOptions"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LrOutputDetails"
+                        },
+                        "description": "Edit photo output paramaters"
+                    }
+                }
+            },
+            "ApplyPresetRequest": {
+                "title": "ApplyPresetRequest",
+                "type": "object",
+                "required": ["inputs", "outputs"],
+                "properties": {
+                    "inputs": {
+                        "$ref": "#/components/schemas/ApplyPresetInput"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LrOutputDetails"
+                        },
+                        "description": "Apply preset output paramaters"
+                    }
+                }
+            },
+            "ApplyPresetFromXmpContentRequest": {
+                "title": "ApplyPresetFromXmpContentRequest",
+                "type": "object",
+                "required": ["inputs", "options", "outputs"],
+                "properties": {
+                    "inputs": {
+                        "$ref": "#/components/schemas/ApplyPresetXmpInput"
+                    },
+                    "options": {
+                        "$ref": "#/components/schemas/ApplyPresetXmpOptions"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LrOutputDetails"
+                        },
+                        "description": "Apply preset xmp output paramaters"
+                    }
+                }
+            },
+            "ApplyPresetXmpInput": {
+                "title": "ApplyPresetXmpInput",
+                "type": "object",
+                "required": ["source"],
+                "properties": {
+                    "source": {
+                        "$ref": "#/components/schemas/StorageDetails"
+                    }
+                }
+            },
+            "ErrorDetails": {
+                "title": "ErrorDetails",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "param name"
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "error"
+                    }
+                },
+                "description": "Details of the error returned"
+            },
+            "ApplyPresetInput": {
+                "title": "ApplyPresetInput",
+                "type": "object",
+                "required": ["source", "presets"],
+                "properties": {
+                    "source": {
+                        "$ref": "#/components/schemas/StorageDetails"
+                    },
+                    "presets": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StorageDetails"
+                        },
+                        "description": "An array describing the list of presets to apply. The preset objects will either be one of 'external', 'adobe', 'azure' or 'dropbox'"
+                    }
+                }
+            },
+            "Links": {
+                "title": "Links",
+                "type": "object",
+                "properties": {
+                    "self": {
+                        "$ref": "#/components/schemas/StorageDetails"
+                    }
+                }
+            },
+            "AutoStraightOptions": {
+                "title": "AutoStraightOptions",
+                "required": ["uprightMode"],
+                "type": "object",
+                "properties": {
+                    "uprightMode": {
+                        "$ref": "#/components/schemas/UprightMode"
+                    },
+                    "constrainCrop": {
+                        "type": "boolean",
+                        "description": "If the straightened image should be constrain cropped, to remove all blank edges around an image.",
+                        "default": true
+                    }
+                }
+            },
+            "EditOptions": {
+                "title": "EditOptions",
+                "type": "object",
+                "properties": {
+                    "Contrast": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "Saturation": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "VignetteAmount": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "Vibrance": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "Highlights": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "Shadows": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "Whites": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "Blacks": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "Clarity": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "Dehaze": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "Texture": {
+                        "maximum": 100.0,
+                        "minimum": -100.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "Sharpness": {
+                        "maximum": 150.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "ColorNoiseReduction": {
+                        "maximum": 100.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "NoiseReduction": {
+                        "maximum": 100.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "SharpenDetail": {
+                        "maximum": 100.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "SharpenEdgeMasking": {
+                        "maximum": 10.0,
+                        "minimum": 0.0,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "Exposure": {
+                        "maximum": 5.0,
+                        "minimum": -5.0,
+                        "type": "number"
+                    },
+                    "SharpenRadius": {
+                        "maximum": 3.0,
+                        "minimum": 0.5,
+                        "type": "number"
+                    },
+                    "WhiteBalance": {
+                        "$ref": "#/components/schemas/WhiteBalance"
+                    }
+                }
+            },
+            "ApplyPresetXmpOptions": {
+                "title": "ApplyPresetXmpOptions",
+                "description": "Options for applying a preset xmp to an image",
+                "type": "object",
+                "required": ["xmp"],
+                "properties": {
+                    "xmp": {
+                        "type": "string",
+                        "description": "The XMP to apply"
+                    },
+                    "orientation": {
+                        "maximum": 8.0,
+                        "minimum": 1.0,
+                        "type": "number",
+                        "description": "The combination of flip and/or rotate to apply"
+                    }
+                }
+            },
+            "JobOutputDetails": {
+                "title": "JobOutputDetails",
+                "type": "object",
+                "properties": {
+                    "input": {
+                        "type": "string",
+                        "description": "the original input file path"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/JobStatus"
+                    },
+                    "_links": {
+                        "$ref": "#/components/schemas/Links"
+                    },
+                    "details": {
+                        "type": "string",
+                        "description": "Description of the exact error that is reported by the requested job. Will appear in the response only if there is an error."
+                    }
+                }
+            },
+            "SelfLink": {
+                "title": "SelfLink",
+                "type": "object",
+                "description": "Self link for the job status",
+                "properties": {
+                    "href": {
+                        "type": "string",
+                        "description": "Job Status Url"
+                    }
+                }
+            },
+            "JobStatus": {
+                "title": "JobStatus",
+                "enum": ["pending", "running", "succeeded", "failed"],
+                "type": "string",
+                "description": "Status of the job"
+            },
+            "StorageType": {
+                "title": "StorageType",
+                "enum": ["external", "azure", "dropbox"],
+                "type": "string",
+                "description": "Storage location"
+            },
+            "UprightMode": {
+                "title": "UprightMode",
+                "enum": ["auto", "full", "level", "vertical"],
+                "type": "string",
+                "description": "The upright mode to use. If you have the options block, then this is a required field. If options block is not specified, then the appropriate upright mode will automatically be selected."
+            },
+            "WhiteBalance": {
+                "title": "WhiteBalance",
+                "description": "White balance settings",
+                "enum": [
+                    "As Shot",
+                    "Auto",
+                    "Cloudy",
+                    "Custom",
+                    "Daylight",
+                    "Flash",
+                    "Fluorescent",
+                    "Shade",
+                    "Tungsten"
+                ],
+                "type": "string"
+            }
+        },
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            },
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "name": "x-api-key",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        {
+            "ApiKeyAuth": []
+        },
+        {
+            "BearerAuth": []
+        }
+    ]
+}

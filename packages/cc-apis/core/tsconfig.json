@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "noImplicitAny": true,
+        "target": "ES6",
+        "module": "commonjs",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "lib": ["es2018", "DOM"],
+        "outDir": "dist",
+        "strict": true
+    }
+}
