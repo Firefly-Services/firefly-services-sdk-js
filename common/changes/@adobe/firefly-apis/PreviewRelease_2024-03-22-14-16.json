@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@adobe/firefly-apis",
+      "comment": "Initial Preview Release",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@adobe/firefly-apis"
+}
