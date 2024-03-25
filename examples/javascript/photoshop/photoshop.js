@@ -30,7 +30,7 @@ async function generateAndRemoveBackground(prompt) {
         const authProvider = new ServerToServerTokenProvider({
             clientId: clientId, // Provide your client id
             clientSecret: "<clientSecret>", // Provide your client secret
-            scopes:  "<scopes>" // Provide the scopes e.g. "openid,AdobeID,read_organizations,firefly_api,ff_apis"
+            scopes:  "<scopes>" // Provide the scopes Example: "openid,AdobeID,read_organizations,firefly_api,ff_apis"
         });
 
         const config = {

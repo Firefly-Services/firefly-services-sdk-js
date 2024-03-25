@@ -7,4 +7,4 @@
 
 This package contains the common functionalities and utilities which can be used accross the client packages.
 
-For more information about developing Firefly Services, check out the [documentation](https://developer.adobe.com/firefly-services/).
+For more information about developing Firefly Services, check out the [documentation](https://developer.adobe.com/firefly-services/docs/guides/).

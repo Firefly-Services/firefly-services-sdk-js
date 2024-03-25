@@ -7,4 +7,4 @@
 
 This package contains the core models, types and utilities for Product Clients.
 
-For more information about developing Firefly Services, check out the [documentation](https://developer.adobe.com/firefly-services/).
+For more information about developing Firefly Services, check out the [documentation](https://developer.adobe.com/firefly-services/docs/guides/).
