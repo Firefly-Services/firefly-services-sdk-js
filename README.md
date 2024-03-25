@@ -8,7 +8,7 @@ The SDK enhances developer productivity by facilitating seamless interaction wit
 
 1. Unified API Access: The SDK follow consistent design pattern across all Product APIs, making it easier for developers to understand and use them without having to learn the nuances of each API service.
 
-2. TypeScript Support: Developed in TypeScript, the JS SDK enables developers to leverage TypeScript's capabilities, such as static type-checking and code autocomplete.
+2. ypeScript Support: Developed in TypeScript, the JS SDK enables you to harness TypeScript's capabilities, including static type-checking and code autocomplete, for a more robust development experience.
 
 3. Common Utility Package: This API package offers a range of utility APIs, including authentication APIs, to facilitate interaction with various product services.
 
