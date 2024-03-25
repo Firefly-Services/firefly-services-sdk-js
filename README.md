@@ -1,6 +1,18 @@
 # Firefly Services SDK for Javascript
 
-This repository hosts the Firefly Services SDK, offering developers a unified framework for accessing Firefly service APIs.The Firefly Services SDK for JavaScript is designed for Node.js and web environments. It features libraries for various Firefly services, including product libraries for accessing specific product services like **Firefly**, **Lightroom**, and **Photoshop**, and a **common** **library** for shared functionalities. The SDK supports swift integration with APIs, improves developer productivity by automating tasks like request handling and response processing, and offers bundled types for effective use in TypeScript and JavaScript.
+This repository hosts the Firefly Services SDK, offering developers a unified framework for accessing Firefly service APIs. The Firefly Services SDK for JavaScript is designed for Node.js and web environments.
+It features libraries for various Firefly services, including product libraries for accessing  product specific services like Firefly, Photoshop, Lightroom, and also a common library for tasks like Authentication.
+The SDK enhances developer productivity by facilitating seamless interaction with the product API services.
+
+### Key features
+
+1. Unified API Access: The SDK follow consistent design pattern across all Product APIs, making it easier for developers to understand and use them without having to learn the nuances of each API service.
+
+2. TypeScript Support: Developed in TypeScript, the JS SDK enables you to harness TypeScript's capabilities, including static type-checking and code autocomplete, for a more robust development experience.
+
+3. Common Utility Package: This API package offers a range of utility APIs, including authentication APIs, to facilitate interaction with various product services.
+
+4. Comprehensive Documentation:  SDK is accompanied by guides, API references documentation and code examples to help you get started quickly.
 
 <!-- toc -->
 

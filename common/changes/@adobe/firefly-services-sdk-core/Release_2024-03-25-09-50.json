@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@adobe/firefly-services-sdk-core",
+      "comment": "Initial Version of Firefly Services SDK",
+      "type": "major"
+    }
+  ],
+  "packageName": "@adobe/firefly-services-sdk-core"
+}
