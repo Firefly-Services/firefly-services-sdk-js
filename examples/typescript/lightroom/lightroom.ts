@@ -41,7 +41,6 @@ async function generateAndAutoToneImage(prompt: string) {
         const lightroom: LightroomClient = new LightroomClient(config);
         const firefly: FireflyClient = new FireflyClient(config);
 
-        // Replace `<prompt>` with the image description
         const fireflyResponse: CoreTypes.ApiResponse<GenerateImagesResponse> = await firefly.generateImages({prompt});
         if (!fireflyResponse.result.outputs) {
             throw new Error("Failed to generate the image" + fireflyResponse);

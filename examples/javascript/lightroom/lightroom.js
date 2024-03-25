@@ -17,7 +17,7 @@
 **************************************************************************/
 
 const { FireflyClient } = require("@adobe/firefly-apis");
-const { LightroomClient, StorageType } = require("@adobe/lightroom-apis");
+const { LightroomClient, StorageType, ImageFormatType } = require("@adobe/lightroom-apis");
 const { ServerToServerTokenProvider } = require("@adobe/firefly-services-common-apis");
 
 
@@ -56,7 +56,7 @@ async function generateAndAutoToneImage(prompt) {
         const lrOutput = {
             href: "<lrOutputHref>", // Generate Pre-signed PUT URL to save the generated output file. 
             storage: "<lrOutputStorage>", // example: StorageType.DROPBOX or StorageType.EXTERNAL or StorageType.AZURE
-            type: "<imageType>"// example -> ImageFormatType.IMAGE_JPEG, ImageFormatType.IMAGE_PNG
+            type: ImageFormatType.IMAGE_PNG// ImageFormatType.IMAGE_JPEG
         };
 
         const lrRequestBody = {

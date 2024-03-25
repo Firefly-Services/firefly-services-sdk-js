@@ -39,7 +39,6 @@ async function generateImages(prompt: string) : Promise<void> {
 
         const firefly: FireflyClient = new FireflyClient(config);
 
-        // Replace `<prompt>` with the image description
         const fireflyResponse: CoreTypes.ApiResponse<GenerateImagesResponse> = await firefly.generateImages({prompt});
         console.log("Successfully generated the Firefly Image");
         for (let i = 0; i < (fireflyResponse.result.outputs?.length ?? 0); i++) {
