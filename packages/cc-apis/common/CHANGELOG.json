@@ -1,0 +1,30 @@
+{
+  "name": "@adobe/firefly-services-common-apis",
+  "entries": [
+    {
+      "version": "1.0.0",
+      "tag": "@adobe/firefly-services-common-apis_v1.0.0",
+      "date": "Mon, 25 Mar 2024 09:06:44 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Initial Preview Release"
+          },
+          {
+            "comment": "Preview update for documentation correction"
+          }
+        ],
+        "major": [
+          {
+            "comment": "Initial Version of Firefly Services SDK"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@adobe/firefly-services-sdk-core\" to `1.0.0`"
+          }
+        ]
+      }
+    }
+  ]
+}
