@@ -7,4 +7,6 @@
 
 This package contains the common functionalities and utilities which can be used accross the client packages.
 
+- [Common package API Reference](https://github.com/Firefly-Services/firefly-services-sdk-js/blob/main/docs/cc-apis/common/index.md)
+
 For more information about developing Firefly Services, check out the [documentation](https://developer.adobe.com/firefly-services/docs/guides/).
