@@ -1,6 +1,6 @@
 {
     "name": "@adobe/firefly-services-common-apis",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "author": "Adobe",
     "license": "Copyright (c) 2024 Adobe Inc",
     "description": "Adobe Firefly Services SDK common client library.",
