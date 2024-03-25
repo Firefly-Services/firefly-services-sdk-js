@@ -6,7 +6,7 @@ The SDK enhances developer productivity by facilitating seamless interaction wit
 
 ### Key features
 
-1. Unified API Access: The SDK adheres to a consistent design pattern, enhancing developer comprehension and interaction with diverse product services.
+1. Unified API Access: The SDK follow consistent design pattern across all Product APIs, making it easier for developers to understand and use them without having to learn the nuances of each API service.
 
 2. TypeScript Support: Developed in TypeScript, the JS SDK enables developers to leverage TypeScript's capabilities, such as static type-checking and code autocomplete.
 
