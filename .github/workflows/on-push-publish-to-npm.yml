@@ -31,7 +31,7 @@ jobs:
               run: node common/scripts/install-run-rush.js change --verify
 
             - name: rush publish
-              run: node common/scripts/install-run-rush.js publish --publish --add-commit-details --include-all --set-access-level public --apply ---target-branch main
+              run: node common/scripts/install-run-rush.js publish --publish --add-commit-details --include-all --set-access-level public --apply --target-branch main
               env:
                   NPM_AUTH_TOKEN: ${{ secrets.ADOBE_BOT_NPM_TOKEN }}
             - name: Check for modified files
