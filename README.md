@@ -75,7 +75,7 @@ The example below demonstrates two use cases:
 1. Generating images from Firefly APIs and removing the backgrounds using Photoshop APIs.
 2. Generating images from Firefly APIs and applying auto-tone using Lightroom APIs.
 
-<b>Note</b>: Photoshop and Lightroom services in the sample below require Pre-Signed URLs. Guide to generate [Pre-Signed URL](https://developer.adobe.com/photoshop/photoshop-api-docs/general-workflow/).
+<b>Note</b>: Photoshop and Lightroom services in the sample below require Pre-Signed URLs. Guide to generate [Pre-Signed URL](https://developer.adobe.com/firefly-services/docs/photoshop/general-workflow/).
 
 
 Create a new file named `index.js` in your project with the below content.
