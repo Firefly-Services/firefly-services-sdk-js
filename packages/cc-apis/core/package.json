@@ -1,8 +1,8 @@
 {
     "name": "@adobe/firefly-services-sdk-core",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "author": "Adobe",
-    "license": "MIT",
+    "license": "Copyright (c) 2024 Adobe Inc",
     "description": "Adobe Firefly Services core library.",
     "keywords": [
         "adobe",
@@ -14,6 +14,7 @@
     "repository": {
         "url": "https://github.com/Firefly-Services/firefly-services-sdk-js"
     },
+    "homepage": "https://github.com/Firefly-Services/firefly-services-sdk-js/blob/main/packages/cc-apis/core/README.md",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "exports": {

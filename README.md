@@ -16,7 +16,7 @@ This repository hosts the Firefly Services SDK, offering developers a unified fr
 
 ## Getting Started
 
-Be sure to check out the [documentation for Firefly Services](https://developer.adobe.com/firefly-services/). To quickly get started on Firefly Services , follow these steps, or watch [this video](https://lint-to-vide/TODO).
+Be sure to check out the [documentation for Firefly Services]( https://developer.adobe.com/firefly-services/docs/guides/). To quickly get started on Firefly Services , follow these steps, or watch [this video](https://youtu.be/wYSFOAN0Rqg).
 
 ### Prerequisites
 
@@ -25,7 +25,7 @@ You'll need:
 -   Node 18 or better
 -   NPM 9 or better
 -   Any Text Editor ( eg: VSCode, SublimeText )
--   To get started, you'll need your credentials(i.e. Client ID, Client Secret) from the [Developer Console](https://developer.adobe.com/firefly-services/docs/guides/get-started/) and the scopes to access to Firefly Services.
+-   To get started, you'll need your credentials(i.e. Client ID, Client Secret) from the [Developer Console](https://developer-stage.adobe.com/firefly-services/docs/guides/get-started/#gaining-access-to-the-adobe-developer-console/) and the scopes to access to Firefly Services.
 
 ## Adding Firefly Services SDK packages into the project
 The SDK can be included in your existing NodeJS project or a new project. Following are the steps for using the SDK in a new NodeJS project.
@@ -69,9 +69,9 @@ Below example demonstrates two use cases
 1. Generating images from Firefly APIs and remove background using Photoshop APIs.
 2. Generating images from Firefly APIs and apply auto tone using Lightroom APIs.
 
-Create a new file named `index.js` with the below content
+Create a new file named `index.js` with the below content.
 
-<b>Note</b>: Photoshop and Lightroom services used in the below sample requires Pre-Signed URLs. Guide to generate [Pre-Signed URL](https://developer.adobe.com/photoshop/photoshop-api-docs/general-workflow/)
+<b>Note</b>: Photoshop and Lightroom services used in the below sample requires Pre-Signed URLs. Guide to generate [Pre-Signed URL](https://developer.adobe.com/photoshop/photoshop-api-docs/general-workflow/).
 
 ```js
 const { PhotoshopClient } = require("@adobe/photoshop-apis");
@@ -90,7 +90,7 @@ function getAuthProvider(clientId, clientSecret, scopes) {
     const serverToServerAuthDetails = {
         clientId,
         clientSecret,
-        scopes // e.g. "openid,AdobeID,read_organizations,firefly_api,ff_apis"
+        scopes ///configple:  "openid,AdobeID,read_organizations,firefly_api,ff_apis"
     };
     const serverToServerAuthOptions = {
         autoRefresh: true
@@ -178,9 +178,9 @@ generateAndAutoToneImage();
 ```
 
 ## Build & Run
-- Run the command `node index.js`
-- Go to your respective output storage location and notice that the original image has been edited by removing it's background from Photoshop
-- Lightroom added auto tone to the original image
+- Run the command `node index.js`.
+- Go to your respective output storage location and notice that the original image has been edited by removing it's background from Photoshop.
+- Lightroom added auto tone to the original image.
 
 ## Samples
 [Sample Projects](./examples/) for reference.
