@@ -25,7 +25,7 @@ You'll need:
 -   Node 18 or better
 -   NPM 9 or better
 -   Any Text Editor ( eg: VSCode, SublimeText )
--   To get started, you'll need your credentials(i.e. Client ID, Client Secret) from the [Developer Console](https://developer-stage.adobe.com/firefly-services/docs/guides/get-started/#gaining-access-to-the-adobe-developer-console/) and the scopes to access to Firefly Services.
+-   To get started, you'll need your credentials(i.e. Client ID, Client Secret) from the [Developer Console](https://developer.adobe.com/firefly-services/docs/guides/get-started/#gaining-access-to-the-adobe-developer-console/) and the scopes to access to Firefly Services.
 
 ## Adding Firefly Services SDK packages into the project
 The SDK can be included in your existing NodeJS project or a new project. Following are the steps for using the SDK in a new NodeJS project.
