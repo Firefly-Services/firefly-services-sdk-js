@@ -17,7 +17,7 @@
 **************************************************************************/
 
 const { FireflyClient } = require("@adobe/firefly-apis");
-const { LightroomClient } = require("@adobe/lightroom-apis");
+const { LightroomClient, StorageType } = require("@adobe/lightroom-apis");
 const { ServerToServerTokenProvider } = require("@adobe/firefly-services-common-apis");
 
 
@@ -42,7 +42,7 @@ async function generateAndAutoToneImage(prompt) {
         const firefly = new FireflyClient(config);
 
         // Replace `<prompt>` with the image description
-        const fireflyResponse = await firefly.generateImages({prompt}); // Provide a prompt value
+        const fireflyResponse = await firefly.generateImages({prompt});
         const firstImageUrl = fireflyResponse.result.outputs[0].image.presignedUrl;
         
         console.log("Successfully generated the Firefly Image");
@@ -50,13 +50,13 @@ async function generateAndAutoToneImage(prompt) {
         // Use Lightroom applyAutoTone api to perform operation on the generated image.
         const lrInput = {
             href: firstImageUrl,
-            storage: "external"
+            storage: StorageType.EXTERNAL
         };
 
         const lrOutput = {
             href: "<lrOutputHref>", // Generate Pre-signed PUT URL to save the generated output file. 
-            storage: "<lrOutputStorage>", // example -> "dropbox" or "external" or "azure"
-            type: "<imageType>"// example -> "image/jpeg" or "image/png"
+            storage: "<lrOutputStorage>", // example: StorageType.DROPBOX or StorageType.EXTERNAL or StorageType.AZURE
+            type: "<imageType>"// example -> ImageFormatType.IMAGE_JPEG, ImageFormatType.IMAGE_PNG
         };
 
         const lrRequestBody = {
@@ -65,10 +65,10 @@ async function generateAndAutoToneImage(prompt) {
         }
 
         const applyAutoTone = await lightroom.applyAutoTone(lrRequestBody);// Apply Auto Tone
-        console.log("Successfully applied auto tone to the Image");
+        console.log("Apply auto tone to the image.\nStatus: ", applyAutoTone.result.outputs[0].status);
     } catch (error) {
         console.error("Error occurred while generating and auto toning the image: ", error);
     }
 }
 
-generateAndAutoToneImage("A brown puppy playing in the garden with a ball in the rain."); // update prompt to try different images
+generateAndAutoToneImage("A brown puppy playing in the garden with a ball in the rain."); //update prompt to try different images

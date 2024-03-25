@@ -16,34 +16,39 @@
  
 **************************************************************************/
 
-const { FireflyClient } = require("@adobe/firefly-apis");
-const { ServerToServerTokenProvider } = require("@adobe/firefly-services-common-apis");
+import { FireflyClient, CoreTypes, GenerateImagesResponse } from "@adobe/firefly-apis";
+import { ServerToServerTokenProvider } from "@adobe/firefly-services-common-apis";
 
 
 /**
  * Function to generate an image and get pre-signed URL.
  */
-async function generateImages(prompt) {
+async function generateImages(prompt: string) : Promise<void> {
     try {
-        const clientId = "<clientId>"; // Provide your client id
-        const authProvider = new ServerToServerTokenProvider({
+        const clientId: string = "<clientId>"; // Provide your client id
+        const authProvider: CoreTypes.TokenProvider = new ServerToServerTokenProvider({
             clientId: clientId, // Provide your client id
             clientSecret: "<clientSecret>", // Provide your client secret
             scopes: "<scopes>" // Provide the scopes e.g. "openid,AdobeID,read_organizations,firefly_api,ff_apis"
         });
 
-        const config = {
+        const config: CoreTypes.ClientConfig= {
             tokenProvider: authProvider,
-            clientId: clientId, // Provide your client id
+            clientId: clientId
         };
 
-        const firefly = new FireflyClient(config);
+        const firefly: FireflyClient = new FireflyClient(config);
 
         // Replace `<prompt>` with the image description
-        const fireflyResponse = await firefly.generateImages({prompt}); // Provide a prompt value
+        const fireflyResponse: CoreTypes.ApiResponse<GenerateImagesResponse> = await firefly.generateImages({prompt});
         console.log("Successfully generated the Firefly Image");
-        for (let i = 0; i < fireflyResponse.result.outputs.length; i++) {
-            console.log(`Image ${i + 1} URL: ${fireflyResponse.result.outputs[i].image.presignedUrl}`);
+        for (let i = 0; i < (fireflyResponse.result.outputs?.length ?? 0); i++) {
+            const result: GenerateImagesResponse = fireflyResponse.result;
+            if (result.outputs === undefined) {
+                console.log(`Image ${i + 1} failed to generate.`);
+                continue;
+            }
+            console.log(`Image ${i + 1} URL: ${result.outputs[i]?.image?.presignedUrl}`);
         }
     } catch (error) {
         console.error("Error occurred while generating:", error);

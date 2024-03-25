@@ -1,0 +1,22 @@
+{
+  "name": "firefly-services-ts-example",
+  "version": "1.0.0",
+  "description": "Firefly services SDK typescript examples",
+  "dependencies": {
+    "@adobe/firefly-apis": "^1.0.0",
+    "@adobe/firefly-services-common-apis": "^1.0.0",
+    "@adobe/lightroom-apis": "^1.0.0",
+    "@adobe/photoshop-apis": "^1.0.0",
+    "typescript": "^5.4.3"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Firefly-Services/firefly-services-sdk-js.git"
+  },
+  "author": "ADOBE",
+  "license": "MIT",
+  "homepage": "https://github.com/Firefly-Services/firefly-services-sdk-js#readme"
+}
