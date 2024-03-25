@@ -7,7 +7,7 @@
 
 This repository is home to the Firefly Services SDK for JavaScript, designed for Node.js and web environments. It features libraries for various Firefly services, including product libraries for accessing specific product services like **Firefly**, **Lightroom**, and **Photoshop**, and a **common** **library** for shared functionalities. 
 
-**[@adobe/lightroom-apis](https://www.npmjs.com/package/@adobe/lightroom-apis)** specifically is the Lightroom package for accessing the Lightroom product services.
+**[@adobe/lightroom-apis](https://www.npmjs.com/package/@adobe/lightroom-apis)** specifically is the Lightroom package for accessing the [Lightroom product services](https://developer.adobe.com/firefly-services/docs/lightroom/).
 
 You can refer to [Firefly Services Homepage](https://github.com/Firefly-Services/firefly-services-sdk-js/blob/main/README.md) for getting started guides, details about adding these packages to your project and code samples.
 
