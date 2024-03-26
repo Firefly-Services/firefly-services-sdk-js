@@ -9,8 +9,8 @@
     "type": "git",
     "url": "git+https://github.com/Firefly-Services/firefly-services-sdk-js.git"
   },
-  "author": "ADOBE",
-  "license": "MIT",
+  "author": "Adobe",
+  "license": "Copyright (c) 2024 Adobe Inc",
   "homepage": "https://github.com/Firefly-Services/firefly-services-sdk-js#readme",
   "dependencies": {
     "@adobe/firefly-apis": "^1.0.0",
