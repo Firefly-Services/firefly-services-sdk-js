@@ -2,6 +2,18 @@
   "name": "@adobe/firefly-apis",
   "entries": [
     {
+      "version": "1.1.0",
+      "tag": "@adobe/firefly-apis_v1.1.0",
+      "date": "Fri, 19 Apr 2024 05:49:07 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Firefly Generate Image API now accepts url as source for referenceImage"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.0",
       "tag": "@adobe/firefly-apis_v1.0.0",
       "date": "Mon, 25 Mar 2024 09:06:44 GMT",
