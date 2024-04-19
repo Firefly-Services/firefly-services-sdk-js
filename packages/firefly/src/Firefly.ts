@@ -15,12 +15,11 @@
  * from Adobe.
 
  **************************************************************************/
-
 // cc-apis-core Imports
 import type { ClientConfig, ApiOptions, ApiResponse } from "@adobe/firefly-services-sdk-core";
 import { ServiceConfig, BaseServiceClient } from "@adobe/firefly-services-sdk-core/internal";
-
 // Firefly Model Imports
+import type { AcceptMimeTypes } from "./models/AcceptMimeTypes";
 import type { ExpandImageRequest } from "./models/ExpandImageRequest";
 import type { ExpandImageResponse } from "./models/ExpandImageResponse";
 import type { FillImageRequest } from "./models/FillImageRequest";
@@ -28,8 +27,6 @@ import type { FillImageResponse } from "./models/FillImageResponse";
 import type { GenerateImagesRequest } from "./models/GenerateImagesRequest";
 import type { GenerateImagesResponse } from "./models/GenerateImagesResponse";
 import type { UploadResponse } from "./models/UploadResponse";
-import { AcceptMimeTypes } from "./models/AcceptMimeTypes";
-
 /**
  * FireflyClient
  * Firefly API client to use the Firefly API services
@@ -38,17 +35,16 @@ export class FireflyClient extends BaseServiceClient {
     constructor(config: ClientConfig) {
         const internalConfig: ServiceConfig = {
             ...config,
-            baseUrl: "https://firefly-api.adobe.io/"
+            baseUrl: "https://firefly-api.adobe.io"
         };
         super(internalConfig);
     }
-
     /**
-     * Text to Image API
+     * Generate images API
      * Generate images based on a prompt with optional reference image to match style
-     * @param requestBody image generation request body
-     * @param options Additional options to send any aadditional data or cancel the request
-     * @returns GenerateImagesResponse Text-to-Image response
+     * @param requestBody image generation request body.
+     * @param options Additional options to send any additional data or cancel the request
+     * @returns GenerateImagesResponse Generate images response
      * @throws {ApiError}
      */
     public generateImages(
@@ -79,14 +75,15 @@ export class FireflyClient extends BaseServiceClient {
      * Upload any content, such as images, videos, or documents. This api provides an opaque ID for referencing the uploaded content in other firefly apis.
      * @param requestBody Blob created using the image data of types PNG/JPEG/WEBP image, ensure that type is set while creating the blob.
      * @param options Additional options to send any additional data or cancel the request
-     * @returns Upload response
+     * @returns UploadResponse Storage Response
      * @throws {ApiError}
      */
     public upload(requestBody: Blob, options?: ApiOptions): Promise<ApiResponse<UploadResponse>> {
-        if (!["image/jpeg", "image/png", "image/webp"].includes(requestBody.type)) {
+        const supportedMimeTypes: string[] = ["image/jpeg", "image/png", "image/webp"];
+        if (requestBody instanceof Blob && !supportedMimeTypes.includes(requestBody.type)) {
             return Promise.reject(
                 new Error(
-                    `Unsuported MIME type("${requestBody.type}") in blob for image upload MIME type supported are "image/jpeg", "image/png", "image/webp"`
+                    `Unsuported MIME type("${requestBody.type}") in blob for image upload MIME type supported are "image/jpeg", "image/png", "image/webp".`
                 )
             );
         }
@@ -109,21 +106,18 @@ export class FireflyClient extends BaseServiceClient {
     /**
      * Expand Image API
      * Expand an image to a new size/aspect ratio
-     * Note: This suppports only images with 3 Channels (RGB), not recommended to use PNGs.
-     * @param requestBody image expansion request body
-     * @param headers Headers to be sent with the request
-     * @param options options to send any addiional data or cancel the request etc.
+     * @param requestBody image expansion request body.
+     * @param additionalParams Additional parameters to send with the request
+     * @param additionalParams.xAcceptMimetype Output image format
+     * @param options Additional options to send any additional data or cancel the request
      * @returns ExpandImageResponse Expand Image Response
      * @throws {ApiError}
      */
     public expandImage(
         requestBody: ExpandImageRequest,
         additionalParams: {
-            /**
-             *  output image format
-             * */
-            xAcceptMimetype: AcceptMimeTypes;
-        } = { xAcceptMimetype: AcceptMimeTypes.IMAGE_JPEG },
+            xAcceptMimetype?: AcceptMimeTypes;
+        } = {},
         options?: ApiOptions
     ): Promise<ApiResponse<ExpandImageResponse>> {
         return this._httpRequest.request({
@@ -150,8 +144,8 @@ export class FireflyClient extends BaseServiceClient {
     /**
      * Fill Image API
      * Fill the masked area of an image with an optional prompt.
-     * @param {FillImageRequest} requestBody
-     * @param {ApiOptions} options Additional options to send any aadditional data or cancel the request
+     * @param requestBody image fill request body.
+     * @param options Additional options to send any additional data or cancel the request
      * @returns FillImageResponse Fill Image Response
      * @throws {ApiError}
      */

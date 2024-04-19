@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@adobe/firefly-apis",
+      "comment": "Firefly Generate Image API now accepts url as source for referenceImage",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@adobe/firefly-apis"
+}

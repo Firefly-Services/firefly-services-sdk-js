@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * Advanced settings that will be applied if the specified or detected contentClass is photo
  */

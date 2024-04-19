@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ImageFillMask } from "./ImageFillMask";
 import type { UploadedResource } from "./UploadedResource";
 export type FillImageRequest = {

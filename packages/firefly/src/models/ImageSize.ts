@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * Supported dimensions for the generated image.
  * | Dimensions | Description |

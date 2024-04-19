@@ -15,13 +15,12 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
- * Uploaded Image Details
+ * Uploaded Media Details
  */
 export type UploadedResource = {
     /**
-     * ID associated with the asset (generate this ID using the upload API). Pre-signed URLs will be supported in the future.
+     * ID associated with the asset (generate this ID using the upload API).
      */
     id: string;
 };

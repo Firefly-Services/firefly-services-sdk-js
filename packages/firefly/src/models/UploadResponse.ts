@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { UploadedResource } from "./UploadedResource";
 /**
  * Upload response
