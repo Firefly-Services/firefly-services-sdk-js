@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ImageSize } from "./ImageSize";
 import type { UploadedResource } from "./UploadedResource";
 export type ExpandImageRequest = {

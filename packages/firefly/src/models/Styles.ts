@@ -15,7 +15,7 @@
  * from Adobe.
 
  **************************************************************************/
-
+import type { ExternalResource } from "./ExternalResource";
 import type { UploadedResource } from "./UploadedResource";
 /**
  * Additional styles and reference image to be applied when generating variations.
@@ -28,7 +28,7 @@ export type Styles = {
     /**
      * Firefly will detect the style in the image and apply the same style in the generated image
      */
-    referenceImage?: UploadedResource;
+    referenceImage?: UploadedResource | ExternalResource;
     /**
      * Sets the intensity at which to apply the styles
      */

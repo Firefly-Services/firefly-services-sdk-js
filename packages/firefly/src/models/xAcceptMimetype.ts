@@ -15,15 +15,8 @@
  * from Adobe.
 
  **************************************************************************/
+import type { AcceptMimeTypes } from "./AcceptMimeTypes";
 /**
- * The content class guides the overall image theme and styles can be applied on top of each content type. If no content type is specified, it is auto-detected.
- * | Value  |  Description
- * |:---------- |:------
- * | photo      | Photorealistic style
- * | art    | Artistic style
- *
+ * Output image format
  */
-export enum ContentClass {
-    PHOTO = "photo",
-    ART = "art"
-}
+export type xAcceptMimetype = AcceptMimeTypes;

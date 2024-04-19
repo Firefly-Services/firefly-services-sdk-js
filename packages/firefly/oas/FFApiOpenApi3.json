@@ -7,25 +7,24 @@
     },
     "servers": [
         {
-            "url": "https://firefly-beta.adobe.io"
+            "url": "https://firefly-api.adobe.io"
         }
     ],
     "security": [
         {
+            "X-Api-Key": [],
             "AccessToken": []
-        },
-        {
-            "X-Api-Key": []
         }
     ],
     "paths": {
         "/v2/images/generate": {
             "post": {
                 "tags": ["public"],
-                "summary": "Text to Image API",
+                "summary": "Generate images API",
                 "description": "Generate images based on a prompt with optional reference image to match style ",
                 "operationId": "generateImages",
                 "requestBody": {
+                    "description": "image generation request body.",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -37,7 +36,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Text-to-Image response",
+                        "description": "Generate images response",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -200,15 +199,14 @@
                                 "type": "string",
                                 "format": "binary"
                             }
-                        },
-                        "required": true
+                        }
                     },
-                    "description": "The PNG/JPEG/WEBP image to be stored (binary data)",
+                    "description": "Blob created using the image data of types PNG/JPEG/WEBP image, ensure that type is set while creating the blob.",
                     "required": true
                 },
                 "responses": {
                     "200": {
-                        "description": "Storage Image Response",
+                        "description": "Storage Response",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -312,10 +310,11 @@
                 "operationId": "expandImage",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/x-accept-mimetype"
+                        "$ref": "#/components/parameters/xAcceptMimetype"
                     }
                 ],
                 "requestBody": {
+                    "description": "image expansion request body.",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -458,6 +457,7 @@
                 "description": "Fill the masked area of an image with an optional prompt.",
                 "operationId": "fillImage",
                 "requestBody": {
+                    "description": "image fill request body.",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -593,10 +593,10 @@
             }
         },
         "parameters": {
-            "x-accept-mimetype": {
+            "xAcceptMimetype": {
                 "in": "header",
                 "name": "x-accept-mimetype",
-                "required": true,
+                "required": false,
                 "description": "Output image format",
                 "schema": {
                     "$ref": "#/components/schemas/AcceptMimeTypes"
@@ -786,9 +786,12 @@
                         "description": "List of style presets (See \"Image Model Styles\" under \"Getting Started\" guides) that are applied to generated content"
                     },
                     "referenceImage": {
-                        "allOf": [
+                        "oneOf": [
                             {
                                 "$ref": "#/components/schemas/UploadedResource"
+                            },
+                            {
+                                "$ref": "#/components/schemas/ExternalResource"
                             }
                         ],
                         "title": "A style image reference",
@@ -844,14 +847,30 @@
                     }
                 }
             },
+            "ExternalResource": {
+                "type": "object",
+                "title": "ExternalResource",
+                "required": ["presignedUrl"],
+                "description": "External Media Details",
+                "properties": {
+                    "presignedUrl": {
+                        "type": "string",
+                        "maxLength": 2083,
+                        "minLength": 1,
+                        "format": "uri",
+                        "title": "The presigned url",
+                        "description": "Reference to public or signed url of the input data.\nNote: Only allow listed domains are allowed to be accepted as input URL in the request. Refer API reference for more details."
+                    }
+                }
+            },
             "UploadedResource": {
                 "type": "object",
-                "description": "Uploaded Image Details",
+                "description": "Uploaded Media Details",
                 "required": ["id"],
                 "properties": {
                     "id": {
                         "type": "string",
-                        "description": "ID associated with the asset (generate this ID using the upload API). Pre-signed URLs will be supported in the future.",
+                        "description": "ID associated with the asset (generate this ID using the upload API).",
                         "examples": ["REPLACE WITH STRING ID GENERATED FROM UPLOAD IMAGE API"]
                     }
                 }

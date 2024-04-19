@@ -52,16 +52,15 @@ BaseServiceClient.constructor
 
 Expand Image API
 Expand an image to a new size/aspect ratio
-Note: This suppports only images with 3 Channels (RGB), not recommended to use PNGs.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `requestBody` | [`ExpandImageRequest`](../index.md#expandimagerequest) | image expansion request body |
-| `additionalParams` | `Object` | - |
-| `additionalParams.xAcceptMimetype` | [`AcceptMimeTypes`](../enums/AcceptMimeTypes.md) | output image format |
-| `options?` | [`ApiOptions`](../interfaces/CoreTypes.ApiOptions.md) | options to send any addiional data or cancel the request etc. |
+| `requestBody` | [`ExpandImageRequest`](../index.md#expandimagerequest) | image expansion request body. |
+| `additionalParams` | `Object` | Additional parameters to send with the request |
+| `additionalParams.xAcceptMimetype?` | [`AcceptMimeTypes`](../enums/AcceptMimeTypes.md) | Output image format |
+| `options?` | [`ApiOptions`](../interfaces/CoreTypes.ApiOptions.md) | Additional options to send any additional data or cancel the request |
 
 #### Returns
 
@@ -84,8 +83,8 @@ Fill the masked area of an image with an optional prompt.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `requestBody` | [`FillImageRequest`](../index.md#fillimagerequest) |  |
-| `options?` | [`ApiOptions`](../interfaces/CoreTypes.ApiOptions.md) | Additional options to send any aadditional data or cancel the request |
+| `requestBody` | [`FillImageRequest`](../index.md#fillimagerequest) | image fill request body. |
+| `options?` | [`ApiOptions`](../interfaces/CoreTypes.ApiOptions.md) | Additional options to send any additional data or cancel the request |
 
 #### Returns
 
@@ -101,21 +100,21 @@ ___
 
 ▸ **generateImages**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`GenerateImagesResponse`](../index.md#generateimagesresponse)\>\>
 
-Text to Image API
+Generate images API
 Generate images based on a prompt with optional reference image to match style
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `requestBody` | [`GenerateImagesRequest`](../index.md#generateimagesrequest) | image generation request body |
-| `options?` | [`ApiOptions`](../interfaces/CoreTypes.ApiOptions.md) | Additional options to send any aadditional data or cancel the request |
+| `requestBody` | [`GenerateImagesRequest`](../index.md#generateimagesrequest) | image generation request body. |
+| `options?` | [`ApiOptions`](../interfaces/CoreTypes.ApiOptions.md) | Additional options to send any additional data or cancel the request |
 
 #### Returns
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`GenerateImagesResponse`](../index.md#generateimagesresponse)\>\>
 
-GenerateImagesResponse Text-to-Image response
+GenerateImagesResponse Generate images response
 
 **`Throws`**
 
@@ -139,6 +138,6 @@ Upload any content, such as images, videos, or documents. This api provides an o
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`UploadResponse`](../index.md#uploadresponse)\>\>
 
-Upload response
+UploadResponse Storage Response
 
 **`Throws`**

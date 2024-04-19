@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ImageGenerateSize } from "./ImageGenerateSize";
 import type { ImageOutput } from "./ImageOutput";
 /**

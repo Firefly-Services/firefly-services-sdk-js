@@ -16,14 +16,12 @@
 
  **************************************************************************/
 /**
- * The content class guides the overall image theme and styles can be applied on top of each content type. If no content type is specified, it is auto-detected.
- * | Value  |  Description
- * |:---------- |:------
- * | photo      | Photorealistic style
- * | art    | Artistic style
- *
+ * External Media Details
  */
-export enum ContentClass {
-    PHOTO = "photo",
-    ART = "art"
-}
+export type ExternalResource = {
+    /**
+     * Reference to public or signed url of the input data.
+     * Note: Only allow listed domains are allowed to be accepted as input URL in the request. Refer API reference for more details.
+     */
+    presignedUrl: string;
+};

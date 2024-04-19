@@ -22,6 +22,7 @@ Firefly Services: Firefly SDK Reference
 - [ErrorBody](index.md#errorbody)
 - [ExpandImageRequest](index.md#expandimagerequest)
 - [ExpandImageResponse](index.md#expandimageresponse)
+- [ExternalResource](index.md#externalresource)
 - [FillImageRequest](index.md#fillimagerequest)
 - [FillImageResponse](index.md#fillimageresponse)
 - [GenerateImagesRequest](index.md#generateimagesrequest)
@@ -34,6 +35,7 @@ Firefly Services: Firefly SDK Reference
 - [Styles](index.md#styles)
 - [UploadResponse](index.md#uploadresponse)
 - [UploadedResource](index.md#uploadedresource)
+- [xAcceptMimetype](index.md#xacceptmimetype)
 
 ## Type Aliases
 
@@ -84,6 +86,20 @@ Expand Image response
 | `promptHasBlockedArtist?` | `boolean` | Flag to indicate if artist names were detected in the prompt. |
 | `promptHasDeniedWords?` | `boolean` | Flag to indicate if denied words were detected in the prompt. |
 | `size?` | [`ImageSize`](index.md#imagesize) | - |
+
+___
+
+### ExternalResource
+
+Ƭ **ExternalResource**: `Object`
+
+External Media Details
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `presignedUrl` | `string` | Reference to public or signed url of the input data. Note: Only allow listed domains are allowed to be accepted as input URL in the request. Refer API reference for more details. |
 
 ___
 
@@ -259,7 +275,7 @@ Additional styles and reference image to be applied when generating variations.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `presets?` | `string`[] | List of style presets (See "Image Model Styles" under "Getting Started" guides) that are applied to generated content |
-| `referenceImage?` | [`UploadedResource`](index.md#uploadedresource) | Firefly will detect the style in the image and apply the same style in the generated image |
+| `referenceImage?` | [`UploadedResource`](index.md#uploadedresource) \| [`ExternalResource`](index.md#externalresource) | Firefly will detect the style in the image and apply the same style in the generated image |
 | `strength?` | `number` | Sets the intensity at which to apply the styles |
 
 ___
@@ -282,10 +298,18 @@ ___
 
 Ƭ **UploadedResource**: `Object`
 
-Uploaded Image Details
+Uploaded Media Details
 
 #### Type declaration
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `id` | `string` | ID associated with the asset (generate this ID using the upload API). Pre-signed URLs will be supported in the future. |
+| `id` | `string` | ID associated with the asset (generate this ID using the upload API). |
+
+___
+
+### xAcceptMimetype
+
+Ƭ **xAcceptMimetype**: [`AcceptMimeTypes`](enums/AcceptMimeTypes.md)
+
+Output image format

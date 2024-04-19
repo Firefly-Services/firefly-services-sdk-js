@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ContentClass } from "./ContentClass";
 import type { ImageGenerateSize } from "./ImageGenerateSize";
 import type { PhotoSettings } from "./PhotoSettings";
