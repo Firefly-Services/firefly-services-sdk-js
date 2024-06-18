@@ -154,7 +154,7 @@ const lightroom = new LightroomClient(config);
 /**
  * Generate an image and remove background
  */
-async function generateAndRemoveBackground() {
+async function generateImageAndRemoveBackground() {
     const fireflyResponse = await firefly.generateImages({ prompt: "<Prompt>" }); // provide a `prompt` value
     const firstImageUrl = fireflyResponse.result.outputs[0].image.url;
 
@@ -182,7 +182,7 @@ async function generateAndRemoveBackground() {
 
 /**
  * Generate an image and apply auto-tone
-*/
+ */
 async function generateAndAutoToneImage() {
 
     const fireflyResponse = await firefly.generateImages({ prompt: "<prompt>" }); // Update the "<prompt>"
@@ -211,7 +211,7 @@ async function generateAndAutoToneImage() {
     console.log("Successfully applied auto tone to the Image");
 }
 
-generateAndRemoveBackground();
+generateImageAndRemoveBackground();
 generateAndAutoToneImage();
 ```
 
