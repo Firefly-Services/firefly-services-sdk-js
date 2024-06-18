@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ActionOutputDetails } from "./ActionOutputDetails";
 import type { DepthBlurDetails } from "./DepthBlurDetails";
 import type { StorageDetails } from "./StorageDetails";

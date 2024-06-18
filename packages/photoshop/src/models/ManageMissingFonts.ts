@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * action to take if there are one or more missing fonts in the document
  *

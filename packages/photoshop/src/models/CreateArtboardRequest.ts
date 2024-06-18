@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ArtboardDetails } from "./ArtboardDetails";
 import type { PsOutputDetails } from "./PsOutputDetails";
 export type CreateArtboardRequest = {

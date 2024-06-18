@@ -15,11 +15,6 @@
             "url": "https://image.adobe.io",
             "description": "Adobe Lightroom Production",
             "variables": {}
-        },
-        {
-            "url": "https://image-stage.adobe.io",
-            "description": "Adobe Lightroom Stage",
-            "variables": {}
         }
     ],
     "tags": [
@@ -35,21 +30,14 @@
                 "summary": "Get Status API",
                 "description": "Get job status of a Lightroom job",
                 "operationId": "lrJobStatus",
+                "x-ffs-status-fetcher": "true",
+                "x-ffs-job-name": "LrAsyncJob",
                 "parameters": [
                     {
                         "name": "jobId",
                         "in": "path",
                         "description": "The job to get status for",
                         "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -76,18 +64,9 @@
                 "tags": ["Lightroom"],
                 "summary": "Auto Straighten API",
                 "description": "Auto Straighten an image. Applies the Auto Upright transformation on an image ",
-                "operationId": "autoStraightenImageAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "autoStraightenImage",
+                "x-ffs-async-job": "true",
+                "x-ffs-job-status-fetcher": "lrJobStatus",
                 "requestBody": {
                     "description": "Request body for auto straighten api",
                     "content": {
@@ -101,7 +80,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -186,18 +165,9 @@
                 "tags": ["Lightroom"],
                 "summary": "Auto Tone API",
                 "description": "Automatically correct exposure, contrast, sharpness, saturation on an image ",
-                "operationId": "applyAutoToneAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "applyAutoTone",
+                "x-ffs-async-job": "true",
+                "x-ffs-job-status-fetcher": "lrJobStatus",
                 "requestBody": {
                     "description": "Request body for applyAutoTone api",
                     "content": {
@@ -211,7 +181,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -296,18 +266,9 @@
                 "tags": ["Lightroom"],
                 "summary": "Apply Lightroom Edits API",
                 "description": "Apply one or more Lightroom edits ( exposure, contrast, sharpness, saturation ) to an image. ",
-                "operationId": "applyEditsAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "applyEdits",
+                "x-ffs-async-job": "true",
+                "x-ffs-job-status-fetcher": "lrJobStatus",
                 "requestBody": {
                     "description": "Request body for edit api",
                     "content": {
@@ -321,7 +282,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -406,18 +367,9 @@
                 "tags": ["Lightroom"],
                 "summary": "Apply Lightroom Presets API",
                 "description": "Apply one or more XMP Lightroom presets to the given image, by using the given preset XMP file(s).",
-                "operationId": "applyPresetAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "applyPreset",
+                "x-ffs-async-job": "true",
+                "x-ffs-job-status-fetcher": "lrJobStatus",
                 "requestBody": {
                     "description": "Request body for presets api",
                     "content": {
@@ -431,7 +383,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -516,18 +468,9 @@
                 "tags": ["Lightroom"],
                 "summary": "Add XMP to Image API",
                 "description": "Apply XMP based Lightroom preset to an image. XMP content is passed inline to the api.",
-                "operationId": "applyPresetFromXmpContentAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "applyPresetFromXmpContent",
+                "x-ffs-async-job": "true",
+                "x-ffs-job-status-fetcher": "lrJobStatus",
                 "requestBody": {
                     "description": "Request body for xmp api",
                     "content": {
@@ -541,7 +484,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {

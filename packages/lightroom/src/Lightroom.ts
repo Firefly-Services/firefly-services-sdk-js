@@ -15,39 +15,90 @@
  * from Adobe.
 
  **************************************************************************/
-
 // cc-apis-core Imports
-import type { ClientConfig, ApiOptions, ApiResponse } from "@adobe/firefly-services-sdk-core";
-
-import { LrAsyncJob } from "./LrAsyncJob";
-
+import type {
+    ClientConfig,
+    ClientCredentials,
+    ApiOptions,
+    ApiResponse
+} from "@adobe/firefly-services-sdk-core";
+import { ServiceConfig, BaseServiceClient } from "@adobe/firefly-services-sdk-core/internal";
 // Lightroom Model Imports
-import type { ApplyPresetRequest } from "./models/ApplyPresetRequest";
-import type { ApplyPresetFromXmpContentRequest } from "./models/ApplyPresetFromXmpContentRequest";
-import type { AutoStraightenImageRequest } from "./models/AutoStraightenImageRequest";
 import type { ApplyAutoToneRequest } from "./models/ApplyAutoToneRequest";
 import type { ApplyEditsRequest } from "./models/ApplyEditsRequest";
+import type { ApplyPresetFromXmpContentRequest } from "./models/ApplyPresetFromXmpContentRequest";
+import type { ApplyPresetRequest } from "./models/ApplyPresetRequest";
+import type { AutoStraightenImageRequest } from "./models/AutoStraightenImageRequest";
 import type { LrJobApiResponse } from "./models/LrJobApiResponse";
+// Lightroom Async Handler Imports
+import { LrAsyncJob } from "../resources/LrAsyncJob";
 import { LightroomAsyncClient } from "./LightroomAsyncClient";
-import { BaseServiceClient, ServiceConfig } from "@adobe/firefly-services-sdk-core/internal";
-
+// Package.json import for package details
+import { version } from "./../package.json";
+// Server to Server Token Provider imports for creating TokenProvider
+import { ServerToServerTokenProvider } from "@adobe/firefly-services-common-apis";
+import type { ServerToServerAuthDetails } from "@adobe/firefly-services-common-apis";
+/**
+ * LightroomClient
+ * Lightroom API client to use the Lightroom API services
+ */
 export class LightroomClient extends BaseServiceClient {
-    private _lrAsyncClient: LightroomAsyncClient;
-    constructor(config: ClientConfig) {
+    private _lightroomAsyncClient: LightroomAsyncClient;
+    /**
+     * Constructor for LightroomClient
+     * @param config configuration for creating client. Using ClientCredentials enables automatic token refresh, which cannot be disabled. Instead To manage authentication manually, use ClientConfig.
+     */
+    constructor(config: ClientConfig | ClientCredentials) {
+        const urlMap = new Map([["production", "https://image.adobe.io"]]);
+        const environment = config.serviceEnvironment
+            ? config.serviceEnvironment
+            : BaseServiceClient.getEnvFromVersion(version);
+        const internalClientConfig: ClientConfig = {
+            clientId: "",
+            serviceEnvironment: environment,
+            tokenProvider: undefined
+        };
+        if ((config as ClientConfig).tokenProvider) {
+            const clientConfig = config as ClientConfig;
+            internalClientConfig.tokenProvider = clientConfig.tokenProvider;
+            internalClientConfig.clientId = clientConfig.clientId;
+            internalClientConfig.serviceEnvironment = clientConfig.serviceEnvironment;
+        } else if ((config as ClientCredentials).clientSecret) {
+            const clientCredentials = config as ClientCredentials;
+            internalClientConfig.clientId = clientCredentials.clientId;
+            internalClientConfig.serviceEnvironment = clientCredentials.serviceEnvironment;
+            const options = {
+                scopes: clientCredentials.scopes,
+                serviceEnvironment: internalClientConfig.serviceEnvironment
+            };
+            const autOptions: ServerToServerAuthDetails = {
+                clientId: internalClientConfig.clientId,
+                clientSecret: clientCredentials.clientSecret,
+                scopes: options?.scopes ? options.scopes : "firefly_api,ff_apis"
+            };
+            const tokenProvider = new ServerToServerTokenProvider(autOptions, { autoRefresh: true });
+            internalClientConfig.tokenProvider = tokenProvider;
+        } else {
+            throw new Error(
+                "Invalid configuration provided. Provide config with tokenProvider or clientSecret."
+            );
+        }
         const internalConfig: ServiceConfig = {
-            ...config,
-            baseUrl: "https://image.adobe.io/"
+            ...internalClientConfig,
+            baseUrl: BaseServiceClient.getBaseUrl(urlMap, environment),
+            headers: {
+                "User-Agent": `FFS-SDK, JS, Lightroom-${version}`
+            }
         };
         super(internalConfig);
-        this._lrAsyncClient = new LightroomAsyncClient(internalConfig);
+        this._lightroomAsyncClient = new LightroomAsyncClient(internalConfig);
     }
-
     /**
      * Auto Straighten API
-     * Auto Straighten an image. Applies the Auto Upright transformation on an image.
+     * Auto Straighten an image. Applies the Auto Upright transformation on an image
      * @param requestBody Request body for auto straighten api
      * @param options Additional options to send any additional data or cancel the request
-     * @returns Lightroom Job Response
+     * @returns LrJobApiResponse Job status
      * @throws {ApiError}
      */
     public async autoStraightenImage(
@@ -55,17 +106,16 @@ export class LightroomClient extends BaseServiceClient {
         options?: ApiOptions
     ): Promise<ApiResponse<LrJobApiResponse>> {
         return new LrAsyncJob(
-            this._lrAsyncClient.autoStraightenImageAsync(requestBody, options),
-            this._lrAsyncClient.lrJobStatus
+            this._lightroomAsyncClient.autoStraightenImageAsync(requestBody, options),
+            this._lightroomAsyncClient.lrJobStatus
         );
     }
-
     /**
      * Auto Tone API
-     * Automatically correct exposure, contrast, sharpness, saturation on an image.
+     * Automatically correct exposure, contrast, sharpness, saturation on an image
      * @param requestBody Request body for applyAutoTone api
      * @param options Additional options to send any additional data or cancel the request
-     * @returns Lightroom Job Response
+     * @returns LrJobApiResponse Job status
      * @throws {ApiError}
      */
     public async applyAutoTone(
@@ -73,17 +123,16 @@ export class LightroomClient extends BaseServiceClient {
         options?: ApiOptions
     ): Promise<ApiResponse<LrJobApiResponse>> {
         return new LrAsyncJob(
-            this._lrAsyncClient.applyAutoToneAsync(requestBody, options),
-            this._lrAsyncClient.lrJobStatus
+            this._lightroomAsyncClient.applyAutoToneAsync(requestBody, options),
+            this._lightroomAsyncClient.lrJobStatus
         );
     }
-
     /**
      * Apply Lightroom Edits API
      * Apply one or more Lightroom edits ( exposure, contrast, sharpness, saturation ) to an image.
      * @param requestBody Request body for edit api
      * @param options Additional options to send any additional data or cancel the request
-     * @returns Lightroom Job Response
+     * @returns LrJobApiResponse Job status
      * @throws {ApiError}
      */
     public async applyEdits(
@@ -91,17 +140,16 @@ export class LightroomClient extends BaseServiceClient {
         options?: ApiOptions
     ): Promise<ApiResponse<LrJobApiResponse>> {
         return new LrAsyncJob(
-            this._lrAsyncClient.applyEditsAsync(requestBody, options),
-            this._lrAsyncClient.lrJobStatus
+            this._lightroomAsyncClient.applyEditsAsync(requestBody, options),
+            this._lightroomAsyncClient.lrJobStatus
         );
     }
-
     /**
      * Apply Lightroom Presets API
      * Apply one or more XMP Lightroom presets to the given image, by using the given preset XMP file(s).
      * @param requestBody Request body for presets api
      * @param options Additional options to send any additional data or cancel the request
-     * @returns Lightroom Job Response
+     * @returns LrJobApiResponse Job status
      * @throws {ApiError}
      */
     public async applyPreset(
@@ -109,17 +157,16 @@ export class LightroomClient extends BaseServiceClient {
         options?: ApiOptions
     ): Promise<ApiResponse<LrJobApiResponse>> {
         return new LrAsyncJob(
-            this._lrAsyncClient.applyPresetAsync(requestBody, options),
-            this._lrAsyncClient.lrJobStatus
+            this._lightroomAsyncClient.applyPresetAsync(requestBody, options),
+            this._lightroomAsyncClient.lrJobStatus
         );
     }
-
     /**
      * Add XMP to Image API
      * Apply XMP based Lightroom preset to an image. XMP content is passed inline to the api.
      * @param requestBody Request body for xmp api
      * @param options Additional options to send any additional data or cancel the request
-     * @returns Lightroom Job Response
+     * @returns LrJobApiResponse Job status
      * @throws {ApiError}
      */
     public async applyPresetFromXmpContent(
@@ -127,8 +174,8 @@ export class LightroomClient extends BaseServiceClient {
         options?: ApiOptions
     ): Promise<ApiResponse<LrJobApiResponse>> {
         return new LrAsyncJob(
-            this._lrAsyncClient.applyPresetFromXmpContentAsync(requestBody, options),
-            this._lrAsyncClient.lrJobStatus
+            this._lightroomAsyncClient.applyPresetFromXmpContentAsync(requestBody, options),
+            this._lightroomAsyncClient.lrJobStatus
         );
     }
 }

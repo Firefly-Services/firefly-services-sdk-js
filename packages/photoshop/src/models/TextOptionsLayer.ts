@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { Bounds } from "./Bounds";
 import type { TextDetails } from "./TextDetails";
 export type TextOptionsLayer = {

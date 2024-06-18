@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { DocumentManifestOptions } from "./DocumentManifestOptions";
 import type { StorageDetails } from "./StorageDetails";
 export type DocumentManifestRequest = {

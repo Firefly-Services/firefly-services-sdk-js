@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { BrightnessContrast } from "./BrightnessContrast";
 import type { ColorBalance } from "./ColorBalance";
 import type { ExposureDetails } from "./ExposureDetails";

@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { WhiteBalance } from "./WhiteBalance";
 export type EditOptions = {
     Contrast?: number;

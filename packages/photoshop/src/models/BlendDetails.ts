@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { BlendModeType } from "./BlendModeType";
 /**
  * Blend options of a layer, including opacity and blend mode

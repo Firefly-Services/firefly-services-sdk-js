@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Firefly services SDK typescript examples",
   "dependencies": {
-    "@adobe/firefly-apis": "^1.0.0",
-    "@adobe/firefly-services-common-apis": "^1.0.0",
-    "@adobe/lightroom-apis": "^1.0.0",
-    "@adobe/photoshop-apis": "^1.0.0",
+    "@adobe/firefly-apis": "2.0.0",
+    "@adobe/firefly-services-common-apis": "2.0.0",
+    "@adobe/lightroom-apis": "2.0.0",
+    "@adobe/photoshop-apis": "2.0.0",
     "typescript": "^5.4.3"
   },
   "scripts": {

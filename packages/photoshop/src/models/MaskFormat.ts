@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { MaskFormatType } from "./MaskFormatType";
 export type MaskFormat = {
     format?: MaskFormatType;

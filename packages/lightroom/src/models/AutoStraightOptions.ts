@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { UprightMode } from "./UprightMode";
 export type AutoStraightOptions = {
     uprightMode: UprightMode;

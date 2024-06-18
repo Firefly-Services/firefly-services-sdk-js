@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ColorProfileType } from "./ColorProfileType";
 import type { ImageModeType } from "./ImageModeType";
 import type { StorageDetails } from "./StorageDetails";

@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * the font color settings for cmyk mode in 16bit representation
  */

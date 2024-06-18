@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { AdjustmentDetails } from "./AdjustmentDetails";
 import type { BlendDetails } from "./BlendDetails";
 import type { Bounds } from "./Bounds";

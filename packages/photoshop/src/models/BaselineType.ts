@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * Indicates if the text is raised or lowered in relation to a font’s baseline
  */

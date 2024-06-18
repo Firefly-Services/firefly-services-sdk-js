@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { Offset } from "./Offset";
 /**
  * An object describing the input mask added or replaced to the layer

@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * The text's aliasing type which determines the smoothness of the jagged edges of the text.
  */

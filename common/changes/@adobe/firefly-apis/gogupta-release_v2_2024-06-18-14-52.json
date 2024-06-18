@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@adobe/firefly-apis",
+      "comment": "Add firefly v3 apis",
+      "type": "major"
+    }
+  ],
+  "packageName": "@adobe/firefly-apis"
+}

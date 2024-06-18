@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { SmartObjectOptions } from "./SmartObjectOptions";
 import type { SmartObjectOutputDetails } from "./SmartObjectOutputDetails";
 import type { StorageDetails } from "./StorageDetails";

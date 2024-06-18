@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { CompressionType } from "./CompressionType";
 import type { IccProfileDetails } from "./IccProfileDetails";
 import type { ImageFormatType } from "./ImageFormatType";

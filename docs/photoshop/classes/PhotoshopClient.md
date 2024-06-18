@@ -2,6 +2,9 @@
 
 # Class: PhotoshopClient
 
+PhotoshopClient
+Photoshop API client to use the Photoshop API services
+
 ## Hierarchy
 
 - `BaseServiceClient`
@@ -37,11 +40,13 @@
 
 • **new PhotoshopClient**(`config`): [`PhotoshopClient`](PhotoshopClient.md)
 
+Constructor for PhotoshopClient
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `config` | [`ClientConfig`](../interfaces/CoreTypes.ClientConfig.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `config` | [`ClientConfig`](../interfaces/CoreTypes.ClientConfig.md) \| [`ClientCredentials`](../interfaces/CoreTypes.ClientCredentials.md) | configuration for creating client. Using ClientCredentials enables automatic token refresh, which cannot be disabled. Instead To manage authentication manually, use ClientConfig. |
 
 #### Returns
 
@@ -58,7 +63,7 @@ BaseServiceClient.constructor
 ▸ **applyAutoCrop**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
 Smart Crop API
-Smart crop an image keeping the subject of interest in view
+Smart crop an image keeping the subject of interest in view.
 
 #### Parameters
 
@@ -71,7 +76,7 @@ Smart crop an image keeping the subject of interest in view
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-JobStatusLinkResponse response
+PsJobResponse Job Status
 
 **`Throws`**
 
@@ -82,7 +87,7 @@ ___
 ▸ **applyDepthBlur**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
 Depth Blur API
-Apply depth blur to an image input.
+Apply depth blur to an image input
 
 #### Parameters
 
@@ -95,7 +100,7 @@ Apply depth blur to an image input.
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-JobStatusLinkResponse response
+PsJobResponse Job Status
 
 **`Throws`**
 
@@ -106,7 +111,7 @@ ___
 ▸ **convertToActionsJson**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
 Convert to Action JSON API
-Convert .atn file to an actionJSON format.
+Convert .atn file to an actionJSON format
 
 #### Parameters
 
@@ -119,7 +124,7 @@ Convert .atn file to an actionJSON format.
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-JobStatusLinkResponse response
+PsJobResponse Job Status
 
 **`Throws`**
 
@@ -130,7 +135,7 @@ ___
 ▸ **createArtboard**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
 Create Arboards API
-Create artboards from multiple PSD inputs.
+Create artboards from multiple PSD inputs
 
 #### Parameters
 
@@ -143,7 +148,7 @@ Create artboards from multiple PSD inputs.
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-JobStatusLinkResponse response
+PsJobResponse Job Status
 
 **`Throws`**
 
@@ -154,7 +159,7 @@ ___
 ▸ **createDocument**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
 Create PSD API
-Create new PSD with layers.
+Create new PSD with layers
 
 #### Parameters
 
@@ -167,7 +172,7 @@ Create new PSD with layers.
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-JobStatusLinkResponse response
+PsJobResponse Job Status
 
 **`Throws`**
 
@@ -178,7 +183,7 @@ ___
 ▸ **createMask**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`SenseiJobApiResponse`](../index.md#senseijobapiresponse)\>\>
 
 Create Mask API
-Isolate a subject of interest in an image (people, objects, etc) and generate an image mask.
+Isolate a subject of interest in an image (people, objects, etc) and generate an image mask
 
 #### Parameters
 
@@ -191,7 +196,7 @@ Isolate a subject of interest in an image (people, objects, etc) and generate an
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`SenseiJobApiResponse`](../index.md#senseijobapiresponse)\>\>
 
-JobStatusLinkResponse response
+SenseiJobApiResponse Job status
 
 **`Throws`**
 
@@ -215,7 +220,7 @@ Create flat image representations of a PSD in multiple formats
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-JobStatusLinkResponse response
+PsJobResponse Job Status
 
 **`Throws`**
 
@@ -239,7 +244,7 @@ Change the contents of a text layer in a PSD, eg for localization
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-JobStatusLinkResponse response
+PsJobResponse Job Status
 
 **`Throws`**
 
@@ -249,7 +254,7 @@ ___
 
 ▸ **getDocumentManifest**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-Extract Document Manifest API
+Extract Document Manifest API.
 Extract metadata from PSD document, including general file and layer information.
 
 #### Parameters
@@ -263,7 +268,7 @@ Extract metadata from PSD document, including general file and layer information
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-JobStatusLinkResponse response
+PsJobResponse Job Status
 
 **`Throws`**
 
@@ -274,7 +279,7 @@ ___
 ▸ **modifyDocument**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
 Apply Photoshop Edits API
-Apply basic layer edits (name, state, etc), add/edit adjustment, pixel, and shape layers
+Apply basic layer edits (name, state, etc), add/edit adjustment, pixel, and shape layers.
 
 #### Parameters
 
@@ -287,7 +292,7 @@ Apply basic layer edits (name, state, etc), add/edit adjustment, pixel, and shap
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-JobStatusLinkResponse response
+PsJobResponse Job Status
 
 **`Throws`**
 
@@ -298,7 +303,7 @@ ___
 ▸ **playPhotoshopActions**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
 Run Photoshop Actions API
-Executes Photoshop Action file against a PSD, JPEG, PNG, or TIFF.
+Executes Photoshop Action file against a PSD, JPEG, PNG, or TIFF
 
 #### Parameters
 
@@ -311,7 +316,7 @@ Executes Photoshop Action file against a PSD, JPEG, PNG, or TIFF.
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-JobStatusLinkResponse response
+PsJobResponse Job Status
 
 **`Throws`**
 
@@ -335,7 +340,7 @@ Execute given Photoshop Action specified in actionJSON format.
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-JobStatusLinkResponse response
+PsJobResponse Job Status
 
 **`Throws`**
 
@@ -346,7 +351,7 @@ ___
 ▸ **removeBackground**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`SenseiJobApiResponse`](../index.md#senseijobapiresponse)\>\>
 
 Remove Background API
-Isolate subject of interest in an image and remove background..
+Isolate subject of interest in an image and remove background.
 
 #### Parameters
 
@@ -359,7 +364,7 @@ Isolate subject of interest in an image and remove background..
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`SenseiJobApiResponse`](../index.md#senseijobapiresponse)\>\>
 
-JobStatusLinkResponse response
+SenseiJobApiResponse Job status
 
 **`Throws`**
 
@@ -369,7 +374,7 @@ ___
 
 ▸ **replaceSmartObject**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-Replace Smart Object API
+Replace Smart Object API.
 Replace Smart Object in a PSD.
 
 #### Parameters
@@ -383,6 +388,6 @@ Replace Smart Object in a PSD.
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`PsJobResponse`](../index.md#psjobresponse)\>\>
 
-JobStatusLinkResponse response
+PsJobResponse Job Status
 
 **`Throws`**

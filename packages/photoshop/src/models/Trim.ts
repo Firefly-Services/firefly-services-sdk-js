@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { BasedOnType } from "./BasedOnType";
 export type Trim = {
     basedOn: BasedOnType;

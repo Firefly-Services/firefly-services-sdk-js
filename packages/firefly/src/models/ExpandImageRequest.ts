@@ -15,21 +15,37 @@
  * from Adobe.
 
  **************************************************************************/
-import type { ImageSize } from "./ImageSize";
-import type { UploadedResource } from "./UploadedResource";
+import type { ExpandInputImage } from "./ExpandInputImage";
+import type { Placement } from "./Placement";
+import type { Size } from "./Size";
+/**
+ * Images expand payload
+ */
 export type ExpandImageRequest = {
     /**
-     * If provided, the expanded image will be rendered with content generated from prompt. If not provided, the expanded image will be rendered with content matching the existing style of the image.
+     * The number of variations to generate. numVariations will default to the number of seeds, or to 1 if seeds is not specified.
+     */
+    numVariations?: number;
+    /**
+     * Array of seed(s) that ensure consistent image generation across multiple API calls. For example, you can use the same seed to generate a similar image with different styles. If specified alongside with numVariations, the number of seeds must be the equal to numVariations
+     */
+    seeds?: number[];
+    /**
+     * Specifies the desired width and height for the final, expanded image.
+     */
+    size?: Size;
+    /**
+     * The prompt used to generate the image. The longer the prompt - the better
      */
     prompt?: string;
     /**
-     * The number of variations to generate. If seeds array is specified, "n" does not have to be specified.
+     * The image to be expanded. You can either use a <code>url</code> or an <code>uploadId</code> as the source for the uploaded image.
+     * <strong>Note</strong>: Only allow listed domains are allowed to be accepted as input URL in the request. The allow-listed domains are as follows:
+     * <ul><li><code>amazonaws.com</code></li><li><code>windows.net</code></li><li><code>dropboxusercontent.com</code></li></ul>
      */
-    n?: number;
+    image: ExpandInputImage;
     /**
-     * Array of seed(s) that will provide generation stability across multiple API calls. E.g. You can use the same seed to generate a similar image with different styles. If "n" is specified, the number of elements in the array must be equal to "n".
+     * Specifies how the source image will be positioned and sized in the final generation. The value should describe the placement and dimensions of the image within the output. <p><strong>Note:</strong> Placement for source images cannot be used when a mask image is being applied.</p>
      */
-    seeds?: number[];
-    image: UploadedResource;
-    size?: ImageSize;
+    placement?: Placement;
 };

@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ErrorDetails } from "./ErrorDetails";
 /**
  * any errors reported requested output

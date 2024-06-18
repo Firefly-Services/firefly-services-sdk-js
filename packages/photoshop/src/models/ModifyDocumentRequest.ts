@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { DocumentOperationOptions } from "./DocumentOperationOptions";
 import type { PsOutputDetails } from "./PsOutputDetails";
 import type { StorageDetails } from "./StorageDetails";

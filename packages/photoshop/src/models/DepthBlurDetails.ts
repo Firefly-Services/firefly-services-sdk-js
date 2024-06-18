@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { FocalSelector } from "./FocalSelector";
 export type DepthBlurDetails = {
     /**

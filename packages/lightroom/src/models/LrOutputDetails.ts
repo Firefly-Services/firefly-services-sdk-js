@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ImageFormatType } from "./ImageFormatType";
 import type { StorageType } from "./StorageType";
 export type LrOutputDetails = {

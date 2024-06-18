@@ -1303,7 +1303,7 @@ ___
 
 Ƭ **PsJobResponse**: [`ManifestJobApiResponse`](index.md#manifestjobapiresponse) \| [`PsJobApiResponse`](index.md#psjobapiresponse)
 
-PsJobResponse can be either a ManifestJobApiResponse or PsJobApiResponse
+Photoshop Job response.
 
 ___
 

@@ -1,6 +1,6 @@
 {
     "name": "@adobe/lightroom-apis",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "author": "Adobe",
     "license": "Copyright (c) 2024 Adobe Inc",
     "description": "Adobe Firefly Services library for consuming Lightroom Service APIs.",
@@ -16,8 +16,8 @@
         "url": "https://github.com/Firefly-Services/firefly-services-sdk-js"
     },
     "homepage": "https://github.com/Firefly-Services/firefly-services-sdk-js/blob/main/packages/lightroom/README.md",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "dist/src/index.js",
+    "types": "dist/src/index.d.ts",
     "scripts": {
         "clean": "rimraf dist",
         "ibuild": "tsc",
@@ -25,7 +25,8 @@
         "build:release": "rushx build"
     },
     "dependencies": {
-        "@adobe/firefly-services-sdk-core": "workspace:*"
+        "@adobe/firefly-services-sdk-core": "workspace:*",
+        "@adobe/firefly-services-common-apis": "workspace:*"
     },
     "devDependencies": {
         "rimraf": "3.0.2",

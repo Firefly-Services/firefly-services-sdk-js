@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { CompressionType } from "./CompressionType";
 import type { ImageFormatType } from "./ImageFormatType";
 import type { StorageType } from "./StorageType";

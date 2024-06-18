@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { UnitType } from "./UnitType";
 export type CropOptions = {
     unit: UnitType;

@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { DocumentCreateOptions } from "./DocumentCreateOptions";
 import type { PsOutputDetails } from "./PsOutputDetails";
 export type CreateDocumentRequest = {

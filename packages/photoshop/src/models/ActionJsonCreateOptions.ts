@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ActionDetails } from "./ActionDetails";
 /**
  * This block is needed only if you want to specify whcih action to convert from the ActionSet

@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ActionJsonCreateOptions } from "./ActionJsonCreateOptions";
 import type { StorageDetails } from "./StorageDetails";
 export type ConvertToActionsJsonRequest = {

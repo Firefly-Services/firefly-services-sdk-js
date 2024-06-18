@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ActionJsonOptions } from "./ActionJsonOptions";
 import type { ActionOutputDetails } from "./ActionOutputDetails";
 import type { StorageDetails } from "./StorageDetails";

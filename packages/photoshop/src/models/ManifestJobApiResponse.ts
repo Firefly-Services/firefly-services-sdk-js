@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { JobStatusLink } from "./JobStatusLink";
 import type { ManifestJobStatusOutputDetails } from "./ManifestJobStatusOutputDetails";
 export type ManifestJobApiResponse = {

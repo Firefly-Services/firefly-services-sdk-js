@@ -2,6 +2,9 @@
 
 # Class: LightroomClient
 
+LightroomClient
+Lightroom API client to use the Lightroom API services
+
 ## Hierarchy
 
 - `BaseServiceClient`
@@ -28,11 +31,13 @@
 
 • **new LightroomClient**(`config`): [`LightroomClient`](LightroomClient.md)
 
+Constructor for LightroomClient
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `config` | [`ClientConfig`](../interfaces/CoreTypes.ClientConfig.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `config` | [`ClientConfig`](../interfaces/CoreTypes.ClientConfig.md) \| [`ClientCredentials`](../interfaces/CoreTypes.ClientCredentials.md) | configuration for creating client. Using ClientCredentials enables automatic token refresh, which cannot be disabled. Instead To manage authentication manually, use ClientConfig. |
 
 #### Returns
 
@@ -49,7 +54,7 @@ BaseServiceClient.constructor
 ▸ **applyAutoTone**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`LrJobApiResponse`](../index.md#lrjobapiresponse)\>\>
 
 Auto Tone API
-Automatically correct exposure, contrast, sharpness, saturation on an image.
+Automatically correct exposure, contrast, sharpness, saturation on an image
 
 #### Parameters
 
@@ -62,7 +67,7 @@ Automatically correct exposure, contrast, sharpness, saturation on an image.
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`LrJobApiResponse`](../index.md#lrjobapiresponse)\>\>
 
-Lightroom Job Response
+LrJobApiResponse Job status
 
 **`Throws`**
 
@@ -86,7 +91,7 @@ Apply one or more Lightroom edits ( exposure, contrast, sharpness, saturation ) 
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`LrJobApiResponse`](../index.md#lrjobapiresponse)\>\>
 
-Lightroom Job Response
+LrJobApiResponse Job status
 
 **`Throws`**
 
@@ -110,7 +115,7 @@ Apply one or more XMP Lightroom presets to the given image, by using the given p
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`LrJobApiResponse`](../index.md#lrjobapiresponse)\>\>
 
-Lightroom Job Response
+LrJobApiResponse Job status
 
 **`Throws`**
 
@@ -134,7 +139,7 @@ Apply XMP based Lightroom preset to an image. XMP content is passed inline to th
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`LrJobApiResponse`](../index.md#lrjobapiresponse)\>\>
 
-Lightroom Job Response
+LrJobApiResponse Job status
 
 **`Throws`**
 
@@ -145,7 +150,7 @@ ___
 ▸ **autoStraightenImage**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`LrJobApiResponse`](../index.md#lrjobapiresponse)\>\>
 
 Auto Straighten API
-Auto Straighten an image. Applies the Auto Upright transformation on an image.
+Auto Straighten an image. Applies the Auto Upright transformation on an image
 
 #### Parameters
 
@@ -158,6 +163,6 @@ Auto Straighten an image. Applies the Auto Upright transformation on an image.
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`LrJobApiResponse`](../index.md#lrjobapiresponse)\>\>
 
-Lightroom Job Response
+LrJobApiResponse Job status
 
 **`Throws`**

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@adobe/photoshop-apis",
+      "comment": "Auth enhancements",
+      "type": "major"
+    }
+  ],
+  "packageName": "@adobe/photoshop-apis"
+}

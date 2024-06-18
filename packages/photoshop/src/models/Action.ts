@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { StorageType } from "./StorageType";
 /**
  * An object describing the input Photoshop Actions to play.

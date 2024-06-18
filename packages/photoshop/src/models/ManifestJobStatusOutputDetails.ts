@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { JobStatus } from "./JobStatus";
 import type { LayerDetails } from "./LayerDetails";
 import type { ManifestJobDocumentDetails } from "./ManifestJobDocumentDetails";

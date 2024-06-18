@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { Action } from "./Action";
 import type { StorageDetails } from "./StorageDetails";
 export type ActionOptions = {

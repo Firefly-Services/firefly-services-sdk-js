@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { LayerReference } from "./LayerReference";
 export type MoveDetails = {
     moveChildren?: boolean;

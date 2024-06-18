@@ -22,9 +22,9 @@ export type * as CoreTypes from "@adobe/firefly-services-sdk-core";
 
 export type { ApplyAutoToneRequest } from "./models/ApplyAutoToneRequest";
 export type { ApplyEditsRequest } from "./models/ApplyEditsRequest";
+export type { ApplyPresetFromXmpContentRequest } from "./models/ApplyPresetFromXmpContentRequest";
 export type { ApplyPresetInput } from "./models/ApplyPresetInput";
 export type { ApplyPresetRequest } from "./models/ApplyPresetRequest";
-export type { ApplyPresetFromXmpContentRequest } from "./models/ApplyPresetFromXmpContentRequest";
 export type { ApplyPresetXmpInput } from "./models/ApplyPresetXmpInput";
 export type { ApplyPresetXmpOptions } from "./models/ApplyPresetXmpOptions";
 export type { AutoStraightenImageRequest } from "./models/AutoStraightenImageRequest";

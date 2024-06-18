@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * Indicates you want to delete the layer, identified by the id or name. Note the object is currently empty but leaves room for further enhancements
  */

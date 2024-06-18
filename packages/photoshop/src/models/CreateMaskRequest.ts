@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { SenseiOutputDetails } from "./SenseiOutputDetails";
 import type { StorageDetails } from "./StorageDetails";
 export type CreateMaskRequest = {

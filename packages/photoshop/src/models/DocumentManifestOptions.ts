@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { Thumbnails } from "./Thumbnails";
 /**
  * available options to apply to all input files

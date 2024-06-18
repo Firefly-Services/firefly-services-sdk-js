@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { DocumentOperationLayer } from "./DocumentOperationLayer";
 import type { ManageMissingFonts } from "./ManageMissingFonts";
 import type { OperationDocument } from "./OperationDocument";

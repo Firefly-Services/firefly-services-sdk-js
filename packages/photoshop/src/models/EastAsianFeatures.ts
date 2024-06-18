@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { TextStyleType } from "./TextStyleType";
 /**
  * Text features specifically for eastAsian languages

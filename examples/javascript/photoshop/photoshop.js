@@ -30,7 +30,10 @@ async function generateAndRemoveBackground(prompt) {
         const authProvider = new ServerToServerTokenProvider({
             clientId: clientId, // Provide your client id
             clientSecret: "<clientSecret>", // Provide your client secret
-            scopes:  "<scopes>" // Provide the scopes Example: "openid,AdobeID,read_organizations,firefly_api,ff_apis"
+            scopes:  "<scope>" // Provide the scopes Example: "openid,AdobeID,read_organizations,firefly_api,ff_apis"
+        },
+        {
+            autoRefresh: true // In case false is passed then the api authProvider.authenticate() should be explicitly called before making any API call
         });
 
         const config = {
@@ -44,7 +47,7 @@ async function generateAndRemoveBackground(prompt) {
         const photoshop = new PhotoshopClient(config);
 
         const fireflyResponse = await firefly.generateImages({prompt: prompt}); 
-        const firstImageUrl = fireflyResponse.result.outputs[0].image.presignedUrl;
+        const firstImageUrl = fireflyResponse.result.outputs[0].image.url;
         
         console.log("Successfully generated the Firefly Image");
 

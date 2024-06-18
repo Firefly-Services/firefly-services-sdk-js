@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { StorageDetails } from "./StorageDetails";
 export type Links = {
     self?: StorageDetails;

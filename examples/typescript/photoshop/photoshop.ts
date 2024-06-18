@@ -21,52 +21,55 @@ import { CoreTypes, FireflyClient, GenerateImagesResponse } from "@adobe/firefly
 import { ServerToServerTokenProvider } from "@adobe/firefly-services-common-apis";
 import { StorageDetails, StorageType } from "@adobe/lightroom-apis";
 
-
 /**
  * Function to generate an image and remove image background and save the file to the given output post pre-signed URL.
  */
 async function generateAndRemoveBackground(prompt: string) {
     try {
         const clientId: string = "<clientId>"; // Provide your client id
-        const authProvider: CoreTypes.TokenProvider = new ServerToServerTokenProvider({
-            clientId: clientId, // Provide your client id
-            clientSecret: "<clientSecret>", // Provide your client secret
-            scopes:  "<scopes>" // Provide the scopes Example: "openid,AdobeID,read_organizations,firefly_api,ff_apis"
-        });
+        const authProvider: CoreTypes.TokenProvider = new ServerToServerTokenProvider(
+            {
+                clientId: clientId, // Provide your client id
+                clientSecret: "<clientSecret>", // Provide your client secret
+                scopes: "<scopes>", // Provide the scopes Example: "openid,AdobeID,read_organizations,firefly_api,ff_apis"
+            },
+            {
+                autoRefresh: true, // In case false is passed then the api authProvider.authenticate() should be explicitly called before making any API call
+            }
+        );
 
         const config = {
             tokenProvider: authProvider,
             clientId: clientId,
         };
-        
 
         // create the application clients
         const firefly: FireflyClient = new FireflyClient(config);
         const photoshop: PhotoshopClient = new PhotoshopClient(config);
 
-        const fireflyResponse: CoreTypes.ApiResponse<GenerateImagesResponse> = await firefly.generateImages({prompt: prompt}); 
+        const fireflyResponse: CoreTypes.ApiResponse<GenerateImagesResponse> = await firefly.generateImages({ prompt: prompt });
         if (!fireflyResponse.result.outputs) {
             throw new Error("Failed to generate the image" + fireflyResponse);
         }
-        const firstImageUrl = fireflyResponse.result.outputs[0].image?.presignedUrl;
-        
+        const firstImageUrl = fireflyResponse.result.outputs[0].image?.url;
+
         console.log("Successfully generated the Firefly Image");
 
         // Use Photoshop autoCutout api to perform operation on the generated image.
         const psInput: StorageDetails = {
-            href: firstImageUrl ?? "", 
-            storage: StorageType.EXTERNAL
+            href: firstImageUrl ?? "",
+            storage: StorageType.EXTERNAL,
         };
 
         const psOutput: SenseiOutputDetails = {
-            href: "<psOutputHref>", // Generate Pre-signed PUT URL to save the generated output file. 
-            storage: StorageType.EXTERNAL // example: StorageType.DROPBOX or StorageType.EXTERNAL or StorageType.AZURE
+            href: "<psOutputHref>", // Generate Pre-signed PUT URL to save the generated output file.
+            storage: StorageType.EXTERNAL, // example: StorageType.DROPBOX or StorageType.EXTERNAL or StorageType.AZURE
         };
 
         const psRequestBody: RemoveBackgroundRequest = {
-            input: psInput, 
-            output: psOutput
-        }
+            input: psInput,
+            output: psOutput,
+        };
 
         const removeBg = await photoshop.removeBackground(psRequestBody); // Remove Background
         console.log("Removed image background.\nStatus: ", removeBg.result.status);

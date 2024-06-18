@@ -5,7 +5,7 @@ importers:
   .:
     specifiers: {}
 
-  ../../packages/cc-apis/common:
+  ../../packages/common:
     specifiers:
       '@adobe/firefly-services-sdk-core': workspace:*
       rimraf: 3.0.2
@@ -16,7 +16,7 @@ importers:
       rimraf: 3.0.2
       typescript: 5.2.2
 
-  ../../packages/cc-apis/core:
+  ../../packages/core:
     specifiers:
       rimraf: 3.0.2
       typescript: 5.2.2
@@ -26,33 +26,39 @@ importers:
 
   ../../packages/firefly:
     specifiers:
+      '@adobe/firefly-services-common-apis': workspace:*
       '@adobe/firefly-services-sdk-core': workspace:*
       rimraf: 3.0.2
       typescript: 5.2.2
     dependencies:
-      '@adobe/firefly-services-sdk-core': link:../cc-apis/core
+      '@adobe/firefly-services-common-apis': link:../common
+      '@adobe/firefly-services-sdk-core': link:../core
     devDependencies:
       rimraf: 3.0.2
       typescript: 5.2.2
 
   ../../packages/lightroom:
     specifiers:
+      '@adobe/firefly-services-common-apis': workspace:*
       '@adobe/firefly-services-sdk-core': workspace:*
       rimraf: 3.0.2
       typescript: 5.2.2
     dependencies:
-      '@adobe/firefly-services-sdk-core': link:../cc-apis/core
+      '@adobe/firefly-services-common-apis': link:../common
+      '@adobe/firefly-services-sdk-core': link:../core
     devDependencies:
       rimraf: 3.0.2
       typescript: 5.2.2
 
   ../../packages/photoshop:
     specifiers:
+      '@adobe/firefly-services-common-apis': workspace:*
       '@adobe/firefly-services-sdk-core': workspace:*
       rimraf: 3.0.2
       typescript: 5.2.2
     dependencies:
-      '@adobe/firefly-services-sdk-core': link:../cc-apis/core
+      '@adobe/firefly-services-common-apis': link:../common
+      '@adobe/firefly-services-sdk-core': link:../core
     devDependencies:
       rimraf: 3.0.2
       typescript: 5.2.2

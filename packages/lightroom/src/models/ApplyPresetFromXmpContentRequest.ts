@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ApplyPresetXmpInput } from "./ApplyPresetXmpInput";
 import type { ApplyPresetXmpOptions } from "./ApplyPresetXmpOptions";
 import type { LrOutputDetails } from "./LrOutputDetails";
