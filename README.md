@@ -66,6 +66,40 @@ Alternatively, you can install all the packages with a single command like the o
 npm install @adobe/firefly-apis @adobe/photoshop-apis @adobe/lightroom-apis @adobe/firefly-services-common-apis
 ```
 
+### Authentication
+Firefly Services SDK provides authentication via token provider. With v2, authentication is simplified with a `ClientCredentials` on each of the client classes. This can be directly passed at the time of Client Initialization.
+#### Authentication example
+1. Authentication via `TokenProvider`
+```js
+const serverToServerAuthDetails = {
+    clientId: "<clientId>",
+    clientSecret: "<clientSecret>",
+    scopes: "<scopes>",
+};
+
+// create auth provider
+// ServerToServerTokenProvider implements the TokenProvider interface that returns the access token.
+const authProvider = new ServerToServerTokenProvider(serverToServerAuthDetails);
+const config = {
+    tokenProvider: authProvider,
+    clientId: "<clientId>",
+};
+
+// create the product client
+const firefly = new FireflyClient(config);
+```
+
+2. v2 Authentication via Credentials
+
+```js
+// Create client Credentials 
+const clientCredentials = {
+    clientId: "<clientId>",
+    clientSecret: "<clientSecret>"
+}
+
+const firefly = await FireflyClient(clientCredentials);
+```
 
 ### Making your first API call
 
@@ -83,102 +117,101 @@ Create a new file named `index.js` in your project with the below content.
 ```js
 const { PhotoshopClient } = require("@adobe/photoshop-apis");
 const { FireflyClient } = require("@adobe/firefly-apis");
-const { LightroomClient } = require("@adobe/lightroom-apis");
+const { LightroomClient, StorageType } = require("@adobe/lightroom-apis");
 const { ServerToServerTokenProvider } = require("@adobe/firefly-services-common-apis");
 
 /**
- * Helper function that performs server-to-server authentication to fetch the access token.
- * @param {string} clientId 
- * @param {string} clientSecret 
- * @param {string} scopes 
- * @returns {ServerToServerTokenProvider}
+ * Helper function that performs Server to Server Authentication to fetch the Access token for given Client Credentials.
+ * @param {string} clientId
+ * @param {string} clientSecret
+ * @param {string} scopes
+ * @returns {ServerToServerTokenProvider} instance of ServerToServerTokenProvider which can be passed in ClientConfig to get the access token.
  */
 function getAuthProvider(clientId, clientSecret, scopes) {
     const serverToServerAuthDetails = {
         clientId,
         clientSecret,
-        scopes ///configple:  "openid,AdobeID,read_organizations,firefly_api,ff_apis"
+        scopes, // e.g. "openid,AdobeID,read_organizations,firefly_api,ff_apis"
     };
     const serverToServerAuthOptions = {
-        autoRefresh: true
-    }
+        autoRefresh: true,
+    };
     return new ServerToServerTokenProvider(serverToServerAuthDetails, serverToServerAuthOptions);
 }
 
-// create auth config
-const authProvider = getAuthProvider("<clientId>", "<clientSecret>", "<scopes>"); // Update the "<clientId>", "<clientSecret>", "<scopes>"
+// create authprovider
+const authProvider = getAuthProvider("<clientId>", "<clientSecret>", "<scopes>"); // Manually update the "<clientId>", "<clientSecret>", "<scopes>"
 const config = {
-    tokenProvider: authProvider,
-    clientId: "<clientId>" // Update the "<clientId>"
+    tokenProvider: authProvider, // ServerToServerTokenProvider implements the TokenProvider interface that returns the access token.
+    clientId: "<clientId>",
 };
 
+// create the product clients
+const firefly = new FireflyClient(config);
+const photoshop = new PhotoshopClient(config);
+const lightroom = new LightroomClient(config);
+
 /**
- * Generate an image and remove background
+ * Function to generate an image and remove image background
  */
-async function generateImageAndRemoveBackground() {
-    const photoshop = new PhotoshopClient(config);
-    const firefly = new FireflyClient(config);
+async function generateAndRemoveBackground() {
+    const fireflyResponse = await firefly.generateImages({ prompt: "<Prompt>" }); // provide a `prompt` value
+    const firstImageUrl = fireflyResponse.result.outputs[0].image.url;
 
-    const fireflyResponse = await firefly.generateImages({prompt: "<prompt>"}); // Update the "<prompt>"
-    const firstImageUrl = fireflyResponse.result.outputs[0].image.presignedUrl;
-    
-    console.log("Successfully generated a Firefly Image");
+    console.log("Successfully generated the Firefly Image");
 
-    // Prepare for Photoshop operation
+    // Use Photoshop autoCutout api to perform operation on the generated image.
     const psInput = {
-        href: firstImageUrl, 
-        storage: "external"
+        href: firstImageUrl,
+        storage: StorageType.EXTERNAL,
     };
 
     const psOutput = {
-        href: "<psOutputHref>", // Update with generated Pre-signed PUT URL for output file. 
-        storage: "<psOutputStorage>" // example -> "dropbox" or "external" or "azure"
+        href: "<psOutputHref>", // Generate Pre-signed PUT URL to save the generated output file.
+        storage: "<psOutputStorage>", // example: StorageType.DROPBOX or StorageType.EXTERNAL or StorageType.AZURE
     };
 
     const psRequestBody = {
-        input: psInput, 
-        output: psOutput
-    }
+        input: psInput,
+        output: psOutput,
+    };
 
     const removeBg = await photoshop.removeBackground(psRequestBody); // Remove Background
-    console.log("Successfully removed background");
+    console.log("Removed image background.\nStatus: ", removeBg.result.status);
 }
 
 /**
- * Generate an image and apply auto-tone
+ * Function to generate an image and Auto tone the image
  */
 async function generateAndAutoToneImage() {
-    const lightroom = new LightroomClient(config);
-    const firefly = new FireflyClient(config);
+    // Replace `<prompt>` with the image description
+    const fireflyResponse = await firefly.generateImages({ prompt: "<prompt>" }); // Provide a prompt value
+    const firstImageUrl = fireflyResponse.result.outputs[0].image.url;
 
-    const fireflyResponse = await firefly.generateImages({prompt: "<prompt>"}); // Update the "<prompt>"
-    const firstImageUrl = fireflyResponse.result.outputs[0].image.presignedUrl;
-    
-    console.log("Successfully generated a Firefly Image");
+    console.log("Successfully generated the Firefly Image");
 
-    // Prepare for Lightroom operation
+    // Use Lightroom applyAutoTone api to perform operation on the generated image.
     const lrInput = {
         href: firstImageUrl,
-        storage: "external"
+        storage: StorageType.EXTERNAL,
     };
 
     const lrOutput = {
-        href: "<lrOutputHref>", // Update with generated pre-signed PUT URL for output file. 
-        storage: "<lrOutputStorage>", // example -> "dropbox" or "external" or "azure"
-        type: "<imageType>" // example -> "image/jpeg" or "image/png"
+        href: "<lrOutputHref>", // Generate Pre-signed PUT URL to save the generated output file.
+        storage: "<lrOutputStorage>", // example: StorageType.DROPBOX or StorageType.EXTERNAL or StorageType.AZURE
+        type: "<imageType>", // example -> ImageFormatType.IMAGE_JPEG, ImageFormatType.IMAGE_PNG
     };
 
     const lrRequestBody = {
         inputs: lrInput,
-        outputs: [lrOutput]
-    }
+        outputs: [lrOutput],
+    };
 
     const applyAutoTone = await lightroom.applyAutoTone(lrRequestBody); // Apply Auto Tone
-    console.log("Successfully applied auto tone to the Image");
-
+    console.log("Apply auto tone to the image.\nStatus: ", applyAutoTone.result.outputs[0].status);
 }
 
-generateImageAndRemoveBackground();
+generateAndRemoveBackground();
 generateAndAutoToneImage();
 ```
 
