@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@adobe/firefly-services-sdk-core",
+      "comment": "Auth enhancements",
+      "type": "major"
+    }
+  ],
+  "packageName": "@adobe/firefly-services-sdk-core"
+}
