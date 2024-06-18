@@ -2,6 +2,18 @@
   "name": "@adobe/firefly-services-sdk-core",
   "entries": [
     {
+      "version": "2.0.0",
+      "tag": "@adobe/firefly-services-sdk-core_v2.0.0",
+      "date": "Tue, 18 Jun 2024 15:13:12 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "Auth enhancements"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.0",
       "tag": "@adobe/firefly-services-sdk-core_v1.0.0",
       "date": "Mon, 25 Mar 2024 09:06:44 GMT",

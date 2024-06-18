@@ -2,6 +2,26 @@
   "name": "@adobe/lightroom-apis",
   "entries": [
     {
+      "version": "2.0.0",
+      "tag": "@adobe/lightroom-apis_v2.0.0",
+      "date": "Tue, 18 Jun 2024 15:13:12 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "Auth enhancements"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@adobe/firefly-services-sdk-core\" to `2.0.0`"
+          },
+          {
+            "comment": "Updating dependency \"@adobe/firefly-services-common-apis\" to `2.0.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.0",
       "tag": "@adobe/lightroom-apis_v1.0.0",
       "date": "Mon, 25 Mar 2024 09:06:44 GMT",

@@ -1,6 +1,13 @@
 # Change Log - @adobe/firefly-apis
 
-This log was last generated on Fri, 19 Apr 2024 05:49:07 GMT and should not be manually modified.
+This log was last generated on Tue, 18 Jun 2024 15:13:12 GMT and should not be manually modified.
+
+## 2.0.0
+Tue, 18 Jun 2024 15:13:12 GMT
+
+### Breaking changes
+
+- Add firefly v3 apis
 
 ## 1.1.0
 Fri, 19 Apr 2024 05:49:07 GMT
