@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ChannelType } from "./ChannelType";
 export type ChannelDetails = {
     channel?: ChannelType;

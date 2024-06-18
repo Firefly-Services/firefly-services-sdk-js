@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { SelfLink } from "./SelfLink";
 export type JobStatusLink = {
     self?: SelfLink;

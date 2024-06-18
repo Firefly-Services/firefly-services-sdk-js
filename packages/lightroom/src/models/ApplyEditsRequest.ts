@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { EditOptions } from "./EditOptions";
 import type { LrOutputDetails } from "./LrOutputDetails";
 import type { StorageDetails } from "./StorageDetails";

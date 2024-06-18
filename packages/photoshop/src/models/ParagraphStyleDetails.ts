@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ParagraphStyleAlignmentType } from "./ParagraphStyleAlignmentType";
 /**
  * Paragraph style settings

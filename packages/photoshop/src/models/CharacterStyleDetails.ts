@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { AutoKernType } from "./AutoKernType";
 import type { BaselineType } from "./BaselineType";
 import type { ColorDetails } from "./ColorDetails";

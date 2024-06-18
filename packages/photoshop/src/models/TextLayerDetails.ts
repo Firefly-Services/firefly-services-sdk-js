@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { TextLayerCharacterStyleDetails } from "./TextLayerCharacterStyleDetails";
 import type { TextLayerParagraphStyleDetails } from "./TextLayerParagraphStyleDetails";
 /**

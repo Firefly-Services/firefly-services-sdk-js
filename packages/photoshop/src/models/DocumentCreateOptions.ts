@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { DocumentCreateLayer } from "./DocumentCreateLayer";
 import type { DocumentDetails } from "./DocumentDetails";
 import type { ManageMissingFonts } from "./ManageMissingFonts";

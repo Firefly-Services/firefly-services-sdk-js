@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { AlignmentType } from "./AlignmentType";
 /**
  * If the same supported attributes apply to all characters in the layer than this will be an array of one item, otherwise each paragraphStyle object will have a 'from' and 'to' value indicating the range of characters that the style applies to.

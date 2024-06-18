@@ -15,11 +15,6 @@
             "url": "https://image.adobe.io",
             "description": "Adobe Photoshop Production",
             "variables": {}
-        },
-        {
-            "url": "https://image-stage.adobe.io",
-            "description": "Adobe Photoshop Stage",
-            "variables": {}
         }
     ],
     "tags": [
@@ -39,21 +34,14 @@
                 "summary": "Get Status API",
                 "description": "Get job status of a Sensei job",
                 "operationId": "senseiJobStatus",
+                "x-ffs-status-fetcher": "true",
+                "x-ffs-job-name": "SenseiAsyncJob",
                 "parameters": [
                     {
                         "name": "jobId",
                         "in": "path",
                         "description": "The job to get status for",
                         "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -80,18 +68,9 @@
                 "tags": ["Sensei"],
                 "summary": "Remove Background API",
                 "description": "Isolate subject of interest in an image and remove background.",
-                "operationId": "removeBackgroundAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "removeBackground",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "senseiJobStatus",
                 "requestBody": {
                     "description": "The input image and the cutout mask parameters",
                     "content": {
@@ -105,7 +84,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -190,18 +169,9 @@
                 "tags": ["Sensei"],
                 "summary": "Create Mask API",
                 "description": "Isolate a subject of interest in an image (people, objects, etc) and generate an image mask",
-                "operationId": "createMaskAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "createMask",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "senseiJobStatus",
                 "requestBody": {
                     "description": "The input image and the mask parameters",
                     "content": {
@@ -215,7 +185,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -301,6 +271,8 @@
                 "summary": "Get Status API",
                 "description": "Get job status of a Photoshop job",
                 "operationId": "psJobStatus",
+                "x-ffs-status-fetcher": "true",
+                "x-ffs-job-name": "PsAsyncJob",
                 "parameters": [
                     {
                         "name": "jobId",
@@ -310,32 +282,16 @@
                         "schema": {
                             "type": "string"
                         }
-                    },
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "once all children are complete",
+                        "description": "Job Status",
                         "headers": {},
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "oneOf": [
-                                        {
-                                            "$ref": "#/components/schemas/ManifestJobApiResponse"
-                                        },
-                                        {
-                                            "$ref": "#/components/schemas/PsJobApiResponse"
-                                        }
-                                    ]
+                                    "$ref": "#/components/schemas/PsJobResponse"
                                 }
                             }
                         }
@@ -349,18 +305,9 @@
                 "tags": ["Photoshop"],
                 "summary": "Extract Document Manifest API.",
                 "description": "Extract metadata from PSD document, including general file and layer information.",
-                "operationId": "getDocumentManifestAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "getDocumentManifest",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "psJobStatus",
                 "requestBody": {
                     "description": "The input psd file to extract layer information from",
                     "content": {
@@ -374,7 +321,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -437,18 +384,9 @@
                 "tags": ["Photoshop"],
                 "summary": "Create PSD API",
                 "description": "Create new PSD with layers",
-                "operationId": "createDocumentAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "createDocument",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "psJobStatus",
                 "requestBody": {
                     "description": "The input psd file to create a new psd from",
                     "content": {
@@ -462,7 +400,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -547,18 +485,9 @@
                 "tags": ["Photoshop"],
                 "summary": "Apply Photoshop Edits API",
                 "description": "Apply basic layer edits (name, state, etc), add/edit adjustment, pixel, and shape layers.",
-                "operationId": "modifyDocumentAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "modifyDocument",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "psJobStatus",
                 "requestBody": {
                     "description": "The input psd file to apply edits to and generate renditions and/or save as a new psd",
                     "content": {
@@ -572,7 +501,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -657,18 +586,9 @@
                 "tags": ["Photoshop"],
                 "summary": "Create Renditions API",
                 "description": "Create flat image representations of a PSD in multiple formats",
-                "operationId": "createRenditionAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "createRendition",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "psJobStatus",
                 "requestBody": {
                     "description": "The input psd file to create renditions from",
                     "content": {
@@ -682,7 +602,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -766,19 +686,10 @@
             "post": {
                 "tags": ["Photoshop"],
                 "summary": "Replace Smart Object API.",
-                "description": "Replace Smart Object in a PSD .",
-                "operationId": "replaceSmartObjectAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "description": "Replace Smart Object in a PSD.",
+                "operationId": "replaceSmartObject",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "psJobStatus",
                 "requestBody": {
                     "description": "The input psd file to apply edits for replacing embedded smart object to and generate renditions and/or save as a new psd",
                     "content": {
@@ -792,7 +703,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -877,18 +788,9 @@
                 "tags": ["Photoshop"],
                 "summary": "Run Photoshop Actions API",
                 "description": "Executes Photoshop Action file against a PSD, JPEG, PNG, or TIFF ",
-                "operationId": "playPhotoshopActionsAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "playPhotoshopActions",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "psJobStatus",
                 "requestBody": {
                     "description": "The input file to apply Photoshop Actions to and generate renditions and/or save as a new image",
                     "content": {
@@ -902,7 +804,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -987,18 +889,9 @@
                 "tags": ["Photoshop"],
                 "summary": "Run Action JSON API",
                 "description": "Execute given Photoshop Action specified in actionJSON format.",
-                "operationId": "playPhotoshopActionsJsonAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "playPhotoshopActionsJson",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "psJobStatus",
                 "requestBody": {
                     "description": "The input psd file to apply Photoshop actionJSON to and generate renditions and/or save as a new image",
                     "content": {
@@ -1012,7 +905,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -1097,18 +990,9 @@
                 "tags": ["Photoshop"],
                 "summary": "Convert to Action JSON API",
                 "description": "Convert .atn file to an actionJSON format ",
-                "operationId": "convertToActionsJsonAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "convertToActionsJson",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "psJobStatus",
                 "requestBody": {
                     "description": "The input atn file to convert to actionJSON",
                     "content": {
@@ -1122,7 +1006,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -1196,18 +1080,9 @@
                 "tags": ["Photoshop"],
                 "summary": "Smart Crop API",
                 "description": "Smart crop an image keeping the subject of interest in view.",
-                "operationId": "applyAutoCropAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "applyAutoCrop",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "psJobStatus",
                 "requestBody": {
                     "description": "The input image to apply product crop to.",
                     "content": {
@@ -1221,7 +1096,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -1306,18 +1181,9 @@
                 "tags": ["Photoshop"],
                 "summary": "Depth Blur API",
                 "description": "Apply depth blur to an image input ",
-                "operationId": "applyDepthBlurAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "applyDepthBlur",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "psJobStatus",
                 "requestBody": {
                     "description": "The input image to apply depth blur to.",
                     "content": {
@@ -1331,7 +1197,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -1416,18 +1282,9 @@
                 "tags": ["Photoshop"],
                 "summary": "Edit Text Layer API",
                 "description": "Change the contents of a text layer in a PSD, eg for localization ",
-                "operationId": "editTextLayerAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "editTextLayer",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "psJobStatus",
                 "requestBody": {
                     "description": "The input text to be edited.",
                     "content": {
@@ -1441,7 +1298,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -1526,18 +1383,9 @@
                 "tags": ["Photoshop"],
                 "summary": "Create Arboards API",
                 "description": "Create artboards from multiple PSD inputs ",
-                "operationId": "createArtboardAsync",
-                "parameters": [
-                    {
-                        "name": "x-gw-ims-org-id",
-                        "in": "header",
-                        "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
+                "operationId": "createArtboard",
+                "x-ffs-async-job": true,
+                "x-ffs-job-status-fetcher": "psJobStatus",
                 "requestBody": {
                     "description": "The input artboard to be created.",
                     "content": {
@@ -1551,7 +1399,7 @@
                 },
                 "responses": {
                     "202": {
-                        "description": "success",
+                        "description": "response",
                         "headers": {},
                         "content": {
                             "application/json": {
@@ -2066,6 +1914,18 @@
                         "$ref": "#/components/schemas/JobStatusLink"
                     }
                 }
+            },
+            "PsJobResponse": {
+                "type": "object",
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/ManifestJobApiResponse"
+                    },
+                    {
+                        "$ref": "#/components/schemas/PsJobApiResponse"
+                    }
+                ],
+                "description": "Photoshop Job response."
             },
             "DocumentManifestRequest": {
                 "title": "DocumentManifestRequest",

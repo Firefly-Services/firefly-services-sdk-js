@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ApplyPresetInput } from "./ApplyPresetInput";
 import type { LrOutputDetails } from "./LrOutputDetails";
 export type ApplyPresetRequest = {

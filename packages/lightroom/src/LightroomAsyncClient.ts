@@ -15,30 +15,42 @@
  * from Adobe.
 
  **************************************************************************/
-
 // cc-apis-core Imports
-import type { ApiOptions, ApiResponse } from "@adobe/firefly-services-sdk-core";
+import type { ClientConfig, ApiOptions, ApiResponse } from "@adobe/firefly-services-sdk-core";
 import { ServiceConfig, BaseServiceClient } from "@adobe/firefly-services-sdk-core/internal";
-
-// Lightroom Model Imports
-import type { ApplyPresetRequest } from "./models/ApplyPresetRequest";
-import type { ApplyPresetFromXmpContentRequest } from "./models/ApplyPresetFromXmpContentRequest";
-import type { AutoStraightenImageRequest } from "./models/AutoStraightenImageRequest";
+// LightroomAsync Model Imports
 import type { ApplyAutoToneRequest } from "./models/ApplyAutoToneRequest";
 import type { ApplyEditsRequest } from "./models/ApplyEditsRequest";
+import type { ApplyPresetFromXmpContentRequest } from "./models/ApplyPresetFromXmpContentRequest";
+import type { ApplyPresetRequest } from "./models/ApplyPresetRequest";
+import type { AutoStraightenImageRequest } from "./models/AutoStraightenImageRequest";
 import type { JobStatusLinkResponse } from "./models/JobStatusLinkResponse";
 import type { LrJobApiResponse } from "./models/LrJobApiResponse";
-
+// Package.json import for package details
+import { version } from "./../package.json";
+/**
+ * LightroomAsyncClient
+ * LightroomAsync API client to use the LightroomAsync API services
+ */
 export class LightroomAsyncClient extends BaseServiceClient {
-    constructor(config: ServiceConfig) {
-        super(config);
-    }
+    constructor(config: ClientConfig) {
+        const urlMap = new Map([["production", "https://image.adobe.io"]]);
 
+        const environment = config.serviceEnvironment
+            ? config.serviceEnvironment
+            : BaseServiceClient.getEnvFromVersion(version);
+        const internalConfig: ServiceConfig = {
+            ...config,
+            baseUrl: BaseServiceClient.getBaseUrl(urlMap, environment)
+        };
+        super(internalConfig);
+    }
     /**
-     * Get the status for an asynchronous Lightroom job
-     * @param {string} jobId The job to get status for
-     * @param {ApiOptions} options Additional options to send any additional data or cancel the request
-     * @returns {Promise<ApiResponse<LrJobApiResponse>>} LrJobApiResponse Job status
+     * Get Status API
+     * Get job status of a Lightroom job
+     * @param jobId The job to get status for
+     * @param options Additional options to send any additional data or cancel the request
+     * @returns LrJobApiResponse Job status
      * @throws {ApiError}
      */
     public lrJobStatus = (jobId: string, options?: ApiOptions): Promise<ApiResponse<LrJobApiResponse>> => {
@@ -53,10 +65,10 @@ export class LightroomAsyncClient extends BaseServiceClient {
     };
     /**
      * Auto Straighten API
-     * Auto Straighten an image. Applies the Auto Upright transformation on an image.
-     * @param {AutoStraightenImageRequest} requestBody Request body for auto straighten api
-     * @param {ApiOptions} options Additional options to send any additional data or cancel the request
-     * @returns {Promise<ApiResponse<JobStatusLinkResponse>> } JobStatusLinkResponse response
+     * Auto Straighten an image. Applies the Auto Upright transformation on an image
+     * @param requestBody Request body for auto straighten api
+     * @param options Additional options to send any additional data or cancel the request
+     * @returns JobStatusLinkResponse response
      * @throws {ApiError}
      */
     public autoStraightenImageAsync(
@@ -79,13 +91,12 @@ export class LightroomAsyncClient extends BaseServiceClient {
             signal: options?.signal
         });
     }
-
     /**
      * Auto Tone API
-     * Automatically correct exposure, contrast, sharpness, saturation on an image.
-     * @param {ApplyAutoToneRequest} requestBody Request body for applyAutoTone api
-     * @param {ApiOptions} options Additional options to send any additional data or cancel the request
-     * @returns {Promise<ApiResponse<JobStatusLinkResponse>>} JobStatusLinkResponse response
+     * Automatically correct exposure, contrast, sharpness, saturation on an image
+     * @param requestBody Request body for applyAutoTone api
+     * @param options Additional options to send any additional data or cancel the request
+     * @returns JobStatusLinkResponse response
      * @throws {ApiError}
      */
     public applyAutoToneAsync(
@@ -108,13 +119,12 @@ export class LightroomAsyncClient extends BaseServiceClient {
             signal: options?.signal
         });
     }
-
     /**
      * Apply Lightroom Edits API
      * Apply one or more Lightroom edits ( exposure, contrast, sharpness, saturation ) to an image.
-     * @param {ApplyEditsRequest} requestBody Request body for edit api
-     * @param {ApiOptions} options Additional options to send any additional data or cancel the request
-     * @returns {Promise<ApiResponse<JobStatusLinkResponse>>} JobStatusLinkResponse response
+     * @param requestBody Request body for edit api
+     * @param options Additional options to send any additional data or cancel the request
+     * @returns JobStatusLinkResponse response
      * @throws {ApiError}
      */
     public applyEditsAsync(
@@ -137,13 +147,12 @@ export class LightroomAsyncClient extends BaseServiceClient {
             signal: options?.signal
         });
     }
-
     /**
      * Apply Lightroom Presets API
      * Apply one or more XMP Lightroom presets to the given image, by using the given preset XMP file(s).
-     * @param {ApplyPresetRequest} requestBody Request body for presets api
-     * @param {ApiOptions} options Additional options to send any additional data or cancel the request
-     * @returns {Promise<ApiResponse<JobStatusLinkResponse>>} JobStatusLinkResponse response
+     * @param requestBody Request body for presets api
+     * @param options Additional options to send any additional data or cancel the request
+     * @returns JobStatusLinkResponse response
      * @throws {ApiError}
      */
     public applyPresetAsync(
@@ -166,13 +175,12 @@ export class LightroomAsyncClient extends BaseServiceClient {
             signal: options?.signal
         });
     }
-
     /**
      * Add XMP to Image API
      * Apply XMP based Lightroom preset to an image. XMP content is passed inline to the api.
-     * @param {ApplyPresetFromXmpContentRequest} requestBody Request body for xmp api
-     * @param {ApiOptions} options Additional options to send any additional data or cancel the request
-     * @returns {Promise<ApiResponse<JobStatusLinkResponse>>} JobStatusLinkResponse response
+     * @param requestBody Request body for xmp api
+     * @param options Additional options to send any additional data or cancel the request
+     * @returns JobStatusLinkResponse response
      * @throws {ApiError}
      */
     public applyPresetFromXmpContentAsync(

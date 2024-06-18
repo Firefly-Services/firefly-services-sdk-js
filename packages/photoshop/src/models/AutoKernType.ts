@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * The text's kerning setting. Optical: set based on the shape of the font. Metrics: uses kern pairs included in fonts
  */

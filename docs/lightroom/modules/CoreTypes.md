@@ -12,6 +12,7 @@
 
 - [ApiOptions](../interfaces/CoreTypes.ApiOptions.md)
 - [ClientConfig](../interfaces/CoreTypes.ClientConfig.md)
+- [ClientCredentials](../interfaces/CoreTypes.ClientCredentials.md)
 - [TokenProvider](../interfaces/CoreTypes.TokenProvider.md)
 
 ### Type Aliases

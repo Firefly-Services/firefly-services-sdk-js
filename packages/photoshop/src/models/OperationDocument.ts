@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { CanvasSize } from "./CanvasSize";
 import type { ImageSize } from "./ImageSize";
 import type { Trim } from "./Trim";

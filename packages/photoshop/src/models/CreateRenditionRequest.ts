@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { PsOutputDetails } from "./PsOutputDetails";
 import type { StorageDetails } from "./StorageDetails";
 export type CreateRenditionRequest = {

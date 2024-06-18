@@ -21,13 +21,13 @@
   "projects": [
     {
       "packageName":"@adobe/firefly-services-sdk-core",
-      "projectFolder": "packages/cc-apis/core",
+      "projectFolder": "packages/core",
       "reviewCategory": "production",
       "shouldPublish": true
     },
     {
       "packageName":"@adobe/firefly-services-common-apis",
-      "projectFolder": "packages/cc-apis/common",
+      "projectFolder": "packages/common",
       "reviewCategory": "production",
       "shouldPublish": true
     },

@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * the font color settings for gray mode in 16bit representation
  */

@@ -15,14 +15,12 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { StorageDetails } from "./StorageDetails";
 export type ActionJsonOptions = {
     /**
      * array of Photoshop JSON-formatted Actions to play
      */
-    /* eslint-disable  @typescript-eslint/no-explicit-any -- this gets PS action json object which can not be defined */
-    actionJSON: Record<string, any>[];
+    actionJSON: Record<string /* eslint-disable  @typescript-eslint/no-explicit-any -- Required any*/, any>[];
     /**
      * array of custom pattern preset to be used in Photoshop Actions
      */

@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { FontColorCmyk } from "./FontColorCmyk";
 import type { FontColorGray } from "./FontColorGray";
 import type { FontColorLab } from "./FontColorLab";

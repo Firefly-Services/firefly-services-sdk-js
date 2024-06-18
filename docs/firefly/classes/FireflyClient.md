@@ -22,6 +22,8 @@ Firefly API client to use the Firefly API services
 - [expandImage](FireflyClient.md#expandimage)
 - [fillImage](FireflyClient.md#fillimage)
 - [generateImages](FireflyClient.md#generateimages)
+- [generateObjectComposite](FireflyClient.md#generateobjectcomposite)
+- [generateSimilarImages](FireflyClient.md#generatesimilarimages)
 - [upload](FireflyClient.md#upload)
 
 ## Constructors
@@ -30,11 +32,13 @@ Firefly API client to use the Firefly API services
 
 • **new FireflyClient**(`config`): [`FireflyClient`](FireflyClient.md)
 
+Constructor for FireflyClient
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `config` | [`ClientConfig`](../interfaces/CoreTypes.ClientConfig.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `config` | [`ClientConfig`](../interfaces/CoreTypes.ClientConfig.md) \| [`ClientCredentials`](../interfaces/CoreTypes.ClientCredentials.md) | configuration for creating client. Using ClientCredentials enables automatic token refresh, which cannot be disabled. Instead To manage authentication manually, use ClientConfig. |
 
 #### Returns
 
@@ -48,18 +52,16 @@ BaseServiceClient.constructor
 
 ### expandImage
 
-▸ **expandImage**(`requestBody`, `additionalParams?`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`ExpandImageResponse`](../index.md#expandimageresponse)\>\>
+▸ **expandImage**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`ExpandImageResponse`](../index.md#expandimageresponse)\>\>
 
 Expand Image API
-Expand an image to a new size/aspect ratio
+Change the aspect ratio or size of an image and expand its contents with or without a text prompt.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestBody` | [`ExpandImageRequest`](../index.md#expandimagerequest) | image expansion request body. |
-| `additionalParams` | `Object` | Additional parameters to send with the request |
-| `additionalParams.xAcceptMimetype?` | [`AcceptMimeTypes`](../enums/AcceptMimeTypes.md) | Output image format |
 | `options?` | [`ApiOptions`](../interfaces/CoreTypes.ApiOptions.md) | Additional options to send any additional data or cancel the request |
 
 #### Returns
@@ -100,8 +102,8 @@ ___
 
 ▸ **generateImages**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`GenerateImagesResponse`](../index.md#generateimagesresponse)\>\>
 
-Generate images API
-Generate images based on a prompt with optional reference image to match style
+Generate Images API
+Generate images based on a prompt with optional reference image to match style and structure.
 
 #### Parameters
 
@@ -120,24 +122,71 @@ GenerateImagesResponse Generate images response
 
 ___
 
-### upload
+### generateObjectComposite
 
-▸ **upload**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`UploadResponse`](../index.md#uploadresponse)\>\>
+▸ **generateObjectComposite**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`GenerateObjectCompositeResponse`](../index.md#generateobjectcompositeresponse)\>\>
 
-Upload API
-Upload any content, such as images, videos, or documents. This api provides an opaque ID for referencing the uploaded content in other firefly apis.
+Generate Object Composite API
+Upload an image(with or without mask), such as a product photo, and utilize a text prompt to generate a seamlessly composited scene featuring the product.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `requestBody` | `Blob` | Blob created using the image data of types PNG/JPEG/WEBP image, ensure that type is set while creating the blob. |
+| `requestBody` | [`GenerateObjectCompositeRequest`](../index.md#generateobjectcompositerequest) | Object composite generation request body. |
+| `options?` | [`ApiOptions`](../interfaces/CoreTypes.ApiOptions.md) | Additional options to send any additional data or cancel the request |
+
+#### Returns
+
+`Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`GenerateObjectCompositeResponse`](../index.md#generateobjectcompositeresponse)\>\>
+
+GenerateObjectCompositeResponse Generate Object Composite Response
+
+**`Throws`**
+
+___
+
+### generateSimilarImages
+
+▸ **generateSimilarImages**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`GenerateSimilarImagesResponse`](../index.md#generatesimilarimagesresponse)\>\>
+
+Generate Similar Images API
+Generate similar Images based on the reference image.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `requestBody` | [`GenerateSimilarImagesRequest`](../index.md#generatesimilarimagesrequest) | Generate similar images request body |
+| `options?` | [`ApiOptions`](../interfaces/CoreTypes.ApiOptions.md) | Additional options to send any additional data or cancel the request |
+
+#### Returns
+
+`Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`GenerateSimilarImagesResponse`](../index.md#generatesimilarimagesresponse)\>\>
+
+GenerateSimilarImagesResponse Generate similar images response
+
+**`Throws`**
+
+___
+
+### upload
+
+▸ **upload**(`requestBody`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`UploadResponse`](../index.md#uploadresponse)\>\>
+
+Upload API
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `requestBody` | `Blob` | Upload source image or mask image of types PNG/JPEG/WEBP for Image-to-Image operations, such as fill, expand. This api returns an identifier that is used to refer to uploaded content. |
 | `options?` | [`ApiOptions`](../interfaces/CoreTypes.ApiOptions.md) | Additional options to send any additional data or cancel the request |
 
 #### Returns
 
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`UploadResponse`](../index.md#uploadresponse)\>\>
 
-UploadResponse Storage Response
+UploadResponse Successful Response
 
 **`Throws`**

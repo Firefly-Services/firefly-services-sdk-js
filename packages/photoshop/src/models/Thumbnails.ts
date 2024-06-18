@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ThumbnailType } from "./ThumbnailType";
 /**
  * Include presigned GET URLs to small preview thumbnails for any renderable layer

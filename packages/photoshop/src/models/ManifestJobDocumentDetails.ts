@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ChannelModeType } from "./ChannelModeType";
 import type { ImageModeType } from "./ImageModeType";
 export type ManifestJobDocumentDetails = {

@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * An object describing the attributes specific to creating or editing a smartObject.
  * SmartObject properties need the input smart object file to operate on, which can be obtained from Input block. Currently we support Embedded Smart Object only.So this block is optional. If you are creating a Linked Smart Object, this is a required block.

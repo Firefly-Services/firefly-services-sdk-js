@@ -15,22 +15,20 @@
  * from Adobe.
 
  **************************************************************************/
-import type { ExternalResource } from "./ExternalResource";
-import type { UploadedResource } from "./UploadedResource";
-/**
- * Additional styles and reference image to be applied when generating variations.
- */
+import type { StylesImageReference } from "./StylesImageReference";
 export type Styles = {
     /**
-     * List of style presets (See "Image Model Styles" under "Getting Started" guides) that are applied to generated content
+     * You can specify a preset ID for a style. Refer to Image Model Styles under Concepts for the list of supported <code>Preset IDs</code>.
      */
     presets?: string[];
     /**
-     * Firefly will detect the style in the image and apply the same style in the generated image
-     */
-    referenceImage?: UploadedResource | ExternalResource;
-    /**
-     * Sets the intensity at which to apply the styles
+     * The strength of the style to be applied.
      */
     strength?: number;
+    /**
+     * Firefly will detect the style in the image and apply the same style in the generated image.
+     * <strong>Note</strong>: Only allow listed domains are allowed to be accepted as input URL in the request. The allow-listed domains are as follows:
+     * <ul><li><code>amazonaws.com</code></li><li><code>windows.net</code></li><li><code>dropboxusercontent.com</code></li></ul>
+     */
+    imageReference?: StylesImageReference;
 };

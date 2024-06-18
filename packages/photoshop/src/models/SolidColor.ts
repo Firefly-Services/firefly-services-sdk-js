@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { RgbColor } from "./RgbColor";
 export type SolidColor = {
     rgb: RgbColor;

@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { JobOutputStatus } from "./JobOutputStatus";
 import type { RenditionLinks } from "./RenditionLinks";
 export type JobOutputDetails = {

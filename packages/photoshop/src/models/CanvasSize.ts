@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { Bounds } from "./Bounds";
 export type CanvasSize = {
     bounds: Bounds;

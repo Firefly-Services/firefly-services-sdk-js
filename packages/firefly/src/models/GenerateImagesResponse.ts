@@ -15,16 +15,31 @@
  * from Adobe.
 
  **************************************************************************/
-import type { ImageGenerateSize } from "./ImageGenerateSize";
-import type { ImageOutput } from "./ImageOutput";
+import type { ContentClass } from "./ContentClass";
+import type { OutputImage } from "./OutputImage";
+import type { Size } from "./Size";
 /**
  * text-to-image response
  */
 export type GenerateImagesResponse = {
     /**
-     * Unique identifier indicating the model and pipeline version with which the images were generated.
+     * If size was passed as input, this value should be the same as the one passed as input.
      */
-    version?: string;
-    size?: ImageGenerateSize;
-    outputs?: ImageOutput[];
+    size: Size;
+    /**
+     * Each image will have a storage item.
+     */
+    outputs: OutputImage[];
+    /**
+     * The user may see that the generation does not comply to its full prompt
+     */
+    promptHasDeniedWords?: boolean;
+    /**
+     * The user may see that the generation does not comply to its full prompt
+     */
+    promptHasBlockedArtists?: boolean;
+    /**
+     * Will be same as input, if input was specified
+     */
+    contentClass?: ContentClass;
 };

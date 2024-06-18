@@ -11,6 +11,7 @@ Common Client configuration to interact with the Service APIs.
 ### Properties
 
 - [clientId](CoreTypes.ClientConfig.md#clientid)
+- [serviceEnvironment](CoreTypes.ClientConfig.md#serviceenvironment)
 - [tokenProvider](CoreTypes.ClientConfig.md#tokenprovider)
 
 ## Properties
@@ -20,6 +21,16 @@ Common Client configuration to interact with the Service APIs.
 • **clientId**: `string`
 
 The value to be passed as x-api-key in headers for all requests
+
+___
+
+### serviceEnvironment
+
+• `Optional` **serviceEnvironment**: `string`
+
+Method to switch between different environments i.e. beta, prod etc
+
+**`Experimental`**
 
 ___
 

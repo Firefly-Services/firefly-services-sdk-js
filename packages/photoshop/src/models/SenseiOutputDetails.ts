@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { MaskFormat } from "./MaskFormat";
 import type { SenseiColor } from "./SenseiColor";
 import type { StorageType } from "./StorageType";

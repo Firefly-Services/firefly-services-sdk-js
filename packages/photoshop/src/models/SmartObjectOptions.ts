@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { SmartObjectLayer } from "./SmartObjectLayer";
 export type SmartObjectOptions = {
     /**

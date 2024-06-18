@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { BlendDetails } from "./BlendDetails";
 import type { Bounds } from "./Bounds";
 import type { ChildrenLayerDetails } from "./ChildrenLayerDetails";

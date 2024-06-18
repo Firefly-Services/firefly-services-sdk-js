@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { AntiAliasType } from "./AntiAliasType";
 import type { CharacterStyleDetails } from "./CharacterStyleDetails";
 import type { EastAsianFeatures } from "./EastAsianFeatures";

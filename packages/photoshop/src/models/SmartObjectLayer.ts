@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { Bounds } from "./Bounds";
 import type { LayerPosition } from "./LayerPosition";
 import type { StorageDetails } from "./StorageDetails";

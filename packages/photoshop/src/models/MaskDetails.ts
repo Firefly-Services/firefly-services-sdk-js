@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { Offset } from "./Offset";
 import type { StorageDetails } from "./StorageDetails";
 export type MaskDetails = {

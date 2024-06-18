@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { AutoStraightOptions } from "./AutoStraightOptions";
 import type { LrOutputDetails } from "./LrOutputDetails";
 import type { StorageDetails } from "./StorageDetails";

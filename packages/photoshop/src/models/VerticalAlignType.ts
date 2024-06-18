@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * Indicates the relative vertical position of the layer with respect to the canvas of the document
  */

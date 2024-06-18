@@ -16,9 +16,15 @@ A simple interface to provide the access token, this can be used to provide the 
 
 ### getToken
 
-▸ **getToken**(): `Promise`\<`string`\>
+▸ **getToken**(`env`): `Promise`\<`string`\>
 
 returns the access token for the application to interact with the Firefly services.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `env` | `string` |
 
 #### Returns
 

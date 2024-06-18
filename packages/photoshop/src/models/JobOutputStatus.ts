@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * the child job status
  * * pending - request has been accepted and is waiting to start

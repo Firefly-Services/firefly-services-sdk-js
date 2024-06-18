@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { StorageType } from "./StorageType";
 /**
  * File on Adobe's cloud or an external service (like AWS S3, Azure, Dropbox)

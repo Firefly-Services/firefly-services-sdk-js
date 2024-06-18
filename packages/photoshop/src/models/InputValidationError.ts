@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { InputValidationErrorDetail } from "./InputValidationErrorDetail";
 /**
  * any errors reported requested output

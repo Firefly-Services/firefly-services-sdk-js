@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ManageMissingFonts } from "./ManageMissingFonts";
 import type { StorageDetails } from "./StorageDetails";
 import type { TextOptionsLayer } from "./TextOptionsLayer";

@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { JobStatusLink } from "./JobStatusLink";
 export type JobStatusLinkResponse = {
     _links?: JobStatusLink;

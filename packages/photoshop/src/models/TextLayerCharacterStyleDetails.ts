@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { FontColorDetails } from "./FontColorDetails";
 import type { OrientationType } from "./OrientationType";
 export type TextLayerCharacterStyleDetails = {

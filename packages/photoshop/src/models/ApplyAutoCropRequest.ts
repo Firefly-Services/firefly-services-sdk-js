@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ActionOutputDetails } from "./ActionOutputDetails";
 import type { CropOptions } from "./CropOptions";
 import type { StorageDetails } from "./StorageDetails";

@@ -1,19 +1,20 @@
-/*************************************************************************
- * ADOBE CONFIDENTIAL
- * ___________________
- *
- * Copyright 2024 Adobe
- * All Rights Reserved.
- *
- * NOTICE: All information contained herein is, and remains
- * the property of Adobe and its suppliers, if any. The intellectual
- * and technical concepts contained herein are proprietary to Adobe
- * and its suppliers and are protected by all applicable intellectual
- * property laws, including trade secret and copyright laws.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained
- * from Adobe.
- **************************************************************************/
+/************************************************************************* 
+ * ADOBE CONFIDENTIAL 
+ * ___________________ 
+ * 
+ * Copyright 2024 Adobe 
+ * All Rights Reserved. 
+ * 
+ * NOTICE: All information contained herein is, and remains 
+ * the property of Adobe and its suppliers, if any. The intellectual 
+ * and technical concepts contained herein are proprietary to Adobe 
+ * and its suppliers and are protected by all applicable intellectual 
+ * property laws, including trade secret and copyright laws. 
+ * Dissemination of this information or reproduction of this material 
+ * is strictly forbidden unless prior written permission is obtained 
+ * from Adobe. 
+ 
+**************************************************************************/
 
 export { PhotoshopClient } from "./Photoshop";
 
@@ -115,6 +116,7 @@ export type { ParagraphStyleDetails } from "./models/ParagraphStyleDetails";
 export type { PlayPhotoshopActionsJsonRequest } from "./models/PlayPhotoshopActionsJsonRequest";
 export type { PlayPhotoshopActionsRequest } from "./models/PlayPhotoshopActionsRequest";
 export type { PsJobApiResponse } from "./models/PsJobApiResponse";
+export type { PsJobResponse } from "./models/PsJobResponse";
 export type { PsOutputDetails } from "./models/PsOutputDetails";
 export type { RemoveBackgroundRequest } from "./models/RemoveBackgroundRequest";
 export type { RenditionLinkDetails } from "./models/RenditionLinkDetails";
@@ -148,5 +150,3 @@ export type { Trim } from "./models/Trim";
 export type { TrimToCanvasType } from "./models/TrimToCanvasType";
 export { UnitType } from "./models/UnitType";
 export { VerticalAlignType } from "./models/VerticalAlignType";
-
-export type { PsJobResponse } from "./PsAsyncJob";

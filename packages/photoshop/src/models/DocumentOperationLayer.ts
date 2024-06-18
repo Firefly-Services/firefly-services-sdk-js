@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { AdjustmentDetails } from "./AdjustmentDetails";
 import type { BlendDetails } from "./BlendDetails";
 import type { Bounds } from "./Bounds";
@@ -35,8 +34,7 @@ export type DocumentOperationLayer = {
     /**
      * Indicates you want to edit the layer identified by it's id or name. Note the object is currently empty but leaves room for further enhancements. The layer block should than contain changes from the original manifest. If you apply it to a group layer you will be effecting the attributes of the group layer itself, not the child layers. Edit layer is supported for layer type "smartObject" and "fillLayer" only.
      */
-    /* eslint-disable  @typescript-eslint/no-explicit-any -- this object is not defined and will be used further enhancements */
-    edit?: Record<string, any>;
+    edit?: Record<string /* eslint-disable  @typescript-eslint/no-explicit-any -- Required any*/, any>;
     move?: MoveDetails;
     add?: LayerPosition;
     delete: DeleteDetails;

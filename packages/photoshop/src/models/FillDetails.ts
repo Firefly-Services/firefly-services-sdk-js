@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { SolidColor } from "./SolidColor";
 export type FillDetails = {
     solidColor?: SolidColor;

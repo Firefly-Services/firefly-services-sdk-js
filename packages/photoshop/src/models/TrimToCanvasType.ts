@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * If the renditions needs to be of Canvas size. True, trims the renditions to Canvas size, while false makes the renditions to Layer Size
  */

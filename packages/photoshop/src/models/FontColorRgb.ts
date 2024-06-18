@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * An object describing the rgb color format in 16 bits
  */

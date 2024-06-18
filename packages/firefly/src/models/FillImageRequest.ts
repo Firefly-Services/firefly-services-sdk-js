@@ -15,21 +15,35 @@
  * from Adobe.
 
  **************************************************************************/
-import type { ImageFillMask } from "./ImageFillMask";
-import type { UploadedResource } from "./UploadedResource";
+import type { InputImage } from "./InputImage";
+/**
+ * Fill images payload
+ */
 export type FillImageRequest = {
     /**
-     * If provided, the masked area will be rendered with content generated from prompt. If not provided, the masked area will be rendered with content matching the existing style of the source image.
+     * The number of variations to generate. numVariations will default to the number of seeds, or to 1 if seeds is not specified.
+     */
+    numVariations?: number;
+    /**
+     * Array of seed(s) that ensure consistent image generation across multiple API calls. For example, you can use the same seed to generate a similar image with different styles. If specified alongside with numVariations, the number of seeds must be the equal to numVariations
+     */
+    seeds?: number[];
+    /**
+     * The prompt used to generate the image. The longer the prompt - the better
      */
     prompt?: string;
     /**
-     * The number of variations to generate. If seeds array is specified, "n" does not have to be specified.
+     * Inference will try to generate against this prompt
      */
-    n?: number;
+    negativePrompt?: string;
     /**
-     * Array of seed(s) that will provide generation stability across multiple API calls. E.g. You can use the same seed to generate a similar image with different styles. If "n" is specified, the number of elements in the array must be equal to "n".
+     * Input image to fill with generative content. You can either use a <code>url</code> or an <code>uploadId</code> as the source for the uploaded image.
+     * <strong>Note</strong>: Only allow listed domains are allowed to be accepted as input URL in the request. The allow-listed domains are as follows:
+     * <ul><li><code>amazonaws.com</code></li><li><code>windows.net</code></li><li><code>dropboxusercontent.com</code></li></ul>
      */
-    seeds?: number[];
-    image: UploadedResource;
-    mask: ImageFillMask;
+    image: InputImage;
+    /**
+     * A hyphen-separated string combining the ISO 639-1 language code and the ISO 3166-1 region, such as "en-US". When a locale is set, the prompt will be biased to generate more relevant content for that region. The locale will be auto-detected if not specified based on the user's profile and Accept-Language header.
+     */
+    promptBiasingLocaleCode?: string;
 };

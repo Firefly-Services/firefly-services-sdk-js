@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { RenditionLinkDetails } from "./RenditionLinkDetails";
 /**
  * the rendition links

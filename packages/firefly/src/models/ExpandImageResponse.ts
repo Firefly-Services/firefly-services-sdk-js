@@ -15,28 +15,18 @@
  * from Adobe.
 
  **************************************************************************/
-import type { ImageOutput } from "./ImageOutput";
-import type { ImageSize } from "./ImageSize";
+import type { OutputImage } from "./OutputImage";
+import type { Size } from "./Size";
 /**
- * Expand Image response
+ * Images expand response
  */
 export type ExpandImageResponse = {
     /**
-     * Unique identifier indicating the model and pipeline version with which the images were generated.
+     * If size was passed as input, this value should be the same as the one passed as input.
      */
-    pipelineVersion?: string;
+    size: Size;
     /**
-     * Specify a prompt for generating content in the masked area. If not provided, the existing style of the source image will be used.
+     * Each image will have a storage item.
      */
-    prompt?: string;
-    /**
-     * Flag to indicate if denied words were detected in the prompt.
-     */
-    promptHasDeniedWords?: boolean;
-    /**
-     * Flag to indicate if artist names were detected in the prompt.
-     */
-    promptHasBlockedArtist?: boolean;
-    size?: ImageSize;
-    images?: ImageOutput[];
+    outputs: OutputImage[];
 };

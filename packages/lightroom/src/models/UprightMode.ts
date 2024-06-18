@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 /**
  * The upright mode to use. If you have the options block, then this is a required field. If options block is not specified, then the appropriate upright mode will automatically be selected.
  */

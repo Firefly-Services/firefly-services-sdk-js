@@ -15,7 +15,6 @@
  * from Adobe.
 
  **************************************************************************/
-
 import type { ChannelModeType } from "./ChannelModeType";
 import type { DepthType } from "./DepthType";
 import type { FillType } from "./FillType";
