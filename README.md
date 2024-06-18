@@ -121,17 +121,17 @@ const { LightroomClient, StorageType } = require("@adobe/lightroom-apis");
 const { ServerToServerTokenProvider } = require("@adobe/firefly-services-common-apis");
 
 /**
- * Helper function that performs Server to Server Authentication to fetch the Access token for given Client Credentials.
+ * Helper function that performs server-to-server authentication to fetch the access token.
  * @param {string} clientId
  * @param {string} clientSecret
  * @param {string} scopes
- * @returns {ServerToServerTokenProvider} instance of ServerToServerTokenProvider which can be passed in ClientConfig to get the access token.
+ * @returns {ServerToServerTokenProvider}
  */
 function getAuthProvider(clientId, clientSecret, scopes) {
     const serverToServerAuthDetails = {
         clientId,
         clientSecret,
-        scopes, // e.g. "openid,AdobeID,read_organizations,firefly_api,ff_apis"
+        scopes, // example: "openid,AdobeID,read_organizations,firefly_api,ff_apis"
     };
     const serverToServerAuthOptions = {
         autoRefresh: true,
@@ -139,11 +139,11 @@ function getAuthProvider(clientId, clientSecret, scopes) {
     return new ServerToServerTokenProvider(serverToServerAuthDetails, serverToServerAuthOptions);
 }
 
-// create authprovider
-const authProvider = getAuthProvider("<clientId>", "<clientSecret>", "<scopes>"); // Manually update the "<clientId>", "<clientSecret>", "<scopes>"
+// create auth config
+const authProvider = getAuthProvider("<clientId>", "<clientSecret>", "<scopes>"); // Update the "<clientId>", "<clientSecret>", "<scopes>"
 const config = {
-    tokenProvider: authProvider, // ServerToServerTokenProvider implements the TokenProvider interface that returns the access token.
-    clientId: "<clientId>",
+    tokenProvider: authProvider,
+    clientId: "<clientId>" // Update the "<clientId>"
 };
 
 // create the product clients
@@ -152,63 +152,63 @@ const photoshop = new PhotoshopClient(config);
 const lightroom = new LightroomClient(config);
 
 /**
- * Function to generate an image and remove image background
+ * Generate an image and remove background
  */
 async function generateAndRemoveBackground() {
     const fireflyResponse = await firefly.generateImages({ prompt: "<Prompt>" }); // provide a `prompt` value
     const firstImageUrl = fireflyResponse.result.outputs[0].image.url;
 
-    console.log("Successfully generated the Firefly Image");
+    console.log("Successfully generated a Firefly Image");
 
-    // Use Photoshop autoCutout api to perform operation on the generated image.
+    // Prepare for Photoshop operation
     const psInput = {
         href: firstImageUrl,
         storage: StorageType.EXTERNAL,
     };
 
     const psOutput = {
-        href: "<psOutputHref>", // Generate Pre-signed PUT URL to save the generated output file.
+        href: "<psOutputHref>", // Update with generated Pre-signed PUT URL for output file. 
         storage: "<psOutputStorage>", // example: StorageType.DROPBOX or StorageType.EXTERNAL or StorageType.AZURE
     };
 
     const psRequestBody = {
         input: psInput,
-        output: psOutput,
+        output: psOutput
     };
 
     const removeBg = await photoshop.removeBackground(psRequestBody); // Remove Background
-    console.log("Removed image background.\nStatus: ", removeBg.result.status);
+    console.log("Successfully removed background");
 }
 
 /**
- * Function to generate an image and Auto tone the image
- */
+ * Generate an image and apply auto-tone
+*/
 async function generateAndAutoToneImage() {
-    // Replace `<prompt>` with the image description
-    const fireflyResponse = await firefly.generateImages({ prompt: "<prompt>" }); // Provide a prompt value
+
+    const fireflyResponse = await firefly.generateImages({ prompt: "<prompt>" }); // Update the "<prompt>"
     const firstImageUrl = fireflyResponse.result.outputs[0].image.url;
 
     console.log("Successfully generated the Firefly Image");
 
-    // Use Lightroom applyAutoTone api to perform operation on the generated image.
+    // Prepare for Lightroom operation
     const lrInput = {
         href: firstImageUrl,
         storage: StorageType.EXTERNAL,
     };
 
     const lrOutput = {
-        href: "<lrOutputHref>", // Generate Pre-signed PUT URL to save the generated output file.
-        storage: "<lrOutputStorage>", // example: StorageType.DROPBOX or StorageType.EXTERNAL or StorageType.AZURE
-        type: "<imageType>", // example -> ImageFormatType.IMAGE_JPEG, ImageFormatType.IMAGE_PNG
+        href: "<lrOutputHref>", // Update with generated pre-signed PUT URL for output file. 
+        storage: "<lrOutputStorage>", // example -> "dropbox" or "external" or "azure"
+        type: "<imageType>" // example -> "image/jpeg" or "image/png"
     };
 
     const lrRequestBody = {
         inputs: lrInput,
-        outputs: [lrOutput],
+        outputs: [lrOutput]
     };
 
     const applyAutoTone = await lightroom.applyAutoTone(lrRequestBody); // Apply Auto Tone
-    console.log("Apply auto tone to the image.\nStatus: ", applyAutoTone.result.outputs[0].status);
+    console.log("Successfully applied auto tone to the Image");
 }
 
 generateAndRemoveBackground();
