@@ -12,8 +12,12 @@ Firefly Services: Firefly SDK Reference
 
 - [AlignmentHorizontal](enums/AlignmentHorizontal.md)
 - [AlignmentVertical](enums/AlignmentVertical.md)
+- [CameraMotion](enums/CameraMotion.md)
 - [ContentClass](enums/ContentClass.md)
 - [ErrorCode](enums/ErrorCode.md)
+- [ShotAngle](enums/ShotAngle.md)
+- [ShotSize](enums/ShotSize.md)
+- [VideoPromptStyle](enums/VideoPromptStyle.md)
 
 ### Classes
 
@@ -22,7 +26,11 @@ Firefly Services: Firefly SDK Reference
 ### Type Aliases
 
 - [ApiError](index.md#apierror)
+- [AsyncResponseV3](index.md#asyncresponsev3)
+- [AsyncResult](index.md#asyncresult)
 - [BaseInputImage](index.md#baseinputimage)
+- [ClinetoSize](index.md#clinetosize)
+- [ClipRange](index.md#cliprange)
 - [ExpandImageRequest](index.md#expandimagerequest)
 - [ExpandImageResponse](index.md#expandimageresponse)
 - [ExpandInputImage](index.md#expandinputimage)
@@ -34,13 +42,18 @@ Firefly Services: Firefly SDK Reference
 - [GenerateObjectCompositeResponse](index.md#generateobjectcompositeresponse)
 - [GenerateSimilarImagesRequest](index.md#generatesimilarimagesrequest)
 - [GenerateSimilarImagesResponse](index.md#generatesimilarimagesresponse)
+- [GenerateVideoRequestV3](index.md#generatevideorequestv3)
+- [ImageConditionV3](index.md#imageconditionv3)
 - [InputImage](index.md#inputimage)
+- [InputImageV3](index.md#inputimagev3)
 - [ObjectCompositeInputImage](index.md#objectcompositeinputimage)
 - [OutputImage](index.md#outputimage)
 - [Placement](index.md#placement)
 - [PlacementAlignment](index.md#placementalignment)
 - [PlacementInset](index.md#placementinset)
+- [PlacementStart](index.md#placementstart)
 - [PublicBinaryInput](index.md#publicbinaryinput)
+- [PublicBinaryInputV3](index.md#publicbinaryinputv3)
 - [PublicBinaryOutput](index.md#publicbinaryoutput)
 - [Size](index.md#size)
 - [StructureImageReference](index.md#structureimagereference)
@@ -50,6 +63,12 @@ Firefly Services: Firefly SDK Reference
 - [UploadResponse](index.md#uploadresponse)
 - [UploadedResource](index.md#uploadedresource)
 - [ValidationErrorMessage](index.md#validationerrormessage)
+- [VideoApiError](index.md#videoapierror)
+- [VideoOutput](index.md#videooutput)
+- [VideoPlacement](index.md#videoplacement)
+- [VideoResult](index.md#videoresult)
+- [VideoSettingsV3](index.md#videosettingsv3)
+- [VideoValidationErrorMessage](index.md#videovalidationerrormessage)
 
 ## Type Aliases
 
@@ -69,6 +88,36 @@ The error within the error response.
 
 ___
 
+### AsyncResponseV3
+
+Ƭ **AsyncResponseV3**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `cancelUrl?` | `any` | A URL to cancel the job. |
+| `jobId` | `any` | The ID for the asyncronous job. |
+| `progress?` | `number` | The progress of the running job. The value is the percentage of the job that has been completed. |
+| `result?` | [`AsyncResult`](index.md#asyncresult) | The result of the completed job. |
+| `status?` | `any` | The status of the job. |
+| `statusUrl?` | `any` | A URL to show the status of the current job. |
+
+___
+
+### AsyncResult
+
+Ƭ **AsyncResult**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `outputs` | [`VideoOutput`](index.md#videooutput)[] | Array of generated video outputs. |
+| `size` | [`ClinetoSize`](index.md#clinetosize) | - |
+
+___
+
 ### BaseInputImage
 
 Ƭ **BaseInputImage**: `Object`
@@ -80,6 +129,68 @@ Source image which will be used to generate similar images
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `source` | [`PublicBinaryInput`](index.md#publicbinaryinput) | Source of the reference image used to generate similar images. You can either use a <code>url</code> or an <code>uploadId</code> as the source for the uploaded image. <strong>Note</strong>: Only allow listed domains are allowed to be accepted as input URL in the request. The allow-listed domains are as follows: <ul><li><code>amazonaws.com</code></li><li><code>windows.net</code></li><li><code>dropboxusercontent.com</code></li></ul> |
+
+___
+
+### ClinetoSize
+
+Ƭ **ClinetoSize**: `Object`
+
+**********************************************************************
+ADOBE CONFIDENTIAL
+___________________
+
+Copyright 2025 Adobe
+All Rights Reserved.
+
+NOTICE: All information contained herein is, and remains
+the property of Adobe and its suppliers, if any. The intellectual
+and technical concepts contained herein are proprietary to Adobe
+and its suppliers and are protected by all applicable intellectual
+property laws, including trade secret and copyright laws.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Adobe.
+
+************************************************************************
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `height` | `number` | The height of the output image. |
+| `width` | `number` | The width of the output image. |
+
+___
+
+### ClipRange
+
+Ƭ **ClipRange**: `Object`
+
+**********************************************************************
+ADOBE CONFIDENTIAL
+___________________
+
+Copyright 2025 Adobe
+All Rights Reserved.
+
+NOTICE: All information contained herein is, and remains
+the property of Adobe and its suppliers, if any. The intellectual
+and technical concepts contained herein are proprietary to Adobe
+and its suppliers and are protected by all applicable intellectual
+property laws, including trade secret and copyright laws.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Adobe.
+
+************************************************************************
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `end?` | `number` | The time stamp of a clip end position, in seconds |
+| `start?` | `number` | The time stamp of a clip start position, in seconds |
 
 ___
 
@@ -274,6 +385,37 @@ Generating similar images response
 
 ___
 
+### GenerateVideoRequestV3
+
+Ƭ **GenerateVideoRequestV3**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `bitRateFactor?` | `number` | The constant rate factor for encoding video. 0 indicates a lossless generation, with the highest quality and largest file size. 63 indicates the worst quality generation with the smallest file size. The suggested value range is 17-23. |
+| `image?` | [`InputImageV3`](index.md#inputimagev3) | The details of the image used as a keyframe for the generated video. Provided images are used as a first frame or final frame to guide the video generation. |
+| `negativePrompt?` | `string` | The API will try to generate against the characteristcs in this prompt. |
+| `prompt?` | `string` | The prompt used to generate the image. The longer the prompt, the better. |
+| `seeds?` | `number`[] | The seed reference value. Currently only 1 seed is supported. |
+| `sizes?` | [`ClinetoSize`](index.md#clinetosize)[] | The dimensions of the generated video. Review the usage notes for [supported aspect ratios](../getting_started/usage_notes/) and the sizes associated with them. |
+| `videoSettings?` | [`VideoSettingsV3`](index.md#videosettingsv3) | The camera and shot control settings. |
+
+___
+
+### ImageConditionV3
+
+Ƭ **ImageConditionV3**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `placement` | [`PlacementStart`](index.md#placementstart) | Details about the timeline placement of the image. |
+| `source` | [`PublicBinaryInputV3`](index.md#publicbinaryinputv3) | The source details of the image. |
+
+___
+
 ### InputImage
 
 Ƭ **InputImage**: `Object`
@@ -284,6 +426,18 @@ ___
 | :------ | :------ | :------ |
 | `mask` | [`PublicBinaryInput`](index.md#publicbinaryinput) | Mask image which will be used replace the background of the image.<br><strong>Note:</strong> The minimum accepted size for the larger side of the image is 600 px. |
 | `source` | [`PublicBinaryInput`](index.md#publicbinaryinput) | Upload an image you want to fill. |
+
+___
+
+### InputImageV3
+
+Ƭ **InputImageV3**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `conditions?` | [`ImageConditionV3`](index.md#imageconditionv3)[] | The details about the keyframe images used for the video generation. |
 
 ___
 
@@ -356,6 +510,36 @@ Margin values in target size
 
 ___
 
+### PlacementStart
+
+Ƭ **PlacementStart**: `Object`
+
+**********************************************************************
+ADOBE CONFIDENTIAL
+___________________
+
+Copyright 2025 Adobe
+All Rights Reserved.
+
+NOTICE: All information contained herein is, and remains
+the property of Adobe and its suppliers, if any. The intellectual
+and technical concepts contained herein are proprietary to Adobe
+and its suppliers and are protected by all applicable intellectual
+property laws, including trade secret and copyright laws.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Adobe.
+
+************************************************************************
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `position` | `number` | The position of the image on the timeline for the generated video, 0 being the first frame and 1 being the last frame. |
+
+___
+
 ### PublicBinaryInput
 
 Ƭ **PublicBinaryInput**: `Object`
@@ -368,6 +552,38 @@ You can either use a <code>url</code> or an <code>uploadId</code> as the source 
 | :------ | :------ | :------ |
 | `uploadId?` | `string` | UUID of the uploaded object |
 | `url?` | `string` | This URL of an uploaded image. |
+
+___
+
+### PublicBinaryInputV3
+
+Ƭ **PublicBinaryInputV3**: `Object`
+
+**********************************************************************
+ADOBE CONFIDENTIAL
+___________________
+
+Copyright 2025 Adobe
+All Rights Reserved.
+
+NOTICE: All information contained herein is, and remains
+the property of Adobe and its suppliers, if any. The intellectual
+and technical concepts contained herein are proprietary to Adobe
+and its suppliers and are protected by all applicable intellectual
+property laws, including trade secret and copyright laws.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Adobe.
+
+************************************************************************
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `creativeCloudFileId?` | `string` | The ID of the file in Adobe Creative Cloud. Has to be a Creative Cloud file asset ID. |
+| `uploadId?` | `string` | The internal ID for a storage item that is coming from other outputs. |
+| `url?` | `string` | The pre-signed URL for the input file. |
 
 ___
 
@@ -499,3 +715,124 @@ Validation error message
 | `loc` | `number` \| `string`[] |
 | `msg` | `string` |
 | `type` | `string` |
+
+___
+
+### VideoApiError
+
+Ƭ **VideoApiError**: `Object`
+
+The error details within the error response for video operations.
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `error_code` | `string` | Indicates the type of error that occurred. |
+| `message?` | `string` | A human-readable error message. |
+| `stack_trace?` | `string`[] | Stack trace of the error for debugging purposes. |
+| `validation_errors?` | [`VideoValidationErrorMessage`](index.md#videovalidationerrormessage)[] | Detailed validation error messages. |
+
+___
+
+### VideoOutput
+
+Ƭ **VideoOutput**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `seed` | `number` | The seed value used for generating this video output. |
+| `video` | [`VideoResult`](index.md#videoresult) | - |
+
+___
+
+### VideoPlacement
+
+Ƭ **VideoPlacement**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `inset?` | [`ClipRange`](index.md#cliprange) \| ``null`` | the position of generated clip |
+| `reference?` | [`ClipRange`](index.md#cliprange) \| ``null`` | the clip used as condition |
+
+___
+
+### VideoResult
+
+Ƭ **VideoResult**: `Object`
+
+**********************************************************************
+ADOBE CONFIDENTIAL
+___________________
+
+Copyright 2025 Adobe
+All Rights Reserved.
+
+NOTICE: All information contained herein is, and remains
+the property of Adobe and its suppliers, if any. The intellectual
+and technical concepts contained herein are proprietary to Adobe
+and its suppliers and are protected by all applicable intellectual
+property laws, including trade secret and copyright laws.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Adobe.
+
+************************************************************************
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `url` | `string` | The pre-signed URL for the generated video file. |
+
+___
+
+### VideoSettingsV3
+
+Ƭ **VideoSettingsV3**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `cameraMotion?` | [`CameraMotion`](enums/CameraMotion.md) | The camera motion control. |
+| `promptStyle?` | [`VideoPromptStyle`](enums/VideoPromptStyle.md) | The style of the generated video. |
+| `shotAngle?` | [`ShotAngle`](enums/ShotAngle.md) | The shot angle control. |
+| `shotSize?` | [`ShotSize`](enums/ShotSize.md) | The shot size control. |
+
+___
+
+### VideoValidationErrorMessage
+
+Ƭ **VideoValidationErrorMessage**: `Object`
+
+**********************************************************************
+ADOBE CONFIDENTIAL
+___________________
+
+Copyright 2025 Adobe
+All Rights Reserved.
+
+NOTICE: All information contained herein is, and remains
+the property of Adobe and its suppliers, if any. The intellectual
+and technical concepts contained herein are proprietary to Adobe
+and its suppliers and are protected by all applicable intellectual
+property laws, including trade secret and copyright laws.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Adobe.
+
+************************************************************************
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `ctx?` | `Record`\<`string`, `any`\> | Additional context for the validation error. |
+| `loc` | `number` \| `string`[] | Location of the validation error in the request. |
+| `msg` | `string` | Validation error message. |
+| `type` | `string` | Type of validation error. |

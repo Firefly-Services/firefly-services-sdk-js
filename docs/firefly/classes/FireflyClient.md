@@ -24,6 +24,7 @@ Firefly API client to use the Firefly API services
 - [generateImages](FireflyClient.md#generateimages)
 - [generateObjectComposite](FireflyClient.md#generateobjectcomposite)
 - [generateSimilarImages](FireflyClient.md#generatesimilarimages)
+- [generateVideoV3](FireflyClient.md#generatevideov3)
 - [upload](FireflyClient.md#upload)
 
 ## Constructors
@@ -165,6 +166,32 @@ Generate similar Images based on the reference image.
 `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<[`GenerateSimilarImagesResponse`](../index.md#generatesimilarimagesresponse)\>\>
 
 GenerateSimilarImagesResponse Generate similar images response
+
+**`Throws`**
+
+___
+
+### generateVideoV3
+
+▸ **generateVideoV3**(`requestBody`, `additionalParams?`, `options?`): `Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<\{ `cancelUrl`: `string` ; `jobId`: `string` ; `statusUrl`: `string`  }\>\>
+
+Generate video from text
+Generate a video using a text prompt.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `requestBody` | [`GenerateVideoRequestV3`](../index.md#generatevideorequestv3) | The request body for the video generation. Any of these listed properties can be individually omitted/empty, but some kind of parameter data is required. |
+| `additionalParams` | `Object` | Additional parameters to send with the request |
+| `additionalParams.xModelVersion` | ``"video1_standard"`` | Specify the Firefly model version to use for the video generation. |
+| `options?` | [`ApiOptions`](../interfaces/CoreTypes.ApiOptions.md) | Additional options to send any additional data or cancel the request |
+
+#### Returns
+
+`Promise`\<[`ApiResponse`](../modules/CoreTypes.md#apiresponse)\<\{ `cancelUrl`: `string` ; `jobId`: `string` ; `statusUrl`: `string`  }\>\>
+
+any Successful Response
 
 **`Throws`**
 

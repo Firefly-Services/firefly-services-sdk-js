@@ -2,7 +2,7 @@
  * ADOBE CONFIDENTIAL
  * ___________________
  *
- * Copyright 2024 Adobe
+ * Copyright 2025 Adobe
  * All Rights Reserved.
  *
  * NOTICE: All information contained herein is, and remains
@@ -34,6 +34,7 @@ import type { GenerateObjectCompositeRequest } from "./models/GenerateObjectComp
 import type { GenerateObjectCompositeResponse } from "./models/GenerateObjectCompositeResponse";
 import type { GenerateSimilarImagesRequest } from "./models/GenerateSimilarImagesRequest";
 import type { GenerateSimilarImagesResponse } from "./models/GenerateSimilarImagesResponse";
+import type { GenerateVideoRequestV3 } from "./models/GenerateVideoRequestV3";
 import type { UploadResponse } from "./models/UploadResponse";
 // Package.json import for package details
 import { version } from "./../package.json";
@@ -116,6 +117,58 @@ export class FireflyClient extends BaseServiceClient {
                 408: `Request Timeout`,
                 415: `Unsupported Media Type`,
                 422: `Unprocessable Entity`,
+                500: `Internal Server Error`,
+                501: `Not Implemented`,
+                503: `Service Unavailable`
+            },
+            signal: options?.signal
+        });
+    }
+    /**
+     * Generate video from text
+     * Generate a video using a text prompt.
+     * @param requestBody The request body for the video generation. Any of these listed properties can be individually omitted/empty, but some kind of parameter data is required.
+     * @param additionalParams Additional parameters to send with the request
+     * @param additionalParams.xModelVersion Specify the Firefly model version to use for the video generation.
+     * @param options Additional options to send any additional data or cancel the request
+     * @returns any Successful Response
+     * @throws {ApiError}
+     */
+    public generateVideoV3(
+        requestBody: GenerateVideoRequestV3,
+        additionalParams: {
+            xModelVersion: "video1_standard";
+        } = {
+            xModelVersion: "video1_standard"
+        },
+        options?: ApiOptions
+    ): Promise<
+        ApiResponse<{
+            jobId: string;
+            statusUrl: string;
+            cancelUrl: string;
+        }>
+    > {
+        return this._httpRequest.request({
+            method: "POST",
+            url: "/v3/videos/generate",
+            headers: {
+                "x-model-version": additionalParams.xModelVersion
+            },
+            body: requestBody,
+            mediaType: "application/json",
+            errors: {
+                400: `Bad Request`,
+                403: `Forbidden`,
+                404: `Not Found`,
+                408: `Request Timeout`,
+                409: `Conflict`,
+                410: `Gone`,
+                415: `Unsupported Media Type`,
+                422: `Unprocessable Entity`,
+                429: `Too Many Requests`,
+                451: `Unavailable For Legal Reasons`,
+                499: `Additional Response`,
                 500: `Internal Server Error`,
                 501: `Not Implemented`,
                 503: `Service Unavailable`
