@@ -1,6 +1,6 @@
 {
     "name": "@adobe/firefly-apis",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "author": "Adobe",
     "license": "Copyright (c) 2024 Adobe Inc",
     "description": "Adobe Firefly Services library for consuming Firefly Service APIs.",
