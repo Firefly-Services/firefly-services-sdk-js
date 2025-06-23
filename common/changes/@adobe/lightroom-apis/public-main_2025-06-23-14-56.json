@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@adobe/lightroom-apis",
+      "comment": "Updated copyright information.",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@adobe/lightroom-apis"
+}
