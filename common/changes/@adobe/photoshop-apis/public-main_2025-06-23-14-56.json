@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@adobe/photoshop-apis",
+      "comment": "Updated copyright information.",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@adobe/photoshop-apis"
+}

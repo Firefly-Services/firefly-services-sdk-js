@@ -214,6 +214,274 @@
                 }
             }
         },
+        "/v3/videos/generate": {
+            "post": {
+                "operationId": "generateVideoV3",
+                "summary": "Generate video from text",
+                "description": "Generate a video using a text prompt.",
+                "parameters": [
+                    {
+                        "name": "x-model-version",
+                        "in": "header",
+                        "description": "Specify the Firefly model version to use for the video generation.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "video1_standard",
+                            "enum": ["video1_standard"]
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GenerateVideoRequestV3"
+                            }
+                        }
+                    },
+                    "required": true,
+                    "description": "The request body for the video generation. Any of these listed properties can be individually omitted/empty, but some kind of parameter data is required."
+                },
+                "responses": {
+                    "202": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "jobId": "urn:ff:jobs:epo855230:eeb0be1f-c41f-4711-bdc1-08e66e89d96d",
+                                    "statusUrl": "https://firefly-epo855230.adobe.io/v3/status/urn:ff:jobs:epo855230:eeb0be1f-c41f-4711-bdc1-08e66e89d96d",
+                                    "cancelUrl": "https://firefly-epo855230.adobe.io/v3/cancel/urn:ff:jobs:epo855230:eeb0be1f-c41f-4711-bdc1-08e66e89d96d"
+                                },
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "jobId": {
+                                            "type": "string"
+                                        },
+                                        "statusUrl": {
+                                            "type": "string"
+                                        },
+                                        "cancelUrl": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": ["jobId", "statusUrl", "cancelUrl"]
+                                }
+                            }
+                        },
+                        "description": "Successful Response"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "bad_request",
+                                    "message": "Invalid request parameters",
+                                    "validation_errors": [
+                                        {
+                                            "loc": ["body", "prompt"],
+                                            "msg": "Field required",
+                                            "type": "value_error.missing"
+                                        }
+                                    ]
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "access_error",
+                                    "message": "Access denied"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "unknown_job_id",
+                                    "message": "Job not found"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "408": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "timeout_error",
+                                    "message": "Request timed out"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Request Timeout"
+                    },
+                    "409": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "job_cancel_failed",
+                                    "message": "Failed to cancel job"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Conflict"
+                    },
+                    "410": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "job_timeout",
+                                    "message": "Job execution timed out"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Gone"
+                    },
+                    "415": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "invalid_content_type",
+                                    "message": "Unsupported media type"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Unsupported Media Type"
+                    },
+                    "422": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "input_media_indecipherable",
+                                    "message": "Input media could not be processed"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Unprocessable Entity"
+                    },
+                    "429": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "backpressure_limited",
+                                    "message": "Too many requests"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Too Many Requests"
+                    },
+                    "451": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "reference_image_unsafe_error",
+                                    "message": "Reference image contains unsafe content"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Unavailable For Legal Reasons"
+                    },
+                    "499": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "cancelled_error",
+                                    "message": "Request was cancelled"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Additional Response"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "session_data_not_recovered",
+                                    "message": "Internal server error",
+                                    "stack_trace": [
+                                        "Error: Session data not recovered",
+                                        "at processRequest (/app/handlers/video.js:123:45)",
+                                        "at async handleRequest (/app/index.js:67:89)"
+                                    ]
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    },
+                    "501": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "not_implemented",
+                                    "message": "Feature not implemented"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Not Implemented"
+                    },
+                    "503": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error_code": "model_not_loaded",
+                                    "message": "Service temporarily unavailable"
+                                },
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoApiError"
+                                }
+                            }
+                        },
+                        "description": "Service Unavailable"
+                    }
+                }
+            }
+        },
         "/v2/storage/image": {
             "post": {
                 "summary": "Upload API",
@@ -1254,6 +1522,389 @@
                 "required": ["error_code"],
                 "title": "ApiError",
                 "description": "The error within the error response."
+            },
+            "VideoApiError": {
+                "description": "The error details within the error response for video operations.",
+                "properties": {
+                    "error_code": {
+                        "type": "string",
+                        "description": "Indicates the type of error that occurred."
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "A human-readable error message."
+                    },
+                    "stack_trace": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Stack trace of the error for debugging purposes."
+                    },
+                    "validation_errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/VideoValidationErrorMessage"
+                        },
+                        "description": "Detailed validation error messages."
+                    }
+                },
+                "required": ["error_code"],
+                "type": "object"
+            },
+            "VideoValidationErrorMessage": {
+                "properties": {
+                    "ctx": {
+                        "type": "object",
+                        "description": "Additional context for the validation error."
+                    },
+                    "loc": {
+                        "type": "array",
+                        "items": {
+                            "anyOf": [{ "type": "integer" }, { "type": "string" }]
+                        },
+                        "description": "Location of the validation error in the request."
+                    },
+                    "msg": {
+                        "type": "string",
+                        "description": "Validation error message."
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of validation error."
+                    }
+                },
+                "required": ["loc", "msg", "type"],
+                "type": "object"
+            },
+            "VideoPlacement": {
+                "properties": {
+                    "inset": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ClipRange"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "description": "the position of generated clip",
+                        "title": "The position of generated clip"
+                    },
+                    "reference": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/ClipRange"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "description": "the clip used as condition",
+                        "title": "The clip used as condition"
+                    }
+                },
+                "title": "VideoPlacement",
+                "type": "object"
+            },
+            "ClipRange": {
+                "properties": {
+                    "end": {
+                        "type": "number",
+                        "description": "The time stamp of a clip end position, in seconds"
+                    },
+                    "start": {
+                        "type": "number",
+                        "description": "The time stamp of a clip start position, in seconds"
+                    }
+                },
+                "type": "object"
+            },
+            "CameraMotion": {
+                "enum": [
+                    "camera pan left",
+                    "camera pan right",
+                    "camera zoom in",
+                    "camera zoom out",
+                    "camera tilt up",
+                    "camera tilt down",
+                    "camera locked down",
+                    "camera handheld"
+                ],
+                "title": "CameraMotion",
+                "type": "string"
+            },
+            "ShotAngle": {
+                "enum": [
+                    "aerial shot",
+                    "eye_level shot",
+                    "high angle shot",
+                    "low angle shot",
+                    "top-down shot"
+                ],
+                "title": "ShotAngle",
+                "type": "string"
+            },
+            "ShotSize": {
+                "enum": [
+                    "close-up shot",
+                    "extreme close-up",
+                    "medium shot",
+                    "long shot",
+                    "extreme long shot"
+                ],
+                "title": "ShotSize",
+                "type": "string"
+            },
+            "VideoPromptStyle": {
+                "enum": [
+                    "anime",
+                    "3d",
+                    "fantasy",
+                    "cinematic",
+                    "claymation",
+                    "line art",
+                    "stop motion",
+                    "2d",
+                    "vector art",
+                    "black and white"
+                ],
+                "title": "VideoPromptStyle",
+                "type": "string"
+            },
+            "VideoSettingsV3": {
+                "properties": {
+                    "cameraMotion": {
+                        "$ref": "#/components/schemas/CameraMotion",
+                        "description": "The camera motion control."
+                    },
+                    "promptStyle": {
+                        "$ref": "#/components/schemas/VideoPromptStyle",
+                        "description": "The style of the generated video."
+                    },
+                    "shotAngle": {
+                        "$ref": "#/components/schemas/ShotAngle",
+                        "description": "The shot angle control."
+                    },
+                    "shotSize": {
+                        "$ref": "#/components/schemas/ShotSize",
+                        "description": "The shot size control."
+                    }
+                },
+                "type": "object"
+            },
+            "PublicBinaryInputV3": {
+                "properties": {
+                    "creativeCloudFileId": {
+                        "type": "string",
+                        "description": "The ID of the file in Adobe Creative Cloud. Has to be a Creative Cloud file asset ID."
+                    },
+                    "uploadId": {
+                        "format": "uuid4",
+                        "type": "string",
+                        "description": "The internal ID for a storage item that is coming from other outputs."
+                    },
+                    "url": {
+                        "format": "uri",
+                        "maxLength": 4096,
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The pre-signed URL for the input file."
+                    }
+                },
+                "title": "PublicBinaryInputV3",
+                "type": "object"
+            },
+            "InputImageV3": {
+                "properties": {
+                    "conditions": {
+                        "default": [],
+                        "description": "The details about the keyframe images used for the video generation.",
+                        "items": {
+                            "$ref": "#/components/schemas/ImageConditionV3"
+                        },
+                        "type": "array"
+                    }
+                },
+                "title": "InputImageV3",
+                "type": "object"
+            },
+            "ImageConditionV3": {
+                "properties": {
+                    "placement": {
+                        "$ref": "#/components/schemas/PlacementStart",
+                        "description": "Details about the timeline placement of the image."
+                    },
+                    "source": {
+                        "$ref": "#/components/schemas/PublicBinaryInputV3",
+                        "description": "The source details of the image."
+                    }
+                },
+                "required": ["source", "placement"],
+                "title": "ImageConditionV3",
+                "type": "object"
+            },
+            "PlacementStart": {
+                "properties": {
+                    "position": {
+                        "description": "The position of the image on the timeline for the generated video, 0 being the first frame and 1 being the last frame.",
+                        "maximum": 1,
+                        "minimum": 0,
+                        "type": "number"
+                    }
+                },
+                "required": ["position"],
+                "title": "PlacementStart",
+                "type": "object"
+            },
+            "ClinetoSize": {
+                "properties": {
+                    "height": {
+                        "maximum": 8192,
+                        "minimum": 1,
+                        "description": "The height of the output image.",
+                        "type": "integer",
+                        "example": 720
+                    },
+                    "width": {
+                        "maximum": 8192,
+                        "minimum": 1,
+                        "description": "The width of the output image.",
+                        "type": "integer",
+                        "example": 720
+                    }
+                },
+                "required": ["width", "height"],
+                "title": "ClinetoSize",
+                "type": "object"
+            },
+            "GenerateVideoRequestV3": {
+                "properties": {
+                    "bitRateFactor": {
+                        "description": "The constant rate factor for encoding video. 0 indicates a lossless generation, with the highest quality and largest file size. 63 indicates the worst quality generation with the smallest file size. The suggested value range is 17-23. ",
+                        "maximum": 63,
+                        "minimum": 0,
+                        "default": 18,
+                        "type": "integer"
+                    },
+                    "image": {
+                        "description": "The details of the image used as a keyframe for the generated video. Provided images are used as a first frame or final frame to guide the video generation.",
+                        "$ref": "#/components/schemas/InputImageV3"
+                    },
+                    "negativePrompt": {
+                        "description": "The API will try to generate against the characteristcs in this prompt.",
+                        "type": "string",
+                        "example": "NO people, NO trees."
+                    },
+                    "prompt": {
+                        "description": "The prompt used to generate the image. The longer the prompt, the better.",
+                        "type": "string",
+                        "example": "A lone figure stands in the middle of a vast desert, looking up at the sky, with a sense of awe and wonder."
+                    },
+                    "seeds": {
+                        "description": "The seed reference value. Currently only 1 seed is supported.",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "maxItems": 1,
+                        "minItems": 1,
+                        "type": "array",
+                        "example": [1842533538]
+                    },
+                    "sizes": {
+                        "description": "The dimensions of the generated video. Review the usage notes for [supported aspect ratios](../getting_started/usage_notes/) and the sizes associated with them.",
+                        "items": {
+                            "$ref": "#/components/schemas/ClinetoSize"
+                        },
+                        "type": "array"
+                    },
+                    "videoSettings": {
+                        "description": "The camera and shot control settings.",
+                        "$ref": "#/components/schemas/VideoSettingsV3"
+                    }
+                },
+                "title": "Generating video from prompt",
+                "type": "object"
+            },
+            "VideoResult": {
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "description": "The pre-signed URL for the generated video file.",
+                        "example": "https://pre-signed-firefly-stage.s3-accelerate.amazonaws.com/images/5193301c-823e-4728-8bf9-15ea82e60c3f?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=EXAMPLE%2F20250618%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250618T184001Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=1533114083da2bab81cc2bfdb881fde31993d5ab053cf234c9875b2fbbeef3a1"
+                    }
+                },
+                "required": ["url"],
+                "title": "VideoResult",
+                "type": "object"
+            },
+            "VideoOutput": {
+                "properties": {
+                    "seed": {
+                        "type": "integer",
+                        "description": "The seed value used for generating this video output.",
+                        "example": 646214641
+                    },
+                    "video": {
+                        "$ref": "#/components/schemas/VideoResult"
+                    }
+                },
+                "required": ["seed", "video"],
+                "title": "VideoOutput",
+                "type": "object"
+            },
+            "AsyncResult": {
+                "properties": {
+                    "size": {
+                        "$ref": "#/components/schemas/ClinetoSize"
+                    },
+                    "outputs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/VideoOutput"
+                        },
+                        "description": "Array of generated video outputs."
+                    }
+                },
+                "required": ["size", "outputs"],
+                "title": "AsyncResult",
+                "type": "object"
+            },
+            "AsyncResponseV3": {
+                "properties": {
+                    "cancelUrl": {
+                        "title": "Cancelurl",
+                        "description": "A URL to cancel the job.",
+                        "example": "https://firefly-stage-eso851213.adobe.io/v3/cancel/urn:ff:jobs:eso851213:2667cdfe-302a-4c1c-b346-4e39870584f5"
+                    },
+                    "jobId": {
+                        "title": "Jobid",
+                        "description": "The ID for the asyncronous job.",
+                        "example": "urn:ff:jobs:eso851213:2667cdfe-302a-4c1c-b346-4e39870584f5"
+                    },
+                    "progress": {
+                        "description": "The progress of the running job. The value is the percentage of the job that has been completed.",
+                        "type": "integer",
+                        "example": 50
+                    },
+                    "result": {
+                        "description": "The result of the completed job.",
+                        "$ref": "#/components/schemas/AsyncResult"
+                    },
+                    "status": {
+                        "title": "Status",
+                        "description": "The status of the job.",
+                        "example": "pending"
+                    },
+                    "statusUrl": {
+                        "title": "Statusurl",
+                        "description": "A URL to show the status of the current job.",
+                        "example": "https://firefly-stage-eso851213.adobe.io/v3/status/urn:ff:jobs:eso851213:2667cdfe-302a-4c1c-b346-4e39870584f5"
+                    }
+                },
+                "required": ["jobId"],
+                "title": "AsyncResponseV3",
+                "type": "object"
             },
             "BaseInputImage": {
                 "properties": {
