@@ -8,7 +8,7 @@
       "comments": {
         "patch": [
           {
-            "comment": "Added Video API support to Firefly SDK and updated copyright information."
+            "comment": "Added Video API support to Firefly SDK."
           }
         ]
       }

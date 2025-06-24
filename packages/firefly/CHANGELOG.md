@@ -7,7 +7,7 @@ Tue, 24 Jun 2025 10:13:05 GMT
 
 ### Patches
 
-- Added Video API support to Firefly SDK and updated copyright information.
+- Added Video API support to Firefly SDK.
 
 ## 2.0.0
 Tue, 18 Jun 2024 15:13:12 GMT
