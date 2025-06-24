@@ -2,6 +2,18 @@
   "name": "@adobe/firefly-apis",
   "entries": [
     {
+      "version": "2.0.1",
+      "tag": "@adobe/firefly-apis_v2.0.1",
+      "date": "Tue, 24 Jun 2025 10:13:05 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Added Video API support to Firefly SDK."
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.0",
       "tag": "@adobe/firefly-apis_v2.0.0",
       "date": "Tue, 18 Jun 2024 15:13:12 GMT",

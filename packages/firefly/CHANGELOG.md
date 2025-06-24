@@ -1,6 +1,13 @@
 # Change Log - @adobe/firefly-apis
 
-This log was last generated on Tue, 18 Jun 2024 15:13:12 GMT and should not be manually modified.
+This log was last generated on Tue, 24 Jun 2025 10:13:05 GMT and should not be manually modified.
+
+## 2.0.1
+Tue, 24 Jun 2025 10:13:05 GMT
+
+### Patches
+
+- Added Video API support to Firefly SDK.
 
 ## 2.0.0
 Tue, 18 Jun 2024 15:13:12 GMT
